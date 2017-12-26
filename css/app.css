@@ -22,8 +22,22 @@
 	margin: 20px;
 }
 
-.character-create {
+.ui {
 	border: 1px solid black;
 	height: 400px;
 	width: 40%;
+}
+
+#btn-new-game {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 100px;
+	width: 100px;
+	padding: 10px;
+}
+
+#character-create {
+	text-align: center;
 }

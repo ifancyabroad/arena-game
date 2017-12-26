@@ -14,7 +14,15 @@
 	<div class="game-area">
 		<div class="card" id="player-card">
 		</div>
-		<div class="character-create" id="character-create">
+		<div class="ui" id="ui">
+			<button id="btn-new-game" type="button" data-bind="click: toggleCharacterCreation, style: { display: characterCreationHidden() ? 'block' : 'none' }">Start new game</button>
+			<form id="character-create" data-bind="style: { display: characterCreationHidden() ? 'none' : 'block' }">
+				<h2>Character Creation</h2>
+				<div class="name-input">
+					<label for="name">Name: </label>
+					<input id="name" type="text">
+				</div>
+			</form>
 		</div>
 		<div class="card" id="enemy-card">
 		</div>
