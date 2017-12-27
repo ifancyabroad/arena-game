@@ -20,6 +20,8 @@
 	height: 400px;
 	width: 25%;
 	margin: 20px;
+	padding: 5px;
+	text-align: center;
 }
 
 .ui {
@@ -72,4 +74,8 @@
 
 .btn-ready {
 	padding: 5px;
+}
+
+.player-portrait {
+	width: 80%;
 }
