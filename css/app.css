@@ -28,7 +28,7 @@
 	width: 40%;
 }
 
-#btn-new-game {
+.btn-new-game {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -38,6 +38,38 @@
 	padding: 10px;
 }
 
-#character-create {
+.character-create {
 	text-align: center;
+}
+
+.portrait-select {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.portrait {
+	width: 20%;
+	margin: 5px;
+}
+
+.class {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: left;
+	margin: 10px;
+	padding: 5px;
+}
+
+.class-name {
+	width: 30%;
+}
+
+.class-description {
+	width: 60%;
+}
+
+.btn-ready {
+	padding: 5px;
 }

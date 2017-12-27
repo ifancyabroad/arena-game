@@ -12,19 +12,29 @@
 <body>
 	<!--Content goes here-->
 	<div class="game-area">
-		<div class="card" id="player-card">
+		<div class="card">
 		</div>
 		<div class="ui" id="ui">
-			<button id="btn-new-game" type="button" data-bind="click: toggleCharacterCreation, style: { display: characterCreationHidden() ? 'block' : 'none' }">Start new game</button>
-			<form id="character-create" data-bind="style: { display: characterCreationHidden() ? 'none' : 'block' }">
+			<button class="btn-new-game" type="button" data-bind="click: toggleCharacterCreation, style: { display: characterCreationHidden() ? 'block' : 'none' }">Start new game</button>
+			<form class="character-create" data-bind="style: { display: characterCreationHidden() ? 'none' : 'block' }">
 				<h2>Character Creation</h2>
-				<div class="name-input">
+				<div class="name-select">
 					<label for="name">Name: </label>
 					<input id="name" type="text">
 				</div>
+				<div class="portrait-select" data-bind="foreach: portraits">
+					<img class="portrait" data-bind="click: $parent.togglePortraitSelection, attr: { src: path }, style: { border: active() ? '2px solid red' : '2px solid transparent' }">
+				</div>
+				<div class="class-select" data-bind="foreach: classes">
+					<div class="class" data-bind="click: $parent.toggleClassSelection, style: { border: active() ? '2px solid red' : '2px solid grey' }">
+						<h2 class="class-name" data-bind="text: name"></h2>
+						<p class="class-description" data-bind="text: description"></p>
+					</div>
+				</div>
+				<button class="btn-ready" type="submit">Ready</button>
 			</form>
 		</div>
-		<div class="card" id="enemy-card">
+		<div class="card">
 		</div>
 	</div>
 	
