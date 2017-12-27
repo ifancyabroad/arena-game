@@ -4,14 +4,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title><!--Insert title here--></title>
+	<title>Arena of the Doomseer</title>
 	<!--Link to CSS-->
 	<link rel="stylesheet" href="css/app.css">
 </head>
 
 <body>
-	<!--Content goes here-->
+	<!--Game Area-->
 	<div class="game-area">
+	
+		<!--Player Card-->
 		<div class="card" data-bind="with: player">
 			<div class="player-header">
 				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
@@ -21,8 +23,12 @@
 				</div>
 			</div>
 		</div>
+		
+		<!--UI Section-->
 		<div class="ui" id="ui">
 			<button class="btn-new-game" type="button" data-bind="click: toggleCharacterCreation, style: { display: characterCreationHidden() ? 'block' : 'none' }">Start new game</button>
+			
+			<!--Character Creation-->
 			<form class="character-create" data-bind="submit: createCharacter, style: { display: characterCreationHidden() ? 'none' : 'block' }">
 				<h2>Character Creation</h2>
 				<div class="name-select">
@@ -41,6 +47,8 @@
 				<button class="btn-ready" type="submit">Ready</button>
 			</form>
 		</div>
+		
+		<!--Enemy Card-->
 		<div class="card">
 		</div>
 	</div>

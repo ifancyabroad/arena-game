@@ -1,3 +1,4 @@
+// Array of portraits that can be found in the images folder
 const portraits = [
 	{
 		active: ko.observable(false),
@@ -17,6 +18,7 @@ const portraits = [
 	}
 ]
 
+// Array of possible classes to choose from
 const classes = [
 	{
 		active: ko.observable(false),
@@ -35,6 +37,7 @@ const classes = [
 	}
 ]
 
+// Superclass for all Game Entities
 class GameEntity {
 	constructor(name, portrait, strength, dexterity, constitution, intelligence, initiative) {
 		this.name = ko.observable(name);
@@ -54,6 +57,7 @@ class GameEntity {
 	}
 }
 
+// Subclass for the player
 class Player extends GameEntity {
 	constructor(name, portrait, cl) {
 		super(name, portrait);
@@ -63,11 +67,15 @@ class Player extends GameEntity {
 	} 
 }
 
+
+// ViewModel section
 const ViewModel = function() {
 	const self = this;
 	
+	// Make character creation screen initially hidden
 	this.characterCreationHidden = ko.observable(true);
 	
+	// Toggle visibility of character creation screen
 	this.toggleCharacterCreation = function() {
 		if (self.characterCreationHidden() === true) {
 			self.characterCreationHidden(false);
@@ -76,6 +84,7 @@ const ViewModel = function() {
 		}
 	}
 	
+	// Toggle selection of portraits
 	this.togglePortraitSelection = function(portrait) {
 		portraits.forEach(function(p) {
 			p.active(false);
@@ -87,6 +96,7 @@ const ViewModel = function() {
 		}
 	}
 	
+	// Toggle selection of classes
 	this.toggleClassSelection = function(cl) {
 		classes.forEach(function(c) {
 			c.active(false);
@@ -98,9 +108,11 @@ const ViewModel = function() {
 		}
 	}
 	
+	// Create player and name variables
 	this.player = ko.observable();
 	this.nameInput = ko.observable();
 	
+	// Create character with selected options once form is submitted
 	this.createCharacter = function() {
 		let portrait;
 		let cl;
