@@ -26,10 +26,12 @@
 		
 		<!--UI Section-->
 		<div class="ui" id="ui">
-			<button class="btn-new-game" type="button" data-bind="click: toggleCharacterCreation, style: { display: characterCreationHidden() ? 'block' : 'none' }">Start new game</button>
+			<div class="start-game" data-bind="visible: startGameShow()">
+				<button class="btn-new-game" type="button" data-bind="click: toggleStartGame">Start new game</button>
+			</div>
 			
 			<!--Character Creation-->
-			<form class="character-create" data-bind="submit: createCharacter, style: { display: characterCreationHidden() ? 'none' : 'block' }">
+			<form class="character-create" data-bind="submit: createCharacter, visible: characterCreationShow()">
 				<h2>Character Creation</h2>
 				<div class="name-select">
 					<label for="name">Name: </label>
@@ -44,8 +46,35 @@
 						<p class="class-description" data-bind="text: description"></p>
 					</div>
 				</div>
-				<button class="btn-ready" type="submit">Ready</button>
+				<button class="btn-ready" type="submit">Next</button>
 			</form>
+			
+			<!--Roll Stats-->
+			<form class="roll-stats" data-bind="submit: rollStats, visible: rollStatsShow()">
+				<h2>Roll Stats</h2>
+				<div class="stat">
+					<label for="strength">Strength: </label>
+					<input id="strength" type="number" required data-bind="value: strengthInput">
+				</div>
+				<div class="stat">
+					<label for="dexterity">Dexterity: </label>
+					<input id="dexterity" type="number" required data-bind="value: dexterityInput">
+				</div>
+				<div class="stat">
+					<label for="constitution">Constitution: </label>
+					<input id="constitution" type="number" required data-bind="value: constitutionInput">
+				</div>
+				<div class="stat">
+					<label for="intelligence">Intelligence: </label>
+					<input id="intelligence" type="number" required data-bind="value: intelligenceInput">
+				</div>
+				<div class="stat">
+					<label for="initiative">Initiative: </label>
+					<input id="initiative" type="number" required data-bind="value: initiativeInput">
+				</div>
+				<button class="btn-ready" type="submit">Begin</button>
+			</form>
+			
 		</div>
 		
 		<!--Enemy Card-->

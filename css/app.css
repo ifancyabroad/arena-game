@@ -29,17 +29,21 @@
 	width: 40%;
 }
 
-.btn-new-game {
+.start-game {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.btn-new-game {
 	height: 100px;
 	width: 100px;
 	padding: 10px;
 }
 
-.character-create {
+.character-create,
+.roll-stats {
 	text-align: center;
 }
 

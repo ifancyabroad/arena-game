@@ -72,16 +72,21 @@ class Player extends GameEntity {
 const ViewModel = function() {
 	const self = this;
 	
-	// Make character creation screen initially hidden
-	this.characterCreationHidden = ko.observable(true);
+	// Observables for UI screens and starting values
+	this.startGameShow = ko.observable(true);
+	this.characterCreationShow = ko.observable(false);
+	this.rollStatsShow = ko.observable(false);
 	
-	// Toggle visibility of character creation screen
-	this.toggleCharacterCreation = function() {
-		if (self.characterCreationHidden() === true) {
-			self.characterCreationHidden(false);
-		} else {
-			self.characterCreationHidden(true);
-		}
+	// Toggle visibility of start game screen and character creation
+	this.toggleStartGame = function() {
+		self.startGameShow(false);
+		self.characterCreationShow(true);
+	}
+	
+	// Toggle visibility of character creation screen and roll stats
+	this.toggleRollStats = function() {
+		self.characterCreationShow(false);
+		self.rollStatsShow(true);
 	}
 	
 	// Toggle selection of portraits
@@ -127,6 +132,12 @@ const ViewModel = function() {
 			}			
 		});
 		self.player(new Player(self.nameInput(), portrait, cl));
+		self.toggleRollStats();
+	}
+	
+	// Create and roll for player stats
+	this.rollStats = function() {
+		
 	}
 }
 
