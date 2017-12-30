@@ -43,17 +43,17 @@ const classes = [
 const enemies = [
 	{
 		name: 'Goblin',
-		portrait: '',
+		portrait: 'images/goblin.jpg',
 		stats: [3, 4, 2, 2, 4]
 	},
 	{
 		name: 'Kobold',
-		portrait: '',
+		portrait: 'images/kobold.jpg',
 		stats: [2, 5, 2, 2, 3]
 	},
 	{
 		name: 'Wolf',
-		portrait: '',
+		portrait: 'images/wolf.jpg',
 		stats: [4, 4, 3, 1, 5]
 	}
 ]
@@ -98,11 +98,11 @@ class GameEntity {
 	}
 	
 	attack() {
-		return (this.stats[0] * getRandom(1, 6));
+		return (this.stats()[0].value() + getRandom(1, 6));
 	}
 	
 	takeHit(damage) {
-		this.currentHealth(damage - this.armour);
+		this.currentHealth(this.currentHealth() - (damage - this.armour()));
 	}
 }
 
@@ -119,7 +119,7 @@ class Player extends GameEntity {
 
 // Get random number within a range
 const getRandom = function(min, max) {
-	return Math.floor(Math.random() * ((max + 1) - min) + min);
+	return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 
@@ -228,8 +228,13 @@ const ViewModel = function() {
 	this.currentEnemy = ko.observable();
 	
 	this.getEnemy = function() {
-		let enemy = enemies[getRandom(0, enemies.length)];		
+		let enemy = enemies[getRandom(0, enemies.length - 1)];		
 		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats));
+	}
+	
+	this.playerAttack = function() {
+		self.currentEnemy().takeHit(self.player().attack());
+		self.player().takeHit(self.currentEnemy().attack());
 	}
 }
 
