@@ -40,6 +40,24 @@ const classes = [
 	}
 ]
 
+const enemies = [
+	{
+		name: 'Goblin',
+		portrait: '',
+		stats: [3, 4, 2, 2, 4]
+	},
+	{
+		name: 'Kobold',
+		portrait: '',
+		stats: [2, 5, 2, 2, 3]
+	},
+	{
+		name: 'Wolf',
+		portrait: '',
+		stats: [4, 4, 3, 1, 5]
+	}
+]
+
 // Superclass for all Game Entities
 class GameEntity {
 	constructor(name, portrait, stats) {
@@ -75,6 +93,16 @@ class GameEntity {
 		});
 		
 		this.currentHealth = ko.observable(this.maxHealth());
+		
+		this.armour = ko.observable(0);
+	}
+	
+	attack() {
+		return (this.stats[0] * getRandom(1, 6));
+	}
+	
+	takeHit(damage) {
+		this.currentHealth(damage - this.armour);
 	}
 }
 
@@ -91,7 +119,7 @@ class Player extends GameEntity {
 
 // Get random number within a range
 const getRandom = function(min, max) {
-	return Math.floor(Math.random() * (max - min) + min);
+	return Math.floor(Math.random() * ((max + 1) - min) + min);
 };
 
 
@@ -103,6 +131,8 @@ const ViewModel = function() {
 	this.startGameShow = ko.observable(true);
 	this.characterCreationShow = ko.observable(false);
 	this.rollStatsShow = ko.observable(false);
+	this.townShow = ko.observable(false);
+	this.battleShow = ko.observable(false);
 	
 	// Toggle visibility of start game screen and character creation
 	this.toggleStartGame = function() {
@@ -114,6 +144,19 @@ const ViewModel = function() {
 	this.toggleRollStats = function() {
 		self.characterCreationShow(false);
 		self.rollStatsShow(true);
+	}
+	
+	// Toggle visibility of roll stats and town screen
+	this.toggleTown = function() {
+		self.rollStatsShow(false);
+		self.townShow(true);
+	}
+	
+	// Toggle visibility of town screen and battle screen
+	this.toggleBattle = function() {
+		self.townShow(false);
+		self.battleShow(true);
+		self.getEnemy();
 	}
 	
 	// Toggle selection of portraits
@@ -179,6 +222,14 @@ const ViewModel = function() {
 			self.player().currentHealth(self.player().maxHealth());
 			self.player().rerolls(self.player().rerolls() - 1)
 		}
+	}
+	
+	// Create current enemy variable
+	this.currentEnemy = ko.observable();
+	
+	this.getEnemy = function() {
+		let enemy = enemies[getRandom(0, enemies.length)];		
+		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats));
 	}
 }
 

@@ -96,3 +96,8 @@
 	width: 50%;
 	margin: auto;
 }
+
+.enemy-portrait {
+	width: 80%;
+	margin: 5px;
+}
