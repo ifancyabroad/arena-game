@@ -154,7 +154,7 @@ const ViewModel = function() {
 		});
 		classes.forEach(function(c) {
 			if (c.active() === true) {
-				cl = c.name;
+				cl = c;
 				c.maxStats.forEach(function(s) {
 					playerStats.push(getRandom(s - 5, s));
 				});
@@ -169,9 +169,10 @@ const ViewModel = function() {
 	// Create and roll for player stats
 	this.rollStats = function() {
 		let rerolls = ko.observable(3);
+		let classStats = self.player().cl().maxStats;
 		
-		 for (let stat of self.player().stats()) {
-			stat.value(1);
+		for (let i = 0; i < self.player().stats().length; i++) {
+			self.player().stats()[i].value(getRandom(classStats[i] - 5, classStats[i]));
 		}
 	}
 }
