@@ -84,6 +84,7 @@ class Player extends GameEntity {
 		this.cl = ko.observable(cl);
 		this.experience = ko.observable(0);
 		this.level = ko.observable(1);
+		this.rerolls = ko.observable(3);
 	} 
 }
 
@@ -158,7 +159,7 @@ const ViewModel = function() {
 				c.maxStats.forEach(function(s) {
 					playerStats.push(getRandom(s - 5, s));
 				});
-			}			
+			}
 		});
 		
 		
@@ -168,11 +169,14 @@ const ViewModel = function() {
 	
 	// Create and roll for player stats
 	this.rollStats = function() {
-		let rerolls = ko.observable(3);
 		let classStats = self.player().cl().maxStats;
 		
-		for (let i = 0; i < self.player().stats().length; i++) {
-			self.player().stats()[i].value(getRandom(classStats[i] - 5, classStats[i]));
+		if (self.player().rerolls() > 0) {
+			for (let i = 0; i < self.player().stats().length; i++) {
+				self.player().stats()[i].value(getRandom(classStats[i] - 5, classStats[i]));
+			}
+			
+			self.player().rerolls(self.player().rerolls() - 1)
 		}
 	}
 }
