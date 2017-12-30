@@ -69,11 +69,12 @@ class GameEntity {
 			}
 		])
 		
-		// this.maxHealth = ko.observable(this.getMaxHealth());
-	}
-	
-	getMaxHealth() {
-		return this.stats[2].value() * 10;
+		const self = this;
+		this.maxHealth = ko.computed(function() {
+			return self.stats()[2].value() * 10;
+		});
+		
+		this.currentHealth = ko.observable(this.maxHealth());
 	}
 }
 
@@ -175,7 +176,7 @@ const ViewModel = function() {
 			for (let i = 0; i < self.player().stats().length; i++) {
 				self.player().stats()[i].value(getRandom(classStats[i] - 5, classStats[i]));
 			}
-			
+			self.player().currentHealth(self.player().maxHealth());
 			self.player().rerolls(self.player().rerolls() - 1)
 		}
 	}

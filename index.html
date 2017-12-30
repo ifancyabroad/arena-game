@@ -22,6 +22,9 @@
 					<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
 				</div>
 			</div>
+			
+			<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
+			
 			<table>
 				<tbody class="stats" data-bind="foreach: stats">
 					<tr class="stat">
@@ -58,9 +61,9 @@
 			</form>
 			
 			<!--Roll Stats-->
-			<form class="roll-stats" data-bind="submit: rollStats, visible: rollStatsShow()">
+			<form class="roll-stats" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
 				<h2>Roll Stats</h2>
-				<table class="stats" data-bind="with: player">
+				<table class="stats">
 					<tbody data-bind="foreach: stats">
 						<tr class="stat">
 							<td data-bind="text: name"></td>
@@ -68,7 +71,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<h3>Rerolls remaining: <span data-bind="text: player().rerolls"></span></h3>
+				<h3>Rerolls remaining: <span data-bind="text: rerolls"></span></h3>
 				<button class="btn-ready" type="submit">Reroll</button>
 			</form>
 			
