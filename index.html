@@ -22,6 +22,14 @@
 					<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl"></span></h3>
 				</div>
 			</div>
+			<table>
+				<tbody class="stats" data-bind="foreach: stats">
+					<tr class="stat">
+						<td data-bind="text: name"></td>
+						<td data-bind="text: value"></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		
 		<!--UI Section-->
@@ -52,26 +60,14 @@
 			<!--Roll Stats-->
 			<form class="roll-stats" data-bind="submit: rollStats, visible: rollStatsShow()">
 				<h2>Roll Stats</h2>
-				<div class="stat">
-					<label for="strength">Strength: </label>
-					<input id="strength" type="number" required data-bind="value: strengthInput">
-				</div>
-				<div class="stat">
-					<label for="dexterity">Dexterity: </label>
-					<input id="dexterity" type="number" required data-bind="value: dexterityInput">
-				</div>
-				<div class="stat">
-					<label for="constitution">Constitution: </label>
-					<input id="constitution" type="number" required data-bind="value: constitutionInput">
-				</div>
-				<div class="stat">
-					<label for="intelligence">Intelligence: </label>
-					<input id="intelligence" type="number" required data-bind="value: intelligenceInput">
-				</div>
-				<div class="stat">
-					<label for="initiative">Initiative: </label>
-					<input id="initiative" type="number" required data-bind="value: initiativeInput">
-				</div>
+				<table class="stats" data-bind="with: player">
+					<tbody data-bind="foreach: stats">
+						<tr class="stat">
+							<td data-bind="text: name"></td>
+							<td data-bind="text: value"></td>
+						</tr>
+					</tbody>
+				</table>
 				<button class="btn-ready" type="submit">Begin</button>
 			</form>
 			

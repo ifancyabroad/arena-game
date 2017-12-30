@@ -23,49 +23,74 @@ const classes = [
 	{
 		active: ko.observable(false),
 		name: 'Warrior',
-		description: 'Some text describing the warrior class'
+		description: 'Some text describing the warrior class',
+		maxStats: [15, 12, 14, 6, 12]
 	},
 	{
 		active: ko.observable(false),
 		name: 'Mage',
-		description: 'Some text describing the mage class'
+		description: 'Some text describing the mage class',
+		maxStats: [6, 10, 12, 16, 12]
 	},
 	{
 		active: ko.observable(false),
 		name: 'Rogue',
-		description: 'Some text describing the rogue class'
+		description: 'Some text describing the rogue class',
+		maxStats: [9, 15, 11, 10, 15]
 	}
 ]
 
 // Superclass for all Game Entities
 class GameEntity {
-	constructor(name, portrait, strength, dexterity, constitution, intelligence, initiative) {
+	constructor(name, portrait, stats) {
 		this.name = ko.observable(name);
 		this.portrait = ko.observable(portrait);
 		
-		this.strength = ko.observable(strength);
-		this.dexterity = ko.observable(dexterity);
-		this.constitution = ko.observable(constitution);
-		this.intelligence = ko.observable(intelligence);
-		this.initiative = ko.observable(initiative);
+		this.stats = ko.observableArray([
+			{
+				name: 'Strength',
+				value: ko.observable(stats[0])
+			},
+			{
+				name: 'Dexterity',
+				value: ko.observable(stats[1])
+			},
+			{
+				name: 'Constitution',
+				value: ko.observable(stats[2])
+			},
+			{
+				name: 'Intelligence',
+				value: ko.observable(stats[3])
+			},
+			{
+				name: 'Initiative',
+				value: ko.observable(stats[4])
+			}
+		])
 		
-		this.maxHealth = ko.observable(this.getMaxHealth());
+		// this.maxHealth = ko.observable(this.getMaxHealth());
 	}
 	
 	getMaxHealth() {
-		return this.constitution() * 10;
+		return this.stats[2].value() * 10;
 	}
 }
 
 // Subclass for the player
 class Player extends GameEntity {
-	constructor(name, portrait, cl) {
-		super(name, portrait);
+	constructor(name, portrait, cl, stats) {
+		super(name, portrait, stats);
 		this.cl = ko.observable(cl);
 		this.experience = ko.observable(0);
 		this.level = ko.observable(1);
 	} 
 }
+
+// Get random number within a range
+const getRandom = function(min, max) {
+	return Math.floor(Math.random() * (max - min) + min);
+};
 
 
 // ViewModel section
@@ -121,6 +146,7 @@ const ViewModel = function() {
 	this.createCharacter = function() {
 		let portrait;
 		let cl;
+		let playerStats = [];
 		portraits.forEach(function(p) {
 			if (p.active() === true) {
 				portrait = p.path;
@@ -129,15 +155,24 @@ const ViewModel = function() {
 		classes.forEach(function(c) {
 			if (c.active() === true) {
 				cl = c.name;
+				c.maxStats.forEach(function(s) {
+					playerStats.push(getRandom(s - 5, s));
+				});
 			}			
 		});
-		self.player(new Player(self.nameInput(), portrait, cl));
+		
+		
+		self.player(new Player(self.nameInput(), portrait, cl, playerStats));
 		self.toggleRollStats();
 	}
 	
 	// Create and roll for player stats
 	this.rollStats = function() {
+		let rerolls = ko.observable(3);
 		
+		 for (let stat of self.player().stats()) {
+			stat.value(1);
+		}
 	}
 }
 
