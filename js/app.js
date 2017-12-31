@@ -44,12 +44,14 @@ const enemies = [
 	{
 		name: 'Goblin',
 		portrait: 'images/goblin.jpg',
-		stats: [3, 4, 2, 2, 4]
+		stats: [3, 4, 2, 2, 4],
+		armour: 2
 	},
 	{
 		name: 'Kobold',
 		portrait: 'images/kobold.jpg',
-		stats: [2, 5, 2, 2, 3]
+		stats: [2, 5, 2, 2, 3],
+		armour: 3
 	},
 	{
 		name: 'Wolf',
@@ -60,7 +62,7 @@ const enemies = [
 
 // Superclass for all Game Entities
 class GameEntity {
-	constructor(name, portrait, stats) {
+	constructor(name, portrait, stats, armour = 0) {
 		this.name = ko.observable(name);
 		this.portrait = ko.observable(portrait);
 		
@@ -94,7 +96,7 @@ class GameEntity {
 		
 		this.currentHealth = ko.observable(this.maxHealth());
 		
-		this.armour = ko.observable(0);
+		this.armour = ko.observable(armour);
 	}
 	
 	attack() {
@@ -229,7 +231,7 @@ const ViewModel = function() {
 	
 	this.getEnemy = function() {
 		let enemy = enemies[getRandom(0, enemies.length - 1)];		
-		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats));
+		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats, enemy.armour));
 	}
 	
 	this.playerAttack = function() {
