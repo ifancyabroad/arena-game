@@ -84,6 +84,10 @@
 			<!--Battle Screen-->
 			<div class="battle-screen" data-bind="visible: battleShow()">
 				<button class="start-game" type="button" data-bind="click: playerAttack">Attack</button>
+				<div class="log-container">
+					<div class="battle-log" data-bind="html: battleLog">
+					</div>
+				</div>
 			</div>
 			
 		</div>

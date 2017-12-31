@@ -27,6 +27,7 @@
 	border: 1px solid black;
 	height: 400px;
 	width: 40%;
+	position: relative;
 }
 
 .start-game {
@@ -100,4 +101,17 @@
 .enemy-portrait {
 	width: 80%;
 	margin: 5px;
+}
+
+.log-container {
+	overflow: auto;
+	position: absolute;
+	bottom: 0;
+	height: 30%;
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+.battle-log p {
+	
 }

@@ -104,7 +104,9 @@ class GameEntity {
 	}
 	
 	takeHit(damage) {
-		this.currentHealth(this.currentHealth() - (damage - this.armour()));
+		damage -= this.armour();
+		this.currentHealth(this.currentHealth() - (damage));
+		return damage;
 	}
 }
 
@@ -234,9 +236,20 @@ const ViewModel = function() {
 		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats, enemy.armour));
 	}
 	
+	this.battleLog = ko.observable('');
+	
 	this.playerAttack = function() {
-		self.currentEnemy().takeHit(self.player().attack());
-		self.player().takeHit(self.currentEnemy().attack());
+		if (self.player().stats()[4].value() >= self.currentEnemy().stats()[4].value()) {
+			let playerDmg = self.currentEnemy().takeHit(self.player().attack());
+			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
+			let enemyDmg = self.player().takeHit(self.currentEnemy().attack());
+			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
+		} else {
+			let enemyDmg = self.player().takeHit(self.currentEnemy().attack());
+			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
+			let playerDmg = self.currentEnemy().takeHit(self.player().attack());
+			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
+		}
 	}
 }
 
