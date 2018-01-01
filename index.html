@@ -83,7 +83,10 @@
 			
 			<!--Battle Screen-->
 			<div class="battle-screen" data-bind="visible: battleShow()">
-				<button class="start-game" type="button" data-bind="click: playerAttack">Attack</button>
+				<div data-bind="with: currentEnemy">
+					<button class="btn-attack" type="button" data-bind="click: $parent.playerAttack, enable: alive()">Attack</button>
+					<button class="btn-return" type="button" data-bind="click: $parent.toggleReturn, disable: alive()">Return to town</button>
+				</div>
 				<div class="log-container">
 					<div class="battle-log" data-bind="html: battleLog">
 					</div>

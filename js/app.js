@@ -96,6 +96,10 @@ class GameEntity {
 		
 		this.currentHealth = ko.observable(this.maxHealth());
 		
+		this.alive = ko.computed(function() {
+			return self.currentHealth() > 0; 
+		});
+		
 		this.armour = ko.observable(armour);
 	}
 	
@@ -105,7 +109,7 @@ class GameEntity {
 	
 	takeHit(damage) {
 		damage -= this.armour();
-		this.currentHealth(this.currentHealth() - (damage));
+		this.currentHealth(this.currentHealth() - damage);
 		return damage;
 	}
 }
@@ -161,6 +165,13 @@ const ViewModel = function() {
 		self.townShow(false);
 		self.battleShow(true);
 		self.getEnemy();
+		self.battleLog('');
+	}
+	
+	// Toggle visibility of battle screen and town screen
+	this.toggleReturn = function() {
+		self.battleShow(false);
+		self.townShow(true);
 	}
 	
 	// Toggle selection of portraits
