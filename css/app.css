@@ -105,6 +105,27 @@ h3 {
 	box-sizing: border-box;
 }
 
+.start-game {
+	border: 6px solid #3e3e3e;
+	background-image: url('../images/enemy-symbol.png');
+	background-size: 60%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #6e6e6e;
+	box-sizing: border-box;
+}
+
+.btn-start {
+	border-bottom: 1px solid;
+	text-shadow: 0px 0px 6px #313131;
+	transition: text-shadow 0.5s;
+}
+
+.btn-start:hover {
+	cursor: pointer;
+	text-shadow: 0px 0px 10px #ababab;
+}
+
 .reroll {
 	height: 90%;
 	width: 50%;
