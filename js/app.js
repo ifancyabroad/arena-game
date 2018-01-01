@@ -262,6 +262,20 @@ const ViewModel = function() {
 			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
 		}
 	}
+	
+	this.resetGame = function() {
+		self.player(null);
+		self.currentEnemy(null);
+		self.battleShow(false);
+		self.startGameShow(true);
+		portraits.forEach(function(p) {
+			p.active(false);
+		});
+		classes.forEach(function(c) {
+			c.active(false);
+		});
+		self.nameInput('');
+	}
 }
 
 ko.applyBindings(new ViewModel());

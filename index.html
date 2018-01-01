@@ -92,8 +92,8 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
+		
 		
 		<!--Enemy Card-->
 		<div class="card" data-bind="with: currentEnemy">
@@ -105,6 +105,16 @@
 			</div>
 			
 			<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
+		</div>
+	</div>
+	
+	<!--Death Screen-->
+	<div class="modal-container" data-bind="with: player">
+		<div class="modal" data-bind="visible: alive() === false">
+			<div class="popup">
+				<h2>You have died!</h2>
+				<button class="play" type="button" data-bind="click: $parent.resetGame">Play Again</button>
+			</div>
 		</div>
 	</div>
 	
