@@ -142,6 +142,8 @@ const ViewModel = function() {
 	this.rollStatsShow = ko.observable(false);
 	this.townShow = ko.observable(false);
 	this.battleShow = ko.observable(false);
+	this.playerCardShow = ko.observable(false);
+	this.enemyCardShow = ko.observable(false);
 	
 	// Toggle visibility of start game screen and character creation
 	this.toggleStartGame = function() {
@@ -157,6 +159,7 @@ const ViewModel = function() {
 	
 	// Toggle visibility of roll stats and town screen
 	this.toggleTown = function() {
+		self.playerCardShow(true);
 		self.rollStatsShow(false);
 		self.townShow(true);
 	}
@@ -166,11 +169,13 @@ const ViewModel = function() {
 		self.townShow(false);
 		self.battleShow(true);
 		self.getEnemy();
+		self.enemyCardShow(true);
 		self.battleLog('');
 	}
 	
 	// Toggle visibility of battle screen and town screen
 	this.toggleReturn = function() {
+		self.enemyCardShow(false);
 		self.battleShow(false);
 		self.townShow(true);
 	}
@@ -270,6 +275,8 @@ const ViewModel = function() {
 	
 	// Reset the game back to its starting state
 	this.resetGame = function() {
+		self.playerCardShow(false);
+		self.enemyCardShow(false);
 		self.player(null);
 		self.currentEnemy(null);
 		self.battleShow(false);

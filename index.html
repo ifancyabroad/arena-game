@@ -14,25 +14,29 @@
 	<div class="game-area">
 	
 		<!--Player Card-->
-		<div class="card" data-bind="with: player">
-			<div class="player-header">
-				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
-				<div class="player-detail">
-					<h2 data-bind="text: name"></h2>
-					<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
+		<div class="card" data-bind="with: player, css: { flipped: playerCardShow() }">
+			<div class="card-front">
+				<div class="player-header">
+					<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
+					<div class="player-detail">
+						<h2 data-bind="text: name"></h2>
+						<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
+					</div>
 				</div>
+				
+				<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
+				
+				<table>
+					<tbody class="stats" data-bind="foreach: stats">
+						<tr class="stat">
+							<td data-bind="text: name"></td>
+							<td data-bind="text: value"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			
-			<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
-			
-			<table>
-				<tbody class="stats" data-bind="foreach: stats">
-					<tr class="stat">
-						<td data-bind="text: name"></td>
-						<td data-bind="text: value"></td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="card-back">
+			</div>
 		</div>
 		
 		<!--UI Section-->
@@ -96,15 +100,19 @@
 		
 		
 		<!--Enemy Card-->
-		<div class="card" data-bind="with: currentEnemy">
-			<div class="enemy-header">
-				<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
-				<div class="enemy-detail">
-					<h2 data-bind="text: name"></h2>
+		<div class="card" data-bind="with: currentEnemy, css: { flipped: enemyCardShow() }">
+			<div class="card-front">
+				<div class="enemy-header">
+					<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
+					<div class="enemy-detail">
+						<h2 data-bind="text: name"></h2>
+					</div>
 				</div>
+				
+				<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
 			</div>
-			
-			<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
+			<div class="card-back">
+			</div>
 		</div>
 	</div>
 	
