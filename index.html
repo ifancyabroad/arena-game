@@ -16,8 +16,8 @@
 	<div class="game-area">
 	
 		<!--Player Card-->
-		<div class="card" data-bind="with: player, css: { flipped: playerCardShow() }">
-			<div class="card-front">
+		<div class="card" data-bind="css: { flipped: playerCardShow() }">
+			<div class="card-front" data-bind="with: player">
 				<div class="player-header">
 					<div class="player-detail">
 						<h2 data-bind="text: name"></h2>
@@ -87,7 +87,7 @@
 			
 			<!--Town Screen-->
 			<div class="ui-screen town-screen" data-bind="visible: townShow()">
-				<h2>Town</h2>
+				<h1>Town</h1>
 				<div class="centered">
 					<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
 				</div>
@@ -95,7 +95,7 @@
 			
 			<!--Battle Screen-->
 			<div class="ui-screen battle-screen" data-bind="visible: battleShow()">
-				<h2>Arena</h2>
+				<h1>Arena</h1>
 				<div class="centered" data-bind="with: currentEnemy">
 					<button class="btn" type="button" data-bind="click: $parent.physicalAttack, enable: alive()">Attack</button>
 					<button class="btn" type="button" data-bind="click: $parent.magicalAttack, enable: alive()">Magic</button>
@@ -110,8 +110,8 @@
 		
 		
 		<!--Enemy Card-->
-		<div class="card" data-bind="with: currentEnemy, css: { flipped: enemyCardShow() }">
-			<div class="card-front">
+		<div class="card" data-bind="css: { flipped: enemyCardShow() }">
+			<div class="card-front" data-bind="with: currentEnemy">
 				<div class="enemy-header">
 					<div class="enemy-detail">
 						<h2 data-bind="text: name"></h2>
