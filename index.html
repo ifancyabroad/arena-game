@@ -7,6 +7,8 @@
 	<title>Arena of the Doomseer</title>
 	<!--Link to CSS-->
 	<link rel="stylesheet" href="css/app.css">
+	<!--Link to Google Fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Tangerine:400,700" rel="stylesheet">
 </head>
 
 <body>
@@ -17,20 +19,20 @@
 		<div class="card" data-bind="with: player, css: { flipped: playerCardShow() }">
 			<div class="card-front">
 				<div class="player-header">
-					<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
 					<div class="player-detail">
 						<h2 data-bind="text: name"></h2>
 						<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
+						<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
 					</div>
 				</div>
 				
 				<div class="player-details">
-					<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>				
-					<table>
-						<tbody class="stats" data-bind="foreach: stats">
+					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>				
+					<table class="stats" >
+						<tbody data-bind="foreach: stats">
 							<tr class="stat">
 								<td data-bind="text: name"></td>
-								<td data-bind="text: value"></td>
+								<td class="text-right" data-bind="text: value"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -47,7 +49,7 @@
 			</div>
 			
 			<!--Character Creation-->
-			<form class="character-create" data-bind="submit: createCharacter, visible: characterCreationShow()">
+			<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
 				<h2>Character Creation</h2>
 				<div class="name-select">
 					<label for="name">Name: </label>
@@ -66,11 +68,11 @@
 			</form>
 			
 			<!--Roll Stats-->
-			<form class="roll-stats" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
+			<form class="ui-screen" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
 				<h2>Roll Stats</h2>
 				<div class="reroll">
 					<h3>Rerolls remaining: <span data-bind="text: rerolls"></span></h3>
-					<table class="stats">
+					<table>
 						<tbody data-bind="foreach: stats">
 							<tr class="stat">
 								<td data-bind="text: name"></td>
@@ -84,7 +86,7 @@
 			</form>
 			
 			<!--Town Screen-->
-			<div class="town-screen" data-bind="visible: townShow()">
+			<div class="ui-screen town-screen" data-bind="visible: townShow()">
 				<h2>Town</h2>
 				<div class="centered">
 					<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
@@ -92,7 +94,7 @@
 			</div>
 			
 			<!--Battle Screen-->
-			<div class="battle-screen" data-bind="visible: battleShow()">
+			<div class="ui-screen battle-screen" data-bind="visible: battleShow()">
 				<h2>Arena</h2>
 				<div class="centered" data-bind="with: currentEnemy">
 					<button class="btn" type="button" data-bind="click: $parent.physicalAttack, enable: alive()">Attack</button>
@@ -113,7 +115,7 @@
 				<div class="enemy-header">
 					<div class="enemy-detail">
 						<h2 data-bind="text: name"></h2>
-						<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
+						<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
 						<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 					</div>
 				</div>
