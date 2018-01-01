@@ -108,8 +108,16 @@ class GameEntity {
 		return (this.stats()[0].value() + getRandom(1, 6));
 	}
 	
+	checkArmour(damage) {
+		if (damage - this.armour() < 0) {
+			damage = 0;
+		} else {
+			damage -= this.armour();
+		}
+		return damage;
+	}
+	
 	takeHit(damage) {
-		damage -= this.armour();
 		this.currentHealth(this.currentHealth() - damage);
 		return damage;
 	}
@@ -261,14 +269,18 @@ const ViewModel = function() {
 	// Also generates text for the combat log
 	this.playerAttack = function() {
 		if (self.player().stats()[4].value() >= self.currentEnemy().stats()[4].value()) {
-			let playerDmg = self.currentEnemy().takeHit(self.player().attack());
+			let playerDmg = self.currentEnemy().checkArmour(self.player().attack());
+			self.currentEnemy().takeHit(playerDmg);
 			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
-			let enemyDmg = self.player().takeHit(self.currentEnemy().attack());
+			let enemyDmg = self.player().checkArmour(self.currentEnemy().attack());
+			self.player().takeHit(enemyDmg);
 			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
 		} else {
-			let enemyDmg = self.player().takeHit(self.currentEnemy().attack());
+			let enemyDmg = self.player().checkArmour(self.currentEnemy().attack());
+			self.player().takeHit(enemyDmg);
 			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
-			let playerDmg = self.currentEnemy().takeHit(self.player().attack());
+			let playerDmg = self.currentEnemy().checkArmour(self.player().attack());
+			self.currentEnemy().takeHit(playerDmg);
 			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
 		}
 	}
