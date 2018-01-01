@@ -40,6 +40,7 @@ const classes = [
 	}
 ]
 
+// Array of possible enemies
 const enemies = [
 	{
 		name: 'Goblin',
@@ -242,13 +243,17 @@ const ViewModel = function() {
 	// Create current enemy variable
 	this.currentEnemy = ko.observable();
 	
+	// Get a random enemy from enemies array
 	this.getEnemy = function() {
 		let enemy = enemies[getRandom(0, enemies.length - 1)];		
 		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats, enemy.armour));
 	}
 	
+	// Battle log observable
 	this.battleLog = ko.observable('');
 	
+	// Player attack and enemy attack when attack button is clicked
+	// Also generates text for the combat log
 	this.playerAttack = function() {
 		if (self.player().stats()[4].value() >= self.currentEnemy().stats()[4].value()) {
 			let playerDmg = self.currentEnemy().takeHit(self.player().attack());
@@ -263,6 +268,7 @@ const ViewModel = function() {
 		}
 	}
 	
+	// Reset the game back to its starting state
 	this.resetGame = function() {
 		self.player(null);
 		self.currentEnemy(null);
