@@ -95,7 +95,8 @@
 			<div class="battle-screen" data-bind="visible: battleShow()">
 				<h2>Arena</h2>
 				<div class="centered" data-bind="with: currentEnemy">
-					<button class="btn" type="button" data-bind="click: $parent.playerAttack, enable: alive()">Attack</button>
+					<button class="btn" type="button" data-bind="click: $parent.physicalAttack, enable: alive()">Attack</button>
+					<button class="btn" type="button" data-bind="click: $parent.magicalAttack, enable: alive()">Magic</button>
 					<button class="btn" type="button" data-bind="click: $parent.toggleReturn, disable: alive()">Return to town</button>
 				</div>
 				<div class="log-container">

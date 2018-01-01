@@ -45,19 +45,19 @@ const enemies = [
 	{
 		name: 'Goblin',
 		portrait: 'images/goblin.jpg',
-		stats: [3, 4, 2, 2, 4],
+		stats: [3, 6, 2, 2, 4],
 		armour: 2
 	},
 	{
 		name: 'Kobold',
 		portrait: 'images/kobold.jpg',
-		stats: [2, 5, 2, 2, 3],
+		stats: [2, 8, 2, 2, 3],
 		armour: 3
 	},
 	{
 		name: 'Wolf',
 		portrait: 'images/wolf.jpg',
-		stats: [4, 4, 3, 1, 5]
+		stats: [4, 8, 3, 1, 5]
 	}
 ]
 
@@ -104,17 +104,28 @@ class GameEntity {
 		this.armour = ko.observable(armour);
 	}
 	
-	attack() {
-		return (this.stats()[0].value() + getRandom(1, 6));
+	checkHit() {
+		if (this.stats()[1].value() >= getRandom(1, 20)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	checkArmour(damage) {
 		if (damage - this.armour() < 0) {
-			damage = 0;
+			return damage = 0;
 		} else {
-			damage -= this.armour();
+			return damage -= this.armour();
 		}
-		return damage;
+	}
+	
+	getPhysicalDamage() {		
+		return (this.stats()[0].value() + getRandom(1, 6));
+	}
+	
+	getMagicalDamage() {
+		return (this.stats()[3].value() + getRandom(1, 6));
 	}
 	
 	takeHit(damage) {
@@ -265,24 +276,68 @@ const ViewModel = function() {
 	// Battle log observable
 	this.battleLog = ko.observable('');
 	
-	// Player attack and enemy attack when attack button is clicked
-	// Also generates text for the combat log
+	// Check to see if the player hits, calculate the damage and display it in the combat log
 	this.playerAttack = function() {
-		if (self.player().stats()[4].value() >= self.currentEnemy().stats()[4].value()) {
-			let playerDmg = self.currentEnemy().checkArmour(self.player().attack());
+		if (self.player().checkHit()) {
+			let playerDmg = self.currentEnemy().checkArmour(self.player().getPhysicalDamage());
 			self.currentEnemy().takeHit(playerDmg);
 			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
-			let enemyDmg = self.player().checkArmour(self.currentEnemy().attack());
+		} else {
+			self.battleLog(self.battleLog() + `<p>You miss the ${self.currentEnemy().name()}</p>`);
+		}
+	}
+	
+	// Calculate magic damage and display it in the combat log
+	this.playerMagicAttack = function() {
+		let playerDmg = self.currentEnemy().takeHit(self.player().getMagicalDamage());
+		self.battleLog(self.battleLog() + `<p>Your spell hits the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
+	}
+	
+	// Check to see if the enemy hits, calculate the damage and display it in the combat log
+	this.enemyAttack = function() {
+		if (self.currentEnemy().checkHit()) {
+			let enemyDmg = self.player().checkArmour(self.currentEnemy().getPhysicalDamage());
 			self.player().takeHit(enemyDmg);
 			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
 		} else {
-			let enemyDmg = self.player().checkArmour(self.currentEnemy().attack());
-			self.player().takeHit(enemyDmg);
-			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
-			let playerDmg = self.currentEnemy().checkArmour(self.player().attack());
-			self.currentEnemy().takeHit(playerDmg);
-			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
+			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} misses you</p>`);
 		}
+	}
+	
+	this.enemySlain = function() {
+		self.battleLog(self.battleLog() + `<p>You have slain the ${self.currentEnemy().name()}!</p>`);
+	}
+	
+	// Player attack and enemy attack when attack button is clicked
+	this.physicalAttack = function() {
+		
+		// Check who strikes first based on initiative
+		if (self.player().stats()[4].value() >= self.currentEnemy().stats()[4].value()) {
+			self.playerAttack();
+			self.currentEnemy().alive() ? self.enemyAttack() : self.enemySlain();
+		} else {
+			self.enemyAttack();
+			self.playerAttack();
+			if (!self.currentEnemy().alive()) {
+				self.enemySlain();
+			}
+		}
+	}
+	
+	// Player magic attack and enemy attack when magic button is clicked
+	this.magicalAttack = function() {
+		
+		// Check who strikes first based on initiative
+		if (self.player().stats()[4].value() >= self.currentEnemy().stats()[4].value()) {
+			self.playerMagicAttack();
+			self.currentEnemy().alive() ? self.enemyAttack() : self.enemySlain();
+		} else {
+			self.enemyAttack();
+			self.playerMagicAttack();
+			if (!self.currentEnemy().alive()) {
+				self.enemySlain();
+			}
+		}	
 	}
 	
 	// Reset the game back to its starting state
