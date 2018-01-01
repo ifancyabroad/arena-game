@@ -24,16 +24,17 @@
 					</div>
 				</div>
 				
-				<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
-				
-				<table>
-					<tbody class="stats" data-bind="foreach: stats">
-						<tr class="stat">
-							<td data-bind="text: name"></td>
-							<td data-bind="text: value"></td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="player-details">
+					<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>				
+					<table>
+						<tbody class="stats" data-bind="foreach: stats">
+							<tr class="stat">
+								<td data-bind="text: name"></td>
+								<td data-bind="text: value"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="card-back">
 			</div>
@@ -42,7 +43,7 @@
 		<!--UI Section-->
 		<div class="ui" id="ui">
 			<div class="start-game" data-bind="visible: startGameShow()">
-				<button class="btn-new-game" type="button" data-bind="click: toggleStartGame">Start new game</button>
+				<button class="btn centered" type="button" data-bind="click: toggleStartGame">Start new game</button>
 			</div>
 			
 			<!--Character Creation-->
@@ -61,35 +62,41 @@
 						<p class="class-description" data-bind="text: description"></p>
 					</div>
 				</div>
-				<button class="btn-ready" type="submit">Next</button>
+				<button class="btn" type="submit">Next</button>
 			</form>
 			
 			<!--Roll Stats-->
 			<form class="roll-stats" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
 				<h2>Roll Stats</h2>
-				<table class="stats">
-					<tbody data-bind="foreach: stats">
-						<tr class="stat">
-							<td data-bind="text: name"></td>
-							<td data-bind="text: value"></td>
-						</tr>
-					</tbody>
-				</table>
-				<h3>Rerolls remaining: <span data-bind="text: rerolls"></span></h3>
-				<button class="btn-reroll" type="submit">Reroll</button>
-				<button class="btn-start" type="button" data-bind="click: $parent.toggleTown">Begin</button>
+				<div class="reroll">
+					<h3>Rerolls remaining: <span data-bind="text: rerolls"></span></h3>
+					<table class="stats">
+						<tbody data-bind="foreach: stats">
+							<tr class="stat">
+								<td data-bind="text: name"></td>
+								<td data-bind="text: value"></td>
+							</tr>
+						</tbody>
+					</table>
+					<button class="btn" type="submit">Reroll</button>
+					<button class="btn" type="button" data-bind="click: $parent.toggleTown">Begin</button>
+				</div>
 			</form>
 			
 			<!--Town Screen-->
 			<div class="town-screen" data-bind="visible: townShow()">
-				<button class="start-game" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
+				<h2>Town</h2>
+				<div class="centered">
+					<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
+				</div>
 			</div>
 			
 			<!--Battle Screen-->
 			<div class="battle-screen" data-bind="visible: battleShow()">
-				<div data-bind="with: currentEnemy">
-					<button class="btn-attack" type="button" data-bind="click: $parent.playerAttack, enable: alive()">Attack</button>
-					<button class="btn-return" type="button" data-bind="click: $parent.toggleReturn, disable: alive()">Return to town</button>
+				<h2>Arena</h2>
+				<div class="centered" data-bind="with: currentEnemy">
+					<button class="btn" type="button" data-bind="click: $parent.playerAttack, enable: alive()">Attack</button>
+					<button class="btn" type="button" data-bind="click: $parent.toggleReturn, disable: alive()">Return to town</button>
 				</div>
 				<div class="log-container">
 					<div class="battle-log" data-bind="html: battleLog">
@@ -103,13 +110,12 @@
 		<div class="card" data-bind="with: currentEnemy, css: { flipped: enemyCardShow() }">
 			<div class="card-front">
 				<div class="enemy-header">
-					<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 					<div class="enemy-detail">
 						<h2 data-bind="text: name"></h2>
+						<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
+						<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 					</div>
 				</div>
-				
-				<h3>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h3>
 			</div>
 			<div class="card-back">
 			</div>
@@ -121,7 +127,7 @@
 		<div class="modal" data-bind="visible: alive() === false">
 			<div class="popup">
 				<h2>You have died!</h2>
-				<button class="play" type="button" data-bind="click: $parent.resetGame">Play Again</button>
+				<button class="btn" type="button" data-bind="click: $parent.resetGame">Play Again</button>
 			</div>
 		</div>
 	</div>
