@@ -1,7 +1,7 @@
 // Array of portraits that can be found in the images folder
 const portraits = [
 	{
-		active: ko.observable(false),
+		active: ko.observable(true),
 		path: 'images/female-warrior.jpg'
 	},
 	{
@@ -202,16 +202,24 @@ const ViewModel = function() {
 		self.uiCardShow(false);
 	}
 	
-	// Toggle selection of portraits
-	this.togglePortraitSelection = function(portrait) {
-		portraits.forEach(function(p) {
-			p.active(false);
+	// Toggle browse right through portraits
+	this.togglePortrait = function(n) {
+		let currentIndex;
+		
+		portraits.forEach(function(portrait) {
+			if (portrait.active() === true) {
+				portrait.active(false);
+				currentIndex = portraits.indexOf(portrait) + n;
+			}
 		});
-		if (portrait.active() === false) {
-			portrait.active(true);
-		} else {
-			portrait.active(false);
+		
+		if (currentIndex >= portraits.length) {
+			currentIndex = 0;
+		} else if (currentIndex < 0) {
+			currentIndex = portraits.length - 1;
 		}
+		
+		portraits[currentIndex].active(true);
 	}
 	
 	// Toggle selection of classes
