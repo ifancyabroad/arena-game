@@ -39,10 +39,6 @@ h3 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 }
 
 .card {
@@ -87,7 +83,7 @@ h3 {
 	transform: rotateY(180deg);
 }
 
-.hidden {
+.entity-back {
 	border: 6px solid #3e3e3e;
 	background-image: url('../images/enemy-symbol.png');
 	background-size: contain;
@@ -109,6 +105,16 @@ h3 {
 	height: 100%;
 	padding: 10px;
 	box-sizing: border-box;
+	background-color: #f5f5f5;
+}
+
+.ui-back {
+	border: 6px solid #3e3e3e;
+	background-image: url('../images/sword-symbol.png');
+	background-size: 80%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #6e6e6e;
 }
 
 .btn-start {
@@ -122,6 +128,7 @@ h3 {
 	text-shadow: 0px 0px 10px #ababab;
 }
 
+/*Character creation*/
 .portrait-select {
 	display: flex;
 	justify-content: center;
@@ -160,12 +167,14 @@ h3 {
 	align-items: center;
 }
 
+/*Town Screen*/
 .town-screen {
 	background-image: url('../images/town.jpg');
 	background-position: center;
 	background-size: 250%;
 }
 
+/*Battle screen*/
 .battle-screen {
 	background-image: url('../images/arena.jpg');
 	background-position: center;
@@ -227,8 +236,6 @@ h3 {
 
 .popup {
 	background-color: white;
-	border: 1px solid #444;
-	border-radius: 5px;
 	margin: 10% auto;
 	padding: 20px;
 	width: 250px;

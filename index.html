@@ -13,7 +13,7 @@
 
 <body>
 	<!--Game Area-->
-	<div class="game-area">
+	<div class="game-area centered">
 	
 		<!--Player Card-->
 		<div class="card card-entity" data-bind="css: { flipped: playerCardShow() }">
@@ -36,7 +36,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="card-back hidden">
+			<div class="card-back entity-back">
 			</div>
 		</div>
 		
@@ -103,7 +103,7 @@
 			<div class="card-back">
 			
 				<!--Start Screen-->
-				<div class="ui-screen hidden" data-bind="visible: startGameShow()">
+				<div class="ui-screen ui-back" data-bind="visible: startGameShow()">
 					<h1 class="btn-start" data-bind="click: toggleStartGame">Start Game</h1>
 				</div>
 				
@@ -127,7 +127,7 @@
 					<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 				</div>
 			</div>
-			<div class="card-back hidden">
+			<div class="card-back entity-back">
 			</div>
 		</div>
 	</div>
