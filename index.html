@@ -16,14 +16,12 @@
 	<div class="game-area">
 	
 		<!--Player Card-->
-		<div class="card" data-bind="css: { flipped: playerCardShow() }">
-			<div class="card-front" data-bind="with: player">
+		<div class="card card-entity" data-bind="css: { flipped: playerCardShow() }">
+			<div class="card-front entity-front" data-bind="with: player">
 				<div class="player-header">
-					<div class="player-detail">
-						<h2 data-bind="text: name"></h2>
-						<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
-						<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
-					</div>
+					<h2 data-bind="text: name"></h2>
+					<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
+					<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
 				</div>
 				
 				<div class="player-details">
@@ -38,71 +36,82 @@
 					</table>
 				</div>
 			</div>
-			<div class="card-back">
+			<div class="card-back hidden">
 			</div>
 		</div>
 		
 		<!--UI Section-->
-		<div class="ui" id="ui">
-			<div class="ui-screen start-game" data-bind="visible: startGameShow()">
-				<h1 class="btn-start" data-bind="click: toggleStartGame">Start Game</h1>
-			</div>
+		<div class="card card-ui" data-bind="css: { flipped: uiCardShow() }">
+		
+			<!-- Front of the UI-->
+			<div class="card-front">
 			
-			<!--Character Creation-->
-			<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
-				<h2>Character Creation</h2>
-				<div class="name-select">
-					<label for="name">Name: </label>
-					<input id="name" type="text" required data-bind="value: nameInput">
-				</div>
-				<div class="portrait-select" data-bind="foreach: portraits">
-					<img class="portrait" data-bind="click: $parent.togglePortraitSelection, attr: { src: path }, style: { border: active() ? '2px solid red' : '2px solid transparent' }">
-				</div>
-				<div class="class-select" data-bind="foreach: classes">
-					<div class="class" data-bind="click: $parent.toggleClassSelection, style: { border: active() ? '2px solid red' : '2px solid grey' }">
-						<h2 class="class-name" data-bind="text: name"></h2>
-						<p class="class-description" data-bind="text: description"></p>
+				<!--Character Creation-->
+				<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
+					<h2>Character Creation</h2>
+					<div class="name-select">
+						<label for="name">Name: </label>
+						<input id="name" type="text" required data-bind="value: nameInput">
+					</div>
+					<div class="portrait-select" data-bind="foreach: portraits">
+						<img class="portrait" data-bind="click: $parent.togglePortraitSelection, attr: { src: path }, style: { border: active() ? '2px solid red' : '2px solid transparent' }">
+					</div>
+					<div class="class-select" data-bind="foreach: classes">
+						<div class="class" data-bind="click: $parent.toggleClassSelection, style: { border: active() ? '2px solid red' : '2px solid grey' }">
+							<h2 class="class-name" data-bind="text: name"></h2>
+							<p class="class-description" data-bind="text: description"></p>
+						</div>
+					</div>
+					<button class="btn" type="submit">Next</button>
+				</form>
+				
+				<!--Roll Stats-->
+				<form class="ui-screen" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
+					<h2>Roll Stats</h2>
+					<div class="reroll">
+						<h3>Rerolls remaining: <span data-bind="text: rerolls"></span></h3>
+						<table>
+							<tbody data-bind="foreach: stats">
+								<tr class="stat">
+									<td data-bind="text: name"></td>
+									<td data-bind="text: value"></td>
+								</tr>
+							</tbody>
+						</table>
+						<button class="btn" type="submit">Reroll</button>
+						<button class="btn" type="button" data-bind="click: $parent.toggleTown">Begin</button>
+					</div>
+				</form>
+				
+				<!--Battle Screen-->
+				<div class="ui-screen battle-screen" data-bind="visible: battleShow()">
+					<h1>Arena</h1>
+					<div class="centered" data-bind="with: currentEnemy">
+						<button class="btn" type="button" data-bind="click: $parent.physicalAttack, enable: alive()">Attack</button>
+						<button class="btn" type="button" data-bind="click: $parent.magicalAttack, enable: alive()">Magic</button>
+						<button class="btn" type="button" data-bind="click: $parent.toggleReturn, disable: alive()">Return to town</button>
+					</div>
+					<div class="log-container">
+						<div class="battle-log" data-bind="html: battleLog">
+						</div>
 					</div>
 				</div>
-				<button class="btn" type="submit">Next</button>
-			</form>
-			
-			<!--Roll Stats-->
-			<form class="ui-screen" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
-				<h2>Roll Stats</h2>
-				<div class="reroll">
-					<h3>Rerolls remaining: <span data-bind="text: rerolls"></span></h3>
-					<table>
-						<tbody data-bind="foreach: stats">
-							<tr class="stat">
-								<td data-bind="text: name"></td>
-								<td data-bind="text: value"></td>
-							</tr>
-						</tbody>
-					</table>
-					<button class="btn" type="submit">Reroll</button>
-					<button class="btn" type="button" data-bind="click: $parent.toggleTown">Begin</button>
-				</div>
-			</form>
-			
-			<!--Town Screen-->
-			<div class="ui-screen town-screen" data-bind="visible: townShow()">
-				<h1>Town</h1>
-				<div class="centered">
-					<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
-				</div>
 			</div>
 			
-			<!--Battle Screen-->
-			<div class="ui-screen battle-screen" data-bind="visible: battleShow()">
-				<h1>Arena</h1>
-				<div class="centered" data-bind="with: currentEnemy">
-					<button class="btn" type="button" data-bind="click: $parent.physicalAttack, enable: alive()">Attack</button>
-					<button class="btn" type="button" data-bind="click: $parent.magicalAttack, enable: alive()">Magic</button>
-					<button class="btn" type="button" data-bind="click: $parent.toggleReturn, disable: alive()">Return to town</button>
+			
+			<!--Back of the UI-->
+			<div class="card-back">
+			
+				<!--Start Screen-->
+				<div class="ui-screen hidden" data-bind="visible: startGameShow()">
+					<h1 class="btn-start" data-bind="click: toggleStartGame">Start Game</h1>
 				</div>
-				<div class="log-container">
-					<div class="battle-log" data-bind="html: battleLog">
+				
+				<!--Town Screen-->
+				<div class="ui-screen town-screen" data-bind="visible: townShow()">
+					<h1>Town</h1>
+					<div class="centered">
+						<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
 					</div>
 				</div>
 			</div>
@@ -110,17 +119,15 @@
 		
 		
 		<!--Enemy Card-->
-		<div class="card" data-bind="css: { flipped: enemyCardShow() }">
-			<div class="card-front" data-bind="with: currentEnemy">
+		<div class="card card-entity" data-bind="css: { flipped: enemyCardShow() }">
+			<div class="card-front entity-front" data-bind="with: currentEnemy">
 				<div class="enemy-header">
-					<div class="enemy-detail">
-						<h2 data-bind="text: name"></h2>
-						<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
-						<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
-					</div>
+					<h2 data-bind="text: name"></h2>
+					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
+					<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 				</div>
 			</div>
-			<div class="card-back">
+			<div class="card-back hidden">
 			</div>
 		</div>
 	</div>

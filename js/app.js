@@ -156,8 +156,9 @@ const ViewModel = function() {
 	const self = this;
 	
 	// Observables for UI screens and starting values
+	this.uiCardShow = ko.observable(false);
 	this.startGameShow = ko.observable(true);
-	this.characterCreationShow = ko.observable(false);
+	this.characterCreationShow = ko.observable(true);
 	this.rollStatsShow = ko.observable(false);
 	this.townShow = ko.observable(false);
 	this.battleShow = ko.observable(false);
@@ -166,8 +167,7 @@ const ViewModel = function() {
 	
 	// Toggle visibility of start game screen and character creation
 	this.toggleStartGame = function() {
-		self.startGameShow(false);
-		self.characterCreationShow(true);
+		self.uiCardShow(true);
 	}
 	
 	// Toggle visibility of character creation screen and roll stats
@@ -179,24 +179,27 @@ const ViewModel = function() {
 	// Toggle visibility of roll stats and town screen
 	this.toggleTown = function() {
 		self.playerCardShow(true);
-		self.rollStatsShow(false);
+		self.startGameShow(false);
 		self.townShow(true);
+		self.uiCardShow(false);
 	}
 	
 	// Toggle visibility of town screen and battle screen
 	this.toggleBattle = function() {
-		self.townShow(false);
-		self.battleShow(true);
+		if (self.rollStatsShow() === true) {
+			self.rollStatsShow(false);
+			self.battleShow(true);
+		}
+		self.battleLog('');
 		self.getEnemy();
 		self.enemyCardShow(true);
-		self.battleLog('');
+		self.uiCardShow(true);
 	}
 	
 	// Toggle visibility of battle screen and town screen
 	this.toggleReturn = function() {
 		self.enemyCardShow(false);
-		self.battleShow(false);
-		self.townShow(true);
+		self.uiCardShow(false);
 	}
 	
 	// Toggle selection of portraits
@@ -346,8 +349,11 @@ const ViewModel = function() {
 		self.enemyCardShow(false);
 		self.player(null);
 		self.currentEnemy(null);
+		self.townShow(false);
 		self.battleShow(false);
 		self.startGameShow(true);
+		self.characterCreationShow(true);
+		self.uiCardShow(false);
 		portraits.forEach(function(p) {
 			p.active(false);
 		});

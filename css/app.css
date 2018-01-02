@@ -19,6 +19,22 @@ h3 {
 	font-size: 1.8em;
 }
 
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.text-right {
+	text-align: right;
+}
+
+.btn {
+	margin: 5px;
+	padding: 5px;
+}
+
 .game-area {
 	display: flex;
 	justify-content: center;
@@ -30,13 +46,22 @@ h3 {
 }
 
 .card {
-	height: 400px;
-	width: 200px;
-	margin: 20px;
 	text-align: center;
 	position: relative;
 	transition: transform 0.5s;
 	transform-style: preserve-3d;
+}
+
+.card-entity {
+	height: 400px;
+	width: 200px;
+	margin: 20px;
+}
+
+.card-ui {
+	height: 400px;
+	width: 350px;
+	position: relative;
 }
 
 .card-back {
@@ -46,12 +71,6 @@ h3 {
 	backface-visibility: hidden;
 	z-index: -1;
 	box-shadow: 2px 2px 6px 2px #989898;
-	border: 6px solid #3e3e3e;
-	background-image: url('../images/enemy-symbol.png');
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-color: #6e6e6e;
 	box-sizing: border-box;
 }
 
@@ -62,6 +81,22 @@ h3 {
 	transform: rotateY(180deg);
 	backface-visibility: hidden;
 	box-shadow: 2px 2px 6px 2px #989898;
+}
+
+.flipped {
+	transform: rotateY(180deg);
+}
+
+.hidden {
+	border: 6px solid #3e3e3e;
+	background-image: url('../images/enemy-symbol.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #6e6e6e;
+}
+
+.entity-front {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -70,48 +105,9 @@ h3 {
 	padding: 10px;
 }
 
-.flipped {
-	transform: rotateY(180deg);
-}
-
-.ui {
-	box-shadow: 2px 2px 6px 2px #9c9c9c;
-	background-color: white;
-	height: 400px;
-	width: 350px;
-	position: relative;
-	text-align: center;
-}
-
-.centered {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.btn {
-	margin: 5px;
-	padding: 5px;
-}
-
-.text-right {
-	text-align: right;
-}
-
 .ui-screen {
 	height: 100%;
 	padding: 10px;
-	box-sizing: border-box;
-}
-
-.start-game {
-	border: 6px solid #3e3e3e;
-	background-image: url('../images/enemy-symbol.png');
-	background-size: 60%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-color: #6e6e6e;
 	box-sizing: border-box;
 }
 
@@ -124,16 +120,6 @@ h3 {
 .btn-start:hover {
 	cursor: pointer;
 	text-shadow: 0px 0px 10px #ababab;
-}
-
-.reroll {
-	height: 90%;
-	width: 50%;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
 }
 
 .portrait-select {
@@ -164,27 +150,14 @@ h3 {
 	width: 60%;
 }
 
-.player-header {
-	
-}
-
-.player-portrait {
-	width: 65%;
-	margin: 5px;
-}
-
-.player-details {
-	
-}
-
-.stats {
-	width: 100%;
-	text-align: left;
-}
-
-.enemy-portrait {
-	width: 80%;
-	margin: 60px 0;
+.reroll {
+	height: 90%;
+	width: 50%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
 }
 
 .town-screen {
@@ -218,11 +191,31 @@ h3 {
 	background-color: white;
 }
 
-.battle-log p {
+/*Player and enemy cards*/
+.player-header {
 	
 }
 
-/*Modal for when game is lost*/
+.player-portrait {
+	width: 65%;
+	margin: 5px;
+}
+
+.player-details {
+	
+}
+
+.stats {
+	width: 100%;
+	text-align: left;
+}
+
+.enemy-portrait {
+	width: 80%;
+	margin: 60px 0;
+}
+
+/*Modal and popup for when game is lost*/
 .modal {
 	background-color: rgba(0, 0, 0, 0.4);
 	position: fixed;
