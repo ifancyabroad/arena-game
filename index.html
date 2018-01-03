@@ -30,7 +30,7 @@
 					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>				
 					<table class="stats" >
 						<tbody data-bind="foreach: stats">
-							<tr class="stat">
+							<tr>
 								<td data-bind="text: name"></td>
 								<td class="text-right" data-bind="text: value"></td>
 							</tr>
@@ -51,24 +51,25 @@
 				<!--Character Creation-->
 				<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
 					<h2>Character Creation</h2>
-					<div class="name-select">
-						<label for="name">Name: </label>
-						<input id="name" type="text" required data-bind="value: nameInput">
-					</div>
-					<div class="portrait-select">
-						<i class="fa fa-chevron-left" aria-hidden="true" data-bind="click: togglePortrait.bind($data, -1)"></i>
-						<!-- ko foreach: portraits -->
-						<img class="portrait" data-bind="visible: active(), attr: { src: path }">
-						<!-- /ko -->
-						<i class="fa fa-chevron-right" aria-hidden="true" data-bind="click: togglePortrait.bind($data, 1)"></i>
-					</div>
-					<div class="class-select" data-bind="foreach: classes">
-						<div class="class" data-bind="click: $parent.toggleClassSelection, style: { border: active() ? '2px solid red' : '2px solid grey' }">
-							<h2 class="class-name" data-bind="text: name"></h2>
-							<p class="class-description" data-bind="text: description"></p>
+					<div class="character-create">
+						<div class="name-select">
+							<label for="name">Name: </label>
+							<input id="name" type="text" required data-bind="value: nameInput">
 						</div>
+						<div class="detail-select">
+							<div class="portrait-select">
+								<i class="fa fa-chevron-left" aria-hidden="true" data-bind="click: togglePortrait.bind($data, -1)"></i>
+								<!-- ko foreach: portraits -->
+								<img class="portrait" data-bind="visible: active(), attr: { src: path }">
+								<!-- /ko -->
+								<i class="fa fa-chevron-right" aria-hidden="true" data-bind="click: togglePortrait.bind($data, 1)"></i>
+							</div>
+							<div data-bind="foreach: classes">
+								<h2 class="class" data-bind="text: name, click: $parent.toggleClassSelection, style: { border: active() ? '2px solid red' : '2px solid grey' }"></h2>
+							</div>
+						</div>
+						<button class="btn" type="submit">Next</button>
 					</div>
-					<button class="btn" type="submit">Next</button>
 				</form>
 				
 				<!--Roll Stats-->
@@ -102,6 +103,25 @@
 						</div>
 					</div>
 				</div>
+				
+				<!--Level Up Screen-->
+				<div class="ui-screen levelup-screen" data-bind="with: player, visible: levelUpShow()">
+					<h1>Level Up</h1>
+					<div class="levelup">
+						<h4>Skill points remaining: <span data-bind="text: skillPoints"></span></h4>
+						<form class="levelup-stats" data-bind="foreach: stats">
+							<div class="levelup-stat">
+								<i class="fa fa-minus" aria-hidden="true" data-bind="click: $parents[1].changeStat.bind($data, -1)"></i>
+								<div class="levelup-stat-detail">
+									<p data-bind="text: name"></p>
+									<p data-bind="text: value"></p>
+								</div>
+								<i class="fa fa-plus" aria-hidden="true" data-bind="click: $parents[1].changeStat.bind($data, 1)"></i>
+							</div>
+						</form>
+						<button class="btn" type="button" data-bind="click: $parent.toggleLevelUpReturn">Done</button>
+					</div>
+				</div>
 			</div>
 			
 			
@@ -118,6 +138,7 @@
 					<h1>Town</h1>
 					<div class="centered">
 						<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
+						<button class="btn" type="button" data-bind="click: toggleLevelUp">Level Up</button>
 					</div>
 				</div>
 			</div>

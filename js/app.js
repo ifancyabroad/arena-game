@@ -142,7 +142,16 @@ class Player extends GameEntity {
 		this.experience = ko.observable(0);
 		this.level = ko.observable(1);
 		this.rerolls = ko.observable(3);
-	} 
+		this.skillPoints = ko.observable(5);
+		const self = this;
+	}
+	
+	updateStat(stat, n) {
+		if (((this.skillPoints() - n) >= 0) && ((stat.value() + n) <= 20)) {
+			stat.value(stat.value() + n);
+			this.skillPoints(this.skillPoints() - n)
+		}
+	}
 }
 
 // Get random number within a range
@@ -161,6 +170,7 @@ const ViewModel = function() {
 	this.characterCreationShow = ko.observable(true);
 	this.rollStatsShow = ko.observable(false);
 	this.townShow = ko.observable(false);
+	this.levelUpShow = ko.observable(false);
 	this.battleShow = ko.observable(false);
 	this.playerCardShow = ko.observable(false);
 	this.enemyCardShow = ko.observable(false);
@@ -186,19 +196,35 @@ const ViewModel = function() {
 	
 	// Toggle visibility of town screen and battle screen
 	this.toggleBattle = function() {
-		if (self.rollStatsShow() === true) {
+		if (self.battleShow() === false) {
 			self.rollStatsShow(false);
+			self.levelUpShow(false);
 			self.battleShow(true);
 		}
 		self.battleLog('');
 		self.getEnemy();
-		self.enemyCardShow(true);
+		setTimeout(function() { 
+			self.enemyCardShow(true)
+		}, 300);
 		self.uiCardShow(true);
 	}
 	
 	// Toggle visibility of battle screen and town screen
 	this.toggleReturn = function() {
 		self.enemyCardShow(false);
+		self.uiCardShow(false);
+	}
+	
+	// Toggle visibility of town screen and level up screen
+	this.toggleLevelUp = function() {
+		self.rollStatsShow(false);
+		self.battleShow(false);
+		self.levelUpShow(true);
+		self.uiCardShow(true);
+	}
+	
+	// Return from level up screen
+	this.toggleLevelUpReturn = function() {
 		self.uiCardShow(false);
 	}
 	
@@ -273,6 +299,15 @@ const ViewModel = function() {
 			self.player().currentHealth(self.player().maxHealth());
 			self.player().rerolls(self.player().rerolls() - 1)
 		}
+	}
+	
+	this.changeStat = function(n) {
+		self.player().updateStat(this, n);
+	}
+	
+	// Level up
+	this.levelUp = function() {
+		
 	}
 	
 	// Create current enemy variable
@@ -365,6 +400,7 @@ const ViewModel = function() {
 		portraits.forEach(function(p) {
 			p.active(false);
 		});
+		portraits[0].active(true);
 		classes.forEach(function(c) {
 			c.active(false);
 		});
