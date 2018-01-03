@@ -50,7 +50,7 @@
 			
 				<!--Character Creation-->
 				<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
-					<h2>Character Creation</h2>
+					<h1>Character Creation</h1>
 					<div class="character-create">
 						<div class="name-select">
 							<label for="name">Name: </label>
@@ -74,9 +74,9 @@
 				
 				<!--Roll Stats-->
 				<form class="ui-screen" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
-					<h2>Roll Stats</h2>
+					<h1>Roll Stats</h1>
 					<div class="reroll">
-						<h3>Rerolls remaining: <span data-bind="text: rerolls"></span></h3>
+						<h4>Rerolls remaining: <span data-bind="text: rerolls"></span></h4>
 						<table>
 							<tbody data-bind="foreach: stats">
 								<tr class="stat">

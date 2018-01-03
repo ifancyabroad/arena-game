@@ -130,7 +130,7 @@ h3 {
 
 /*Character creation*/
 .character-create {
-	height: 90%;
+	height: 85%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -163,11 +163,10 @@ h3 {
 
 .reroll {
 	height: 90%;
-	width: 50%;
 	margin: auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
 }
 
