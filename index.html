@@ -105,21 +105,21 @@
 				</div>
 				
 				<!--Level Up Screen-->
-				<div class="ui-screen levelup-screen" data-bind="with: player, visible: levelUpShow()">
+				<div class="ui-screen levelup-screen" data-bind="visible: levelUpShow()">
 					<h1>Level Up</h1>
 					<div class="levelup">
-						<h4>Skill points remaining: <span data-bind="text: skillPoints"></span></h4>
-						<form class="levelup-stats" data-bind="foreach: stats">
+						<h4 data-bind="with: player">Skill points remaining: <span data-bind="text: skillPoints"></span></h4>
+						<form class="levelup-stats" data-bind="foreach: tempStats">
 							<div class="levelup-stat">
-								<i class="fa fa-minus" aria-hidden="true" data-bind="click: $parents[1].changeStat.bind($data, -1)"></i>
+								<i class="fa fa-minus" aria-hidden="true" data-bind="click: $parent.changeStat.bind($data, -1)"></i>
 								<div class="levelup-stat-detail">
 									<p data-bind="text: name"></p>
 									<p data-bind="text: value"></p>
 								</div>
-								<i class="fa fa-plus" aria-hidden="true" data-bind="click: $parents[1].changeStat.bind($data, 1)"></i>
+								<i class="fa fa-plus" aria-hidden="true" data-bind="click: $parent.changeStat.bind($data, 1)"></i>
 							</div>
 						</form>
-						<button class="btn" type="button" data-bind="click: $parent.toggleLevelUpReturn">Done</button>
+						<button class="btn" type="button" data-bind="click: toggleLevelUpReturn">Done</button>
 					</div>
 				</div>
 			</div>
