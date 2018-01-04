@@ -234,13 +234,15 @@ h3 {
 }
 
 /*Player and enemy cards*/
-.player-header {
-	
-}
-
 .player-portrait {
 	width: 65%;
 	margin: 5px;
+}
+
+.levelup-icon {
+	position: absolute;
+	top: 5px;
+	right: 5px;
 }
 
 .player-details {
