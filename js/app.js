@@ -46,24 +46,27 @@ const enemies = [
 		name: 'Goblin',
 		portrait: 'images/goblin.jpg',
 		stats: [3, 6, 2, 2, 4],
-		armour: 2
+		armour: 2,
+		expValue: 50
 	},
 	{
 		name: 'Kobold',
 		portrait: 'images/kobold.jpg',
 		stats: [2, 8, 2, 2, 3],
-		armour: 3
+		armour: 3,
+		expValue: 50
 	},
 	{
 		name: 'Wolf',
 		portrait: 'images/wolf.jpg',
-		stats: [4, 8, 3, 1, 5]
+		stats: [4, 8, 3, 1, 5],
+		expValue: 75
 	}
 ]
 
 // Superclass for all Game Entities
 class GameEntity {
-	constructor(name, portrait, stats, armour = 0) {
+	constructor(name, portrait, stats, armour = 0, expValue) {
 		const self = this;
 		
 		// Name and picture variables
@@ -109,6 +112,9 @@ class GameEntity {
 		
 		// Armour variable
 		this.armour = ko.observable(armour);
+		
+		// Experience value
+		this.expValue = expValue;
 	}
 	
 	// Use dexterity stat to check whether or not attack hits
@@ -153,11 +159,38 @@ class Player extends GameEntity {
 		// Get name, portrait and stats from parent class
 		super(name, portrait, stats);
 		
+		const self = this;
+		
 		// Variable for class selected by player
 		this.cl = ko.observable(cl);
 		
 		// Variable for experience obtained by player
 		this.experience = ko.observable(0);
+		
+		// Experience chart
+		this.levelTier = ko.computed(function() {
+			if (self.experience() > 20000) {
+				return 10;
+			} else if (self.experience() > 12000) {
+				return 9;
+			} else if (self.experience() > 8000) {
+				return 8;
+			} else if (self.experience() > 5000) {
+				return 7;
+			} else if (self.experience() > 3000) {
+				return 6;
+			} else if (self.experience() > 1500) {
+				return 5;
+			} else if (self.experience() > 800) {
+				return 4;
+			} else if (self.experience() > 300) {
+				return 3;
+			} else if (self.experience() > 100) {
+				return 2;
+			} else {
+				return 1;
+			}
+		});
 		
 		// Player level, starts at 1
 		this.level = ko.observable(1);
@@ -166,13 +199,22 @@ class Player extends GameEntity {
 		this.rerolls = ko.observable(3);
 		
 		// Skill points the player has acquired for spending
-		this.skillPoints = ko.observable(5);
+		this.skillPoints = ko.observable(0);
 	}
 	
 	// Update the players stats based on an array of stats taken as a parameter
 	updateStats(newStats) {
 		for (let i = 0; i < this.stats().length; i++) {
 			this.stats()[i].value(newStats[i].value());			
+		}
+	}
+	
+	// Increase experience
+	experienceGain(xp) {
+		let currentTier = this.levelTier();
+		this.experience(this.experience() + xp);
+		if (currentTier !== this.levelTier()) {
+			this.skillPoints(this.skillPoints() + 1);
 		}
 	}
 }
@@ -392,7 +434,7 @@ const ViewModel = function() {
 	// Get a random enemy from enemies array
 	this.getEnemy = function() {
 		let enemy = enemies[getRandom(0, enemies.length - 1)];		
-		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats, enemy.armour));
+		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.expValue));
 	}
 	
 	// Battle log observable
@@ -442,8 +484,9 @@ const ViewModel = function() {
 		}
 	}
 	
-	// Log enemy death in battle log
+	// Log enemy death in battle log and gain experience
 	this.enemySlain = function() {
+		self.player().experienceGain(self.currentEnemy().expValue);
 		self.battleLog(self.battleLog() + `<p>You have slain the ${self.currentEnemy().name()}!</p>`);
 	}
 	

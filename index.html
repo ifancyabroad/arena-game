@@ -138,7 +138,9 @@
 					<h1>Town</h1>
 					<div class="centered">
 						<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
-						<button class="btn" type="button" data-bind="click: toggleLevelUp">Level Up</button>
+						<!-- ko with: player -->
+						<button class="btn" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up</button>
+						<!-- /ko -->
 					</div>
 				</div>
 			</div>
