@@ -24,19 +24,19 @@ const classes = [
 		active: ko.observable(false),
 		name: 'Warrior',
 		description: 'Some text describing the warrior class',
-		maxStats: [15, 12, 14, 6, 12]
+		maxStats: [15, 10, 13, 6, 10]
 	},
 	{
 		active: ko.observable(false),
 		name: 'Mage',
 		description: 'Some text describing the mage class',
-		maxStats: [6, 10, 12, 16, 12]
+		maxStats: [6, 9, 10, 15, 10]
 	},
 	{
 		active: ko.observable(false),
 		name: 'Rogue',
 		description: 'Some text describing the rogue class',
-		maxStats: [9, 15, 11, 10, 15]
+		maxStats: [9, 15, 10, 9, 12]
 	}
 ]
 
@@ -61,12 +61,31 @@ const enemies = [
 		portrait: 'images/wolf.jpg',
 		stats: [4, 8, 3, 1, 5],
 		expValue: 75
+	},
+	{
+		name: 'Orc',
+		portrait: 'images/orc.jpg',
+		stats: [10, 7, 9, 3, 7],
+		armour: 8,
+		expValue: 150
+	},
+	{
+		name: 'Troll',
+		portrait: 'images/troll.jpg',
+		stats: [12, 5, 13, 2, 5],
+		expValue: 200
+	},
+	{
+		name: 'Gauth',
+		portrait: 'images/gauth.png',
+		stats: [4, 6, 8, 12, 10],
+		expValue: 150
 	}
 ]
 
 // Superclass for all Game Entities
 class GameEntity {
-	constructor(name, portrait, stats, armour = 0, expValue) {
+	constructor(name, portrait, stats, armour = 0) {
 		const self = this;
 		
 		// Name and picture variables
@@ -112,9 +131,6 @@ class GameEntity {
 		
 		// Armour variable
 		this.armour = ko.observable(armour);
-		
-		// Experience value
-		this.expValue = expValue;
 	}
 	
 	// Use dexterity stat to check whether or not attack hits
@@ -132,6 +148,15 @@ class GameEntity {
 			return damage = 0;
 		} else {
 			return damage -= this.armour();
+		}
+	}
+	
+	// Mitigate magical damage based on intelligence stat
+	checkIntelligence(damage) {
+		if (damage - this.stats()[3].value() < 0) {
+			return damage = 0;
+		} else {
+			return damage -= this.stats()[3].value();
 		}
 	}
 	
@@ -215,6 +240,29 @@ class Player extends GameEntity {
 		this.experience(this.experience() + xp);
 		if (currentTier !== this.levelTier()) {
 			this.skillPoints(this.skillPoints() + 1);
+		}
+	}
+}
+
+// Subclass for the enemy
+class Enemy extends GameEntity {
+	constructor(name, portrait, stats, armour = 0, expValue) {
+		
+		// Get name, portrait and stats from parent class
+		super(name, portrait, stats, armour);
+		
+		const self = this;
+		
+		// Variable for how much experience the enemy is worth
+		this.expValue = expValue;
+	}
+	
+	// Update the players stats based on an array of stats taken as a parameter
+	checkAttackType() {
+		if (this.stats()[0].value() >= this.stats()[3].value()) {
+			return 'physical';
+		} else {
+			return 'magical';
 		}
 	}
 }
@@ -434,7 +482,7 @@ const ViewModel = function() {
 	// Get a random enemy from enemies array
 	this.getEnemy = function() {
 		let enemy = enemies[getRandom(0, enemies.length - 1)];		
-		self.currentEnemy(new GameEntity(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.expValue));
+		self.currentEnemy(new Enemy(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.expValue));
 	}
 	
 	// Battle log observable
@@ -461,26 +509,45 @@ const ViewModel = function() {
 	
 	// Calculate magic damage and display it in the combat log
 	this.playerMagicAttack = function() {
-		let playerDmg = self.currentEnemy().takeHit(self.player().getMagicalDamage());
+		
+		// Get player damage
+		let playerDmg = self.currentEnemy().checkIntelligence(self.player().getMagicalDamage());
+		
+		// Enemy takes player damage
+		self.currentEnemy().takeHit(playerDmg);
+		
+		// Display in battle log
 		self.battleLog(self.battleLog() + `<p>Your spell hits the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
 	}
 	
 	// Check to see if the enemy hits, calculate the damage and display it in the combat log
 	this.enemyAttack = function() {
-		if (self.currentEnemy().checkHit()) {
-			
+		// Check if the enemy uses magic or physical attack
+		if (self.currentEnemy().checkAttackType() === 'physical') {
+			if (self.currentEnemy().checkHit()) {
+				
+				// Get enemy damage
+				let enemyDmg = self.player().checkArmour(self.currentEnemy().getPhysicalDamage());
+				
+				// Player takes enemy damage
+				self.player().takeHit(enemyDmg);
+				
+				// Display in battle log
+				self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
+			} else {
+				
+				// Log a miss in the battle log
+				self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} misses you</p>`);
+			}
+		} else {
 			// Get enemy damage
-			let enemyDmg = self.player().checkArmour(self.currentEnemy().getPhysicalDamage());
+			let enemyDmg = self.player().checkIntelligence(self.currentEnemy().getMagicalDamage());
 			
 			// Player takes enemy damage
 			self.player().takeHit(enemyDmg);
 			
 			// Display in battle log
-			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
-		} else {
-			
-			// Log a miss in the battle log
-			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} misses you</p>`);
+			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()}'s spell hits you for ${enemyDmg} damage</p>`);		
 		}
 	}
 	
