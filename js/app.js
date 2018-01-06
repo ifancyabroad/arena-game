@@ -47,39 +47,45 @@ const enemies = [
 		portrait: 'images/goblin.jpg',
 		stats: [3, 6, 2, 2, 4],
 		armour: 2,
-		expValue: 50
+		expValue: 50,
+		goldValue: 50
 	},
 	{
 		name: 'Kobold',
 		portrait: 'images/kobold.jpg',
 		stats: [2, 8, 2, 2, 3],
 		armour: 3,
-		expValue: 50
+		expValue: 50,
+		goldValue: 50
 	},
 	{
 		name: 'Wolf',
 		portrait: 'images/wolf.jpg',
 		stats: [4, 8, 3, 1, 5],
-		expValue: 75
+		expValue: 75,
+		goldValue: 50
 	},
 	{
 		name: 'Orc',
 		portrait: 'images/orc.jpg',
 		stats: [10, 7, 9, 3, 7],
 		armour: 8,
-		expValue: 150
+		expValue: 150,
+		goldValue: 100
 	},
 	{
 		name: 'Troll',
 		portrait: 'images/troll.jpg',
 		stats: [12, 5, 13, 2, 5],
-		expValue: 200
+		expValue: 200,
+		goldValue: 150
 	},
 	{
 		name: 'Gauth',
 		portrait: 'images/gauth.png',
 		stats: [4, 6, 8, 12, 10],
-		expValue: 150
+		expValue: 150,
+		goldValue: 100
 	}
 ]
 
@@ -192,6 +198,9 @@ class Player extends GameEntity {
 		// Variable for experience obtained by player
 		this.experience = ko.observable(0);
 		
+		// Variable for how much gold the player is holding
+		this.gold = ko.observable(0);
+		
 		// Experience chart
 		this.levelTier = ko.computed(function() {
 			if (self.experience() > 20000) {
@@ -246,7 +255,7 @@ class Player extends GameEntity {
 
 // Subclass for the enemy
 class Enemy extends GameEntity {
-	constructor(name, portrait, stats, armour = 0, expValue) {
+	constructor(name, portrait, stats, armour = 0, expValue, goldValue) {
 		
 		// Get name, portrait and stats from parent class
 		super(name, portrait, stats, armour);
@@ -255,6 +264,9 @@ class Enemy extends GameEntity {
 		
 		// Variable for how much experience the enemy is worth
 		this.expValue = expValue;
+		
+		// Variable for how much gold the enemy is worth
+		this.goldValue = goldValue;
 	}
 	
 	// Update the players stats based on an array of stats taken as a parameter
@@ -482,7 +494,7 @@ const ViewModel = function() {
 	// Get a random enemy from enemies array
 	this.getEnemy = function() {
 		let enemy = enemies[getRandom(0, enemies.length - 1)];		
-		self.currentEnemy(new Enemy(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.expValue));
+		self.currentEnemy(new Enemy(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.expValue, enemy.goldValue));
 	}
 	
 	// Battle log observable
@@ -554,7 +566,11 @@ const ViewModel = function() {
 	// Log enemy death in battle log and gain experience
 	this.enemySlain = function() {
 		self.player().experienceGain(self.currentEnemy().expValue);
-		self.battleLog(self.battleLog() + `<p>You have slain the ${self.currentEnemy().name()}!</p>`);
+		self.player().gold(self.player().gold() + self.currentEnemy().goldValue);
+		self.battleLog(self.battleLog() + 
+		`<p>You have slain the ${self.currentEnemy().name()}!</p>
+		<p>You gain ${self.currentEnemy().expValue} experience</p>
+		<p>${self.currentEnemy().goldValue} gold earned</p>`);		
 	}
 	
 	// Player attack and enemy attack when attack button is clicked
