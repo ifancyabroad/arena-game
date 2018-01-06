@@ -411,10 +411,18 @@ const ViewModel = function() {
 		self.uiCardShow(true);
 	}
 	
+	// Restore players current health at the price of gold
 	this.cureWounds = function(healing, price) {
+		// Check player is not at max health
 		if (self.player().currentHealth() <= self.player().maxHealth()) {
+			
+			// Check player has enough gold
 			if (self.player().gold() >= price) {
+				
+				// Take gold from player
 				self.player().gold(self.player().gold() - price);
+				
+				// Restore health to maximum of players max health
 				if ((self.player().currentHealth() + healing) > self.player().maxHealth()) {
 					self.player().currentHealth(self.player().maxHealth());
 				} else {
@@ -429,6 +437,7 @@ const ViewModel = function() {
 		}
 	}
 	
+	// Return to town from the healer
 	this.toggleHealerReturn = function() {
 		self.uiCardShow(false);
 	}
@@ -604,7 +613,7 @@ const ViewModel = function() {
 		}
 	}
 	
-	// Log enemy death in battle log and gain experience
+	// Log enemy death in battle log and gain experience and gold
 	this.enemySlain = function() {
 		self.player().experienceGain(self.currentEnemy().expValue);
 		self.player().gold(self.player().gold() + self.currentEnemy().goldValue);
