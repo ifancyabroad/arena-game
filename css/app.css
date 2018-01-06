@@ -183,7 +183,6 @@ h3 {
 	justify-content: space-around;
 	align-items: center;
 	height: 85%;
-	margin: auto;
 }
 
 .levelup-stats {
@@ -205,6 +204,24 @@ h3 {
 	width: 70px;
 	border: 1px solid #6e6e6e;
 	font-size: 0.8em;
+}
+
+/*Healer screen*/
+.healer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	height: 85%;
+}
+
+.options {
+	display: flex;
+	flex-direction: column;
+}
+
+.healer-log {
+	height: 20px;
 }
 
 /*Battle screen*/

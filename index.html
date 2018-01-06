@@ -123,6 +123,23 @@
 						<button class="btn" type="button" data-bind="click: toggleLevelUpReturn">Done</button>
 					</div>
 				</div>
+				
+				<!--Healer Screen-->
+				<div class="ui-screen healer-screen" data-bind="visible: healerShow()">
+					<h1>Town Healer</h1>
+					<div class="healer">
+						<div class="options">
+							<p>Price: 100 gold</p>
+							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">Cure Minor Wounds</button>
+							<p>Price: 150 gold</p>
+							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 70, 150)">Cure Major Wounds</button>
+							<p>Price: 200 gold</p>
+							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">Cure Critical Wounds</button>
+						</div>
+						<p class="healer-log" data-bind="text: healerLog"></p>
+						<button class="btn" type="button" data-bind="click: toggleHealerReturn">Done</button>
+					</div>
+				</div>
 			</div>
 			
 			
@@ -142,6 +159,7 @@
 						<!-- ko with: player -->
 						<button class="btn" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up</button>
 						<!-- /ko -->
+						<button class="btn" type="button" data-bind="click: toggleHealer">Visit Healer</button>
 					</div>
 				</div>
 			</div>

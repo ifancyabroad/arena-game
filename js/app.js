@@ -296,6 +296,7 @@ const ViewModel = function() {
 	this.rollStatsShow = ko.observable(false);
 	this.townShow = ko.observable(false);
 	this.levelUpShow = ko.observable(false);
+	this.healerShow = ko.observable(false);
 	this.battleShow = ko.observable(false);
 	this.playerCardShow = ko.observable(false);
 	this.enemyCardShow = ko.observable(false);
@@ -327,6 +328,7 @@ const ViewModel = function() {
 		// If battle screen is not visible, make it visible and hide other screens
 		if (self.battleShow() === false) {
 			self.rollStatsShow(false);
+			self.healerShow(false);
 			self.levelUpShow(false);
 			self.battleShow(true);
 		}
@@ -365,6 +367,7 @@ const ViewModel = function() {
 		
 		// Set visibility of levelup screen and flip UI card
 		self.rollStatsShow(false);
+		self.healerShow(false);
 		self.battleShow(false);
 		self.levelUpShow(true);
 		self.uiCardShow(true);
@@ -389,6 +392,44 @@ const ViewModel = function() {
 		self.player().level(self.player().level() + (self.tempSkillPoints - self.player().skillPoints()));
 		
 		// Flip UI card
+		self.uiCardShow(false);
+	}
+	
+	// Observable for the healer log
+	this.healerLog = ko.observable();
+	
+	// Toggle visibility of town screen and healer screen
+	this.toggleHealer = function() {
+		// Reset the healer log
+		self.healerLog('Welcome to the town healer!');
+		
+		// Set visibility of healer screen and flip UI card
+		self.rollStatsShow(false);
+		self.levelUpShow(false);
+		self.battleShow(false);
+		self.healerShow(true);
+		self.uiCardShow(true);
+	}
+	
+	this.cureWounds = function(healing, price) {
+		if (self.player().currentHealth() <= self.player().maxHealth()) {
+			if (self.player().gold() >= price) {
+				self.player().gold(self.player().gold() - price);
+				if ((self.player().currentHealth() + healing) > self.player().maxHealth()) {
+					self.player().currentHealth(self.player().maxHealth());
+				} else {
+					self.player().currentHealth(self.player().currentHealth() + healing);
+				}
+				self.healerLog('Wounds cured');
+			} else {
+				self.healerLog('You do not have enough gold for that');
+			}
+		} else {
+			self.healerLog('You have no wounds to cure');
+		}
+	}
+	
+	this.toggleHealerReturn = function() {
 		self.uiCardShow(false);
 	}
 	
