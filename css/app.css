@@ -279,8 +279,18 @@ h3 {
 }
 
 /*Inventory screen*/
-.inventory {
-	
+.item-list {
+	height: 60%;
+	width: 50%;
+	margin: auto;
+	text-align: left;
+	font-size: 0.8em;
+	overflow: auto;
+}
+
+.item {
+	margin: 5px auto;
+	padding: 5px;
 }
 
 /*Modal and popup for when game is lost*/

@@ -59,14 +59,21 @@
 								<td>Weapon</td>
 								<td data-bind="text: inventory().weapon().name"></td>
 							</tr>
-							<!-- ko foreach: inventory().misc() -->
+							<tr>
+								<td>Boots</td>
+								<td data-bind="text: inventory().boots().name"></td>
+							</tr>
+							<tr>
+								<td>Gloves</td>
+								<td data-bind="text: inventory().gloves().name"></td>
+							</tr>
 							<tr>
 								<td>Misc</td>
-								<td data-bind="text: name"></td>
+								<td data-bind="text: inventory().misc().name"></td>
 							</tr>
-							<!-- /ko -->
 						</tbody>
 					</table>
+					<h4>Gold: <span data-bind="text: gold"></span></h4>
 				</div>
 			</div>
 		</div>
@@ -155,18 +162,15 @@
 				<!--Shop Screen-->
 				<div class="ui-screen shop-screen" data-bind="visible: shopShow()">
 					<h1>Item Store</h1>
-					<div class="shop">
-						<div class="item-type" data-bind="foreach: items">
+					<div class="item-list" data-bind="foreach: items">
+						<div class="item" data-bind="click: $parent.toggleItem, style: { border: active() ? '2px solid red' : '2px solid grey' }">
+							<p data-bind="text: type"></p>
 							<p data-bind="text: name"></p>
 							<p data-bind="text: price"></p>
 						</div>
-						<div class="item-type">
-						</div>
-						<div class="item-type">
-						</div>
-						<div class="item-type">
-						</div>
 					</div>
+					<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
+					<button class="btn" type="button" data-bind="click: toggleShopReturn">Done</button>
 				</div>
 				
 				<!--Healer Screen-->

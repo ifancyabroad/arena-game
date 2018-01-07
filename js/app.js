@@ -172,16 +172,82 @@ const enemiesThree = [
 // Array of available items for the shop
 const items = ko.observableArray([
 	{
-		type: 'head',
-		name: 'Leather Helm',
-		modifier: 'a',
-		value: 1,
-		price: 50
-	},
-	{
+		active: ko.observable(false),
 		type: 'head',
 		name: 'Steel Helm',
 		modifier: 'a',
+		value: 3,
+		price: 200
+	},
+	{
+		active: ko.observable(false),
+		type: 'head',
+		name: 'Magic Helm',
+		modifier: 'int',
+		value: 2,
+		price: 300
+	},
+	{
+		active: ko.observable(false),
+		type: 'body',
+		name: 'Chainmail',
+		modifier: 'a',
+		value: 4,
+		price: 250
+	},
+	{
+		active: ko.observable(false),
+		type: 'body',
+		name: 'Plate Armour',
+		modifier: 'a',
+		value: 6,
+		price: 400
+	},
+	{
+		active: ko.observable(false),
+		type: 'weapon',
+		name: 'Longsword',
+		modifier: 'str',
+		value: 2,
+		price: 100
+	},
+	{
+		active: ko.observable(false),
+		type: 'weapon',
+		name: 'Greataxe',
+		modifier: 'str',
+		value: 4,
+		price: 300
+	},
+	{
+		active: ko.observable(false),
+		type: 'weapon',
+		name: 'Magic Staff',
+		modifier: 'int',
+		value: 3,
+		price: 300
+	},
+	{
+		active: ko.observable(false),
+		type: 'boots',
+		name: 'Boots of Speed',
+		modifier: 'ini',
+		value: 2,
+		price: 100
+	},
+	{
+		active: ko.observable(false),
+		type: 'gloves',
+		name: 'Gloves of Accuracy',
+		modifier: 'dex',
+		value: 2,
+		price: 200
+	},
+	{
+		active: ko.observable(false),
+		type: 'misc',
+		name: 'Ring of Swiftness',
+		modifier: 'ini',
 		value: 3,
 		price: 200
 	}
@@ -338,8 +404,10 @@ class Player extends GameEntity {
 			{
 				head: ko.observable({ name: 'None' }),
 				body: ko.observable({ name: 'None'  }),
-				weapon: ko.observable({ name: 'None'}),
-				misc: ko.observableArray([{name: 'None'}])
+				gloves: ko.observable({ name: 'None' }),
+				boots: ko.observable({ name: 'None' }),
+				weapon: ko.observable({ name: 'None' }),
+				misc: ko.observable({ name: 'None' })
 			});
 	}
 	
@@ -525,6 +593,42 @@ const ViewModel = function() {
 			self.shopShow(true);
 		}
 		self.uiCardShow(true);
+	}
+	
+	// Select and item in the shop
+	this.toggleItem = function(i) {
+		// Set all items to not selected
+		items().forEach(function(item) {
+			item.active(false);
+		});
+		
+		// Active clicked on item
+		i.active(true);
+	}
+	
+	// Purchasing an item from the shop
+	this.buyItem = function() {
+		let selectedItem;
+		
+		// Find which item has been selected
+		items().forEach(function(item) {
+			if (item.active() === true) {
+				selectedItem = item;
+			}
+		});
+		
+		// Match item type to inventory and set inventory accordingly
+		for (let prop in self.player().inventory()) {
+			if (prop === selectedItem.type) {
+				self.player().inventory()[prop](selectedItem);
+			}
+		}
+	}
+	
+	// Return from the shop
+	this.toggleShopReturn = function() {
+		self.playerCardShow(true);
+		self.uiCardShow(false);
 	}
 	
 	// Observable for the healer log
@@ -809,6 +913,8 @@ const ViewModel = function() {
 	this.resetGame = function() {
 		
 		// Hide player and enemy cards
+		self.playerInventoryShow(false);
+		self.playerBackShow(true);
 		self.playerCardShow(false);
 		self.enemyCardShow(false);
 		
