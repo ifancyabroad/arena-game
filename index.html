@@ -25,7 +25,7 @@
 				<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
 				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
 					
-				<div class="player-details">
+				<div>
 					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>				
 					<table class="stats" >
 						<tbody data-bind="foreach: stats">
@@ -42,7 +42,7 @@
 			<div class="card-back">
 				<div class="entity-back" data-bind="visible: playerBackShow()">
 				</div>
-				<div class="inventory" data-bind="with: player, visible: playerInventoryShow()">
+				<div class="entity-front" data-bind="with: player, visible: playerInventoryShow()">
 					<h3>Inventory</h3>
 					
 					<table class="items" >
@@ -87,7 +87,7 @@
 				<!--Character Creation-->
 				<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
 					<h1>Character Creation</h1>
-					<div class="character-create">
+					<div class="ui-column">
 						<div class="name-select">
 							<label for="name">Name: </label>
 							<input id="name" type="text" required data-bind="value: nameInput">
@@ -143,9 +143,9 @@
 				<!--Level Up Screen-->
 				<div class="ui-screen levelup-screen" data-bind="visible: levelUpShow()">
 					<h1>Level Up</h1>
-					<div class="levelup">
+					<div class="ui-column">
 						<h4 data-bind="with: player">Skill points remaining: <span data-bind="text: skillPoints"></span></h4>
-						<form class="levelup-stats" data-bind="foreach: tempStats">
+						<form class="ui-column" data-bind="foreach: tempStats">
 							<div class="levelup-stat">
 								<i class="fa fa-minus" aria-hidden="true" data-bind="click: $parent.changeStat.bind($data, -1)"></i>
 								<div class="levelup-stat-detail">
@@ -162,21 +162,26 @@
 				<!--Shop Screen-->
 				<div class="ui-screen shop-screen" data-bind="visible: shopShow()">
 					<h1>Item Store</h1>
-					<div class="item-list" data-bind="foreach: items">
-						<div class="item" data-bind="click: $parent.toggleItem, style: { border: active() ? '2px solid red' : '2px solid grey' }">
-							<p data-bind="text: type"></p>
-							<p data-bind="text: name"></p>
-							<p data-bind="text: price"></p>
+					<div class="ui-column">
+						<div class="item-list" data-bind="foreach: items">
+							<div class="item" data-bind="click: $parent.toggleItem, style: { border: active() ? '2px solid red' : '2px solid grey' }">
+								<p data-bind="text: type"></p>
+								<p data-bind="text: name"></p>
+								<p data-bind="text: price"></p>
+							</div>
+						</div>
+						<p class="town-log" data-bind="text: townLog"></p>
+						<div>
+							<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
+							<button class="btn" type="button" data-bind="click: toggleShopReturn">Done</button>
 						</div>
 					</div>
-					<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
-					<button class="btn" type="button" data-bind="click: toggleShopReturn">Done</button>
 				</div>
 				
 				<!--Healer Screen-->
 				<div class="ui-screen healer-screen" data-bind="visible: healerShow()">
 					<h1>Town Healer</h1>
-					<div class="healer">
+					<div class="ui-column">
 						<div class="options">
 							<p>Price: 100 gold</p>
 							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">Cure Minor Wounds</button>
@@ -185,7 +190,7 @@
 							<p>Price: 200 gold</p>
 							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">Cure Critical Wounds</button>
 						</div>
-						<p class="healer-log" data-bind="text: healerLog"></p>
+						<p class="town-log" data-bind="text: townLog"></p>
 						<button class="btn" type="button" data-bind="click: toggleReturn">Done</button>
 					</div>
 				</div>

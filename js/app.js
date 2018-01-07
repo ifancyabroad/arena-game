@@ -581,9 +581,15 @@ const ViewModel = function() {
 		self.uiCardShow(false);
 	}
 	
+		// Observable for the healer log
+	this.townLog = ko.observable();
+	
 	// Toggle visibility of town and shop screens
 	// Toggle visibility of player inventory
 	this.toggleShop = function() {
+		// Reset the town log
+		self.townLog('Welcome to the item store!');
+		
 		self.playerBackShow(false);
 		self.playerInventoryShow(true);
 		self.playerCardShow(false);
@@ -631,13 +637,10 @@ const ViewModel = function() {
 		self.uiCardShow(false);
 	}
 	
-	// Observable for the healer log
-	this.healerLog = ko.observable();
-	
 	// Toggle visibility of town screen and healer screen
 	this.toggleHealer = function() {
-		// Reset the healer log
-		self.healerLog('Welcome to the town healer!');
+		// Reset the town log
+		self.townLog('Welcome to the town healer!');
 		
 		// Set visibility of healer screen and flip UI card
 		if (self.healerShow() === false) {
@@ -664,12 +667,12 @@ const ViewModel = function() {
 				} else {
 					self.player().currentHealth(self.player().currentHealth() + healing);
 				}
-				self.healerLog('Wounds cured');
+				self.townLog('Wounds cured');
 			} else {
-				self.healerLog('You do not have enough gold for that');
+				self.townLog('You do not have enough gold for that');
 			}
 		} else {
-			self.healerLog('You have no wounds to cure');
+			self.townLog('You have no wounds to cure');
 		}
 	}
 	
