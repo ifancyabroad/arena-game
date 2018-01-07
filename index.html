@@ -125,7 +125,7 @@
 					<div class="centered" data-bind="with: currentEnemy">
 						<button class="btn" type="button" data-bind="click: $parent.physicalAttack, enable: alive()">Attack</button>
 						<button class="btn" type="button" data-bind="click: $parent.magicalAttack, enable: alive()">Magic</button>
-						<button class="btn" type="button" data-bind="click: $parent.toggleReturn, disable: alive()">Return to town</button>
+						<button class="btn" type="button" data-bind="click: $parent.toggleBattleReturn, disable: alive()">Return to town</button>
 					</div>
 					<div class="log-container">
 						<div class="battle-log" data-bind="html: battleLog">
@@ -152,6 +152,23 @@
 					</div>
 				</div>
 				
+				<!--Shop Screen-->
+				<div class="ui-screen shop-screen" data-bind="visible: shopShow()">
+					<h1>Item Store</h1>
+					<div class="shop">
+						<div class="item-type" data-bind="foreach: items">
+							<p data-bind="text: name"></p>
+							<p data-bind="text: price"></p>
+						</div>
+						<div class="item-type">
+						</div>
+						<div class="item-type">
+						</div>
+						<div class="item-type">
+						</div>
+					</div>
+				</div>
+				
 				<!--Healer Screen-->
 				<div class="ui-screen healer-screen" data-bind="visible: healerShow()">
 					<h1>Town Healer</h1>
@@ -165,7 +182,7 @@
 							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">Cure Critical Wounds</button>
 						</div>
 						<p class="healer-log" data-bind="text: healerLog"></p>
-						<button class="btn" type="button" data-bind="click: toggleHealerReturn">Done</button>
+						<button class="btn" type="button" data-bind="click: toggleReturn">Done</button>
 					</div>
 				</div>
 			</div>

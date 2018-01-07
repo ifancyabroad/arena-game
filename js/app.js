@@ -169,6 +169,24 @@ const enemiesThree = [
 	}
 ]
 
+// Array of available items for the shop
+const items = ko.observableArray([
+	{
+		type: 'head',
+		name: 'Leather Helm',
+		modifier: 'a',
+		value: 1,
+		price: 50
+	},
+	{
+		type: 'head',
+		name: 'Steel Helm',
+		modifier: 'a',
+		value: 3,
+		price: 200
+	}
+]);
+
 // Superclass for all Game Entities
 class GameEntity {
 	constructor(name, portrait, stats, armour = 0) {
@@ -370,18 +388,38 @@ const ViewModel = function() {
 	const self = this;
 	
 	// Observables for UI screens and starting values
+	// Is UI flipped or not
 	this.uiCardShow = ko.observable(false);
+	
+	// UI back faces
 	this.startGameShow = ko.observable(true);
+	this.townShow = ko.observable(false);
+	
+	// UI front faces
 	this.characterCreationShow = ko.observable(true);
 	this.rollStatsShow = ko.observable(false);
-	this.townShow = ko.observable(false);
-	this.levelUpShow = ko.observable(false);
-	this.healerShow = ko.observable(false);
 	this.battleShow = ko.observable(false);
+	this.levelUpShow = ko.observable(false);
+	this.shopShow = ko.observable(false);
+	this.healerShow = ko.observable(false);
+	
+	// Player card faces flipper and faces
 	this.playerCardShow = ko.observable(false);
 	this.playerBackShow = ko.observable(true);
 	this.playerInventoryShow = ko.observable(false);
+	
+	// Is enemy card flipped or not
 	this.enemyCardShow = ko.observable(false);
+	
+	// Hide all front faces
+	this.hideAllFront = function() {
+		self.characterCreationShow(false);
+		self.rollStatsShow(false);
+		self.battleShow(false);
+		self.levelUpShow(false);
+		self.shopShow(false);
+		self.healerShow(false);
+	}
 	
 	// Flip the UI card to toggle visibility of start game screen and character creation
 	this.toggleStartGame = function() {
@@ -409,9 +447,7 @@ const ViewModel = function() {
 		
 		// If battle screen is not visible, make it visible and hide other screens
 		if (self.battleShow() === false) {
-			self.rollStatsShow(false);
-			self.healerShow(false);
-			self.levelUpShow(false);
+			self.hideAllFront();
 			self.battleShow(true);
 		}
 		
@@ -429,7 +465,7 @@ const ViewModel = function() {
 	}
 	
 	// Return to town after battle by flipping enemy and UI cards
-	this.toggleReturn = function() {
+	this.toggleBattleReturn = function() {
 		self.enemyCardShow(false);
 		self.uiCardShow(false);
 	}
@@ -448,10 +484,10 @@ const ViewModel = function() {
 		self.tempSkillPoints = self.player().skillPoints();
 		
 		// Set visibility of levelup screen and flip UI card
-		self.rollStatsShow(false);
-		self.healerShow(false);
-		self.battleShow(false);
-		self.levelUpShow(true);
+		if (self.levelUpShow() === false) {
+			self.hideAllFront();
+			self.levelUpShow(true);
+		}
 		self.uiCardShow(true);
 	}
 	
@@ -483,6 +519,12 @@ const ViewModel = function() {
 		self.playerBackShow(false);
 		self.playerInventoryShow(true);
 		self.playerCardShow(false);
+		
+		if (self.shopShow() === false) {
+			self.hideAllFront();
+			self.shopShow(true);
+		}
+		self.uiCardShow(true);
 	}
 	
 	// Observable for the healer log
@@ -494,10 +536,10 @@ const ViewModel = function() {
 		self.healerLog('Welcome to the town healer!');
 		
 		// Set visibility of healer screen and flip UI card
-		self.rollStatsShow(false);
-		self.levelUpShow(false);
-		self.battleShow(false);
-		self.healerShow(true);
+		if (self.healerShow() === false) {
+			self.hideAllFront();
+			self.healerShow(true);
+		}
 		self.uiCardShow(true);
 	}
 	
@@ -528,7 +570,7 @@ const ViewModel = function() {
 	}
 	
 	// Return to town from the healer
-	this.toggleHealerReturn = function() {
+	this.toggleReturn = function() {
 		self.uiCardShow(false);
 	}
 	
