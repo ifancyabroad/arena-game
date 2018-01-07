@@ -346,15 +346,6 @@ class Enemy extends GameEntity {
 		// Variable for how much gold the enemy is worth
 		this.goldValue = goldValue;
 	}
-	
-	// Update the players stats based on an array of stats taken as a parameter
-	checkAttackType() {
-		if (this.stats()[0].value() >= this.stats()[3].value()) {
-			return 'physical';
-		} else {
-			return 'magical';
-		}
-	}
 }
 
 // Get random number within a specified range
@@ -672,29 +663,28 @@ const ViewModel = function() {
 	
 	// Check to see if the enemy hits, calculate the damage and display it in the combat log
 	this.enemyAttack = function() {
+		// Check to see how much damage each attack would do
+		let enemyPhyDmg = self.player().checkArmour(self.currentEnemy().getPhysicalDamage());
+		let enemyMagDmg = self.player().checkIntelligence(self.currentEnemy().getMagicalDamage());
+		
 		// Check if the enemy uses magic or physical attack
-		if (self.currentEnemy().checkAttackType() === 'physical') {
+		if (enemyPhyDmg >= enemyMagDmg) {
 			if (self.currentEnemy().checkHit()) {
 				
-				// Get enemy damage
-				let enemyDmg = self.player().checkArmour(self.currentEnemy().getPhysicalDamage());
-				
 				// Player takes enemy damage
-				self.player().takeHit(enemyDmg);
+				self.player().takeHit(enemyPhyDmg);
 				
 				// Display in battle log
-				self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyDmg} damage</p>`);
+				self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyPhyDmg} damage</p>`);
 			} else {
 				
 				// Log a miss in the battle log
 				self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} misses you</p>`);
 			}
 		} else {
-			// Get enemy damage
-			let enemyDmg = self.player().checkIntelligence(self.currentEnemy().getMagicalDamage());
 			
 			// Player takes enemy damage
-			self.player().takeHit(enemyDmg);
+			self.player().takeHit(enemyMagDmg);
 			
 			// Display in battle log
 			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()}'s spell hits you for ${enemyDmg} damage</p>`);		
