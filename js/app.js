@@ -176,7 +176,7 @@ const items = ko.observableArray([
 		type: 'head',
 		name: 'Steel Helm',
 		modifier: 'a',
-		value: 3,
+		value: 2,
 		price: 200
 	},
 	{
@@ -299,13 +299,17 @@ class GameEntity {
 			return self.currentHealth() > 0; 
 		});
 		
+		// Stat modifiers
+		this.modifiers = [0, 0, 0, 0, 0];
+		
 		// Armour variable
-		this.armour = ko.observable(armour);
+		this.armour = armour;
 	}
 	
 	// Use dexterity stat to check whether or not attack hits
 	checkHit() {
-		if (this.stats()[1].value() >= getRandom(1, 20)) {
+		let dex = this.stats()[1].value() + this.modifiers[1];
+		if (dex >= getRandom(1, 20)) {
 			return true;
 		} else {
 			return false;
@@ -314,30 +318,33 @@ class GameEntity {
 	
 	// Mitigate physical damage based on armour stat
 	checkArmour(damage) {
-		if (damage - this.armour() < 0) {
+		if (damage - this.armour < 0) {
 			return damage = 0;
 		} else {
-			return damage -= this.armour();
+			return damage - this.armour;
 		}
 	}
 	
 	// Mitigate magical damage based on intelligence stat
 	checkIntelligence(damage) {
-		if (damage - this.stats()[3].value() < 0) {
+		let intel = this.stats()[3].value() + this.modifiers[3];
+		if (damage - intel < 0) {
 			return damage = 0;
 		} else {
-			return damage -= this.stats()[3].value();
+			return damage - intel;
 		}
 	}
 	
 	// Get physical damage based on strength stat
-	getPhysicalDamage() {		
-		return (this.stats()[0].value() + getRandom(1, 6));
+	getPhysicalDamage() {	
+		let str = this.stats()[0].value() + this.modifiers[0];
+		return (str + getRandom(1, 6));
 	}
 	
 	// Get magical damage based on intelligence
 	getMagicalDamage() {
-		return (this.stats()[3].value() + getRandom(1, 6));
+		let intel = this.stats()[3].value() + this.modifiers[3];
+		return (intel + getRandom(1, 6));
 	}
 	
 	// Subtract from current health when hit
@@ -511,8 +518,7 @@ const ViewModel = function() {
 	}
 	
 	// Flip the UI card to reveal the battle screen
-	this.toggleBattle = function() {
-		
+	this.toggleBattle = function() {	
 		// If battle screen is not visible, make it visible and hide other screens
 		if (self.battleShow() === false) {
 			self.hideAllFront();
@@ -524,9 +530,7 @@ const ViewModel = function() {
 		
 		// Get new enemy and flip the enemy card to reveal it
 		self.getEnemy();
-		setTimeout(function() { 
-			self.enemyCardShow(true)
-		}, 300);
+		self.enemyCardShow(true)
 		
 		// Flip the UI card
 		self.uiCardShow(true);
@@ -633,6 +637,34 @@ const ViewModel = function() {
 	
 	// Return from the shop
 	this.toggleShopReturn = function() {
+		// Stat modifiers and armour
+		let modifiers = [0, 0, 0, 0, 0];
+		let a = 0;
+		
+		// Search inventory for stat values
+		for (let prop in self.player().inventory()) {
+			let modifier = self.player().inventory()[prop]().modifier;
+			let value = self.player().inventory()[prop]().value;
+			if (modifier === 'str') {
+				modifiers[0] += value;
+			} else if (modifier === 'dex') {
+				modifiers[1] += value;
+			} else if (modifier === 'con') {
+				modifiers[2] += value;
+			} else if (modifier === 'int') {
+				modifiers[3] += value;
+			} else if (modifier === 'ini') {
+				modifiers[4] += value;
+			} else if (modifier === 'a') {
+				a += value;
+			}
+		}
+		
+		// Set player modifiers to new equipment
+		self.player().modifiers = modifiers;
+		self.player().armour = a;
+		
+		// Flip UI and player cards
 		self.playerCardShow(true);
 		self.uiCardShow(false);
 	}
