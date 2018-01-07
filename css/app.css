@@ -273,7 +273,7 @@ h3 {
 
 .enemy-portrait {
 	width: 95%;
-	margin: 60px 0;
+	margin: auto;
 }
 
 /*Modal and popup for when game is lost*/

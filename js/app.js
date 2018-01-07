@@ -76,7 +76,7 @@ const enemiesOne = [
 	{
 		name: 'Imp',
 		portrait: 'images/imp.jpg',
-		stats: [2, 3, 3, 10, 8],
+		stats: [2, 5, 3, 10, 8],
 		expValue: 50,
 		goldValue: 50
 	}
@@ -96,13 +96,15 @@ const enemiesTwo = [
 		name: 'Troll',
 		portrait: 'images/troll.jpg',
 		stats: [12, 5, 13, 2, 5],
+		armour: 2,
 		expValue: 200,
 		goldValue: 150
 	},
 	{
 		name: 'Gauth',
 		portrait: 'images/gauth.png',
-		stats: [4, 6, 8, 12, 10],
+		stats: [5, 7, 8, 12, 10],
+		armour: 4,
 		expValue: 150,
 		goldValue: 100
 	},
@@ -117,7 +119,7 @@ const enemiesTwo = [
 	{
 		name: 'Mind Flayer',
 		portrait: 'images/flayer.jpg',
-		stats: [6, 8, 10, 16, 12],
+		stats: [7, 11, 10, 16, 12],
 		armour: 4,
 		expValue: 400,
 		goldValue: 300
@@ -687,7 +689,7 @@ const ViewModel = function() {
 			self.player().takeHit(enemyMagDmg);
 			
 			// Display in battle log
-			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()}'s spell hits you for ${enemyDmg} damage</p>`);		
+			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()}'s spell hits you for ${enemyMagDmg} damage</p>`);		
 		}
 	}
 	
@@ -773,8 +775,9 @@ const ViewModel = function() {
 			c.active(false);
 		});
 		
-		// Reset player name
+		// Reset player name and number of wins
 		self.nameInput('');
+		self.wins(0);
 	}
 }
 

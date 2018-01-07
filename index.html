@@ -20,11 +20,11 @@
 		<!--Player Card-->
 		<div class="card card-entity" data-bind="css: { flipped: playerCardShow() }">
 			<div class="card-front entity-front" data-bind="with: player">
-			<i class="fa fa-arrow-circle-up levelup-icon" aria-hidden="true" data-bind="visible: skillPoints() > 0"></i>
-			<h2 data-bind="text: name"></h2>
-			<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
-			<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
-				
+				<i class="fa fa-arrow-circle-up levelup-icon" aria-hidden="true" data-bind="visible: skillPoints() > 0"></i>
+				<h2 data-bind="text: name"></h2>
+				<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
+				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
+					
 				<div class="player-details">
 					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>				
 					<table class="stats" >
@@ -173,8 +173,8 @@
 				<div class="enemy-header">
 					<h2 data-bind="text: name"></h2>
 					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
-					<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 				</div>
+				<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 			</div>
 			<div class="card-back entity-back">
 			</div>
