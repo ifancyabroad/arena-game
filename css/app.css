@@ -278,6 +278,11 @@ h3 {
 	margin: auto;
 }
 
+/*Inventory screen*/
+.inventory {
+	
+}
+
 /*Modal and popup for when game is lost*/
 .modal {
 	background-color: rgba(0, 0, 0, 0.4);

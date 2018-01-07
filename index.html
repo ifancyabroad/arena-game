@@ -42,7 +42,31 @@
 			<div class="card-back">
 				<div class="entity-back" data-bind="visible: playerBackShow()">
 				</div>
-				<div class="inventory" data-bind="visible: playerInventoryShow()">
+				<div class="inventory" data-bind="with: player, visible: playerInventoryShow()">
+					<h3>Inventory</h3>
+					
+					<table class="items" >
+						<tbody>
+							<tr>
+								<td>Head</td>
+								<td data-bind="text: inventory().head().name"></td>
+							</tr>
+							<tr>
+								<td>Body</td>
+								<td data-bind="text: inventory().body().name"></td>
+							</tr>
+							<tr>
+								<td>Weapon</td>
+								<td data-bind="text: inventory().weapon().name"></td>
+							</tr>
+							<!-- ko foreach: inventory().misc() -->
+							<tr>
+								<td>Misc</td>
+								<td data-bind="text: name"></td>
+							</tr>
+							<!-- /ko -->
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

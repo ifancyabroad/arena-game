@@ -314,6 +314,15 @@ class Player extends GameEntity {
 		
 		// Skill points the player has acquired for spending
 		this.skillPoints = ko.observable(0);
+		
+		// Inventory
+		this.inventory = ko.observable(
+			{
+				head: ko.observable({ name: 'None' }),
+				body: ko.observable({ name: 'None'  }),
+				weapon: ko.observable({ name: 'None'}),
+				misc: ko.observableArray([{name: 'None'}])
+			});
 	}
 	
 	// Update the players stats based on an array of stats taken as a parameter
