@@ -40,12 +40,12 @@ const classes = [
 	}
 ]
 
-// Array of possible enemies
-const enemies = [
+// Array of possible enemies from tier 1
+const enemiesOne = [
 	{
 		name: 'Goblin',
 		portrait: 'images/goblin.jpg',
-		stats: [3, 6, 2, 2, 4],
+		stats: [5, 7, 3, 2, 6],
 		armour: 2,
 		expValue: 50,
 		goldValue: 50
@@ -53,7 +53,7 @@ const enemies = [
 	{
 		name: 'Kobold',
 		portrait: 'images/kobold.jpg',
-		stats: [2, 8, 2, 2, 3],
+		stats: [4, 9, 3, 2, 6],
 		armour: 3,
 		expValue: 50,
 		goldValue: 50
@@ -61,10 +61,29 @@ const enemies = [
 	{
 		name: 'Wolf',
 		portrait: 'images/wolf.jpg',
-		stats: [4, 8, 3, 1, 5],
+		stats: [6, 9, 4, 1, 7],
 		expValue: 75,
 		goldValue: 50
 	},
+	{
+		name: 'Orc',
+		portrait: 'images/orc.jpg',
+		stats: [10, 7, 9, 3, 7],
+		armour: 8,
+		expValue: 150,
+		goldValue: 100
+	},
+	{
+		name: 'Imp',
+		portrait: 'images/imp.jpg',
+		stats: [2, 3, 3, 10, 8],
+		expValue: 50,
+		goldValue: 50
+	}
+]
+
+// Array of possible enemies from tier 2
+const enemiesTwo = [
 	{
 		name: 'Orc',
 		portrait: 'images/orc.jpg',
@@ -86,6 +105,65 @@ const enemies = [
 		stats: [4, 6, 8, 12, 10],
 		expValue: 150,
 		goldValue: 100
+	},
+	{
+		name: 'Mage',
+		portrait: 'images/mage.jpg',
+		stats: [3, 5, 7, 15, 11],
+		armour: 2,
+		expValue: 200,
+		goldValue: 150
+	},
+	{
+		name: 'Mind Flayer',
+		portrait: 'images/flayer.jpg',
+		stats: [6, 8, 10, 16, 12],
+		armour: 4,
+		expValue: 400,
+		goldValue: 300
+	}
+]
+
+// Array of possible enemies from tier 3
+const enemiesThree = [
+	{
+		name: 'Mind Flayer',
+		portrait: 'images/flayer.jpg',
+		stats: [6, 8, 10, 16, 12],
+		armour: 4,
+		expValue: 400,
+		goldValue: 300
+	},
+	{
+		name: 'Golem',
+		portrait: 'images/golem.jpg',
+		stats: [14, 9, 17, 12, 11],
+		armour: 12,
+		expValue: 750,
+		goldValue: 500
+	},
+	{
+		name: 'Lich',
+		portrait: 'images/lich.jpg',
+		stats: [8, 9, 10, 18, 15],
+		armour: 4,
+		expValue: 1000,
+		goldValue: 750
+	},
+	{
+		name: 'Werewolf',
+		portrait: 'images/werewolf.png',
+		stats: [12, 15, 11, 10, 16],
+		expValue: 500,
+		goldValue: 400
+	},
+	{
+		name: 'Dragon',
+		portrait: 'images/dragon.jpg',
+		stats: [17, 16, 18, 19, 16],
+		armour: 14,
+		expValue: 2000,
+		goldValue: 1500
 	}
 ]
 
@@ -414,7 +492,7 @@ const ViewModel = function() {
 	// Restore players current health at the price of gold
 	this.cureWounds = function(healing, price) {
 		// Check player is not at max health
-		if (self.player().currentHealth() <= self.player().maxHealth()) {
+		if (self.player().currentHealth() < self.player().maxHealth()) {
 			
 			// Check player has enough gold
 			if (self.player().gold() >= price) {
@@ -487,6 +565,7 @@ const ViewModel = function() {
 	// Create player and name variables
 	this.player = ko.observable();
 	this.nameInput = ko.observable();
+	this.wins = ko.observable(0);
 	
 	// Create character with selected options once form is submitted
 	this.createCharacter = function() {
@@ -538,12 +617,21 @@ const ViewModel = function() {
 		}
 	}
 	
-	// Create current enemy variable
+	// Create current enemy variable and current tier of enemies
 	this.currentEnemy = ko.observable();
+	this.enemies = ko.computed(function() {
+		if (self.wins() > 19) {
+			return enemiesThree;
+		} else if (self.wins() > 9) {
+			return enemiesTwo;
+		} else {
+			return enemiesOne;
+		}
+	});
 	
 	// Get a random enemy from enemies array
 	this.getEnemy = function() {
-		let enemy = enemies[getRandom(0, enemies.length - 1)];		
+		let enemy = self.enemies()[getRandom(0, self.enemies().length - 1)];		
 		self.currentEnemy(new Enemy(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.expValue, enemy.goldValue));
 	}
 	
@@ -615,6 +703,7 @@ const ViewModel = function() {
 	
 	// Log enemy death in battle log and gain experience and gold
 	this.enemySlain = function() {
+		self.wins(self.wins() + 1);
 		self.player().experienceGain(self.currentEnemy().expValue);
 		self.player().gold(self.player().gold() + self.currentEnemy().goldValue);
 		self.battleLog(self.battleLog() + 
