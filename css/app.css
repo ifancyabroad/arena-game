@@ -84,6 +84,8 @@ h3 {
 }
 
 .entity-back {
+	height: 100%;
+	box-sizing: border-box;
 	border: 6px solid #3e3e3e;
 	background-image: url('../images/enemy-symbol.png');
 	background-size: contain;

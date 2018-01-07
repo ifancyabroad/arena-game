@@ -39,7 +39,11 @@
 					<h4>Gold: <span data-bind="text: gold"></span></h4>
 				</div>
 			</div>
-			<div class="card-back entity-back">
+			<div class="card-back">
+				<div class="entity-back" data-bind="visible: playerBackShow()">
+				</div>
+				<div class="inventory" data-bind="visible: playerInventoryShow()">
+				</div>
 			</div>
 		</div>
 		
@@ -160,6 +164,7 @@
 						<!-- ko with: player -->
 						<button class="btn" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up</button>
 						<!-- /ko -->
+						<button class="btn" type="button" data-bind="click: toggleShop">Visit Shop</button>
 						<button class="btn" type="button" data-bind="click: toggleHealer">Visit Healer</button>
 					</div>
 				</div>

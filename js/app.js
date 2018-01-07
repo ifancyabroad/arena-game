@@ -370,6 +370,8 @@ const ViewModel = function() {
 	this.healerShow = ko.observable(false);
 	this.battleShow = ko.observable(false);
 	this.playerCardShow = ko.observable(false);
+	this.playerBackShow = ko.observable(true);
+	this.playerInventoryShow = ko.observable(false);
 	this.enemyCardShow = ko.observable(false);
 	
 	// Flip the UI card to toggle visibility of start game screen and character creation
@@ -464,6 +466,14 @@ const ViewModel = function() {
 		
 		// Flip UI card
 		self.uiCardShow(false);
+	}
+	
+	// Toggle visibility of town and shop screens
+	// Toggle visibility of player inventory
+	this.toggleShop = function() {
+		self.playerBackShow(false);
+		self.playerInventoryShow(true);
+		self.playerCardShow(false);
 	}
 	
 	// Observable for the healer log
