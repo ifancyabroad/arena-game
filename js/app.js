@@ -53,7 +53,7 @@ const enemiesOne = [
 	{
 		name: 'Kobold',
 		portrait: 'images/kobold.jpg',
-		stats: [4, 9, 3, 2, 6],
+		stats: [4, 8, 3, 2, 6],
 		armour: 3,
 		expValue: 50,
 		goldValue: 50
@@ -61,14 +61,14 @@ const enemiesOne = [
 	{
 		name: 'Wolf',
 		portrait: 'images/wolf.jpg',
-		stats: [6, 9, 4, 1, 7],
+		stats: [6, 8, 4, 1, 7],
 		expValue: 75,
 		goldValue: 50
 	},
 	{
 		name: 'Orc',
 		portrait: 'images/orc.jpg',
-		stats: [10, 7, 9, 3, 7],
+		stats: [8, 7, 7, 3, 7],
 		armour: 8,
 		expValue: 150,
 		goldValue: 100

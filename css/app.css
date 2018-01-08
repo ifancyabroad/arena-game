@@ -198,6 +198,10 @@ td {
 	background-size: 250%;
 }
 
+.town-icon {
+	width: 20px;
+}
+
 
 /*Levelup screen*/
 .levelup-stat {
@@ -215,6 +219,12 @@ td {
 }
 
 /*Item store screen*/
+.shop-screen {
+	/* background-image: url('../images/store.jpg');
+	background-position: center;
+	background-size: cover; */
+}
+
 .town-log {
 	height: 20px;
 }
@@ -233,6 +243,12 @@ td {
 }
 
 /*Healer screen*/
+.healer-screen {
+	/* background-image: url('../images/healer.jpg');
+	background-position: center;
+	background-size: cover; */
+}
+
 .options {
 	display: flex;
 	flex-direction: column;

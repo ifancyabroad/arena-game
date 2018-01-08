@@ -26,7 +26,7 @@
 				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
 					
 				<div>
-					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>				
+					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
 					<table class="stat-table" >
 						<tbody data-bind="foreach: stats">
 							<tr>
@@ -35,8 +35,6 @@
 							</tr>
 						</tbody>
 					</table>
-					
-					<h4>Gold: <span data-bind="text: gold"></span></h4>
 				</div>
 			</div>
 			<div class="card-back">
@@ -44,8 +42,7 @@
 				</div>
 				<div class="entity-front" data-bind="with: player, visible: playerInventoryShow()">
 					<h2>Inventory</h2>
-					<h4>Gold: <span data-bind="text: gold"></span></h4>
-					
+					<h4>Gold: <span data-bind="text: gold"></span></h4>				
 					<table class="inventory-table" >
 						<tbody>
 							<tr>
@@ -209,7 +206,10 @@
 				<!--Town Screen-->
 				<div class="ui-screen town-screen" data-bind="visible: townShow()">
 					<h1>Town</h1>
-					<h4>Battles Won: <span data-bind="text: wins"></span></h4>
+					<img class="town-icon" src="images/skull.png"><span data-bind="text: wins"></span>
+					<!-- ko with: player -->
+					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
+					<!-- /ko -->
 					<div class="centered">
 						<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
 						<!-- ko with: player -->
