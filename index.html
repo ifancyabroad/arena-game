@@ -24,25 +24,21 @@
 				<h2 data-bind="text: name"></h2>
 				<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
 				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
-					
-				<div>
-					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
-					<table class="stat-table" >
-						<tbody data-bind="foreach: stats">
-							<tr>
-								<td data-bind="text: name"></td>
-								<td class="text-right" data-bind="text: value"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<h4><span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
+				<table class="stat-table" >
+					<tbody data-bind="foreach: stats">
+						<tr>
+							<td data-bind="text: name"></td>
+							<td class="text-right" data-bind="text: value"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<div class="card-back">
 				<div class="entity-back" data-bind="visible: playerBackShow()">
 				</div>
 				<div class="entity-front" data-bind="with: player, visible: playerInventoryShow()">
-					<h2>Inventory</h2>
-					<h4>Gold: <span data-bind="text: gold"></span></h4>				
+					<h2>Inventory</h2>		
 					<table class="inventory-table" >
 						<tbody>
 							<tr>
@@ -84,8 +80,8 @@
 				<!--Character Creation-->
 				<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
 					<h1>Character Creation</h1>
-					<div class="ui-column">
-						<div class="name-select">
+					<div class="ui-column tall-column">
+						<div>
 							<label for="name">Name: </label>
 							<input id="name" type="text" required data-bind="value: nameInput">
 						</div>
@@ -132,7 +128,7 @@
 						<button class="btn" type="button" data-bind="click: $parent.toggleBattleReturn, disable: alive()">Return to town</button>
 					</div>
 					<div class="log-container">
-						<div class="battle-log" data-bind="html: battleLog">
+						<div data-bind="html: battleLog">
 						</div>
 					</div>
 				</div>
@@ -140,7 +136,7 @@
 				<!--Level Up Screen-->
 				<div class="ui-screen levelup-screen" data-bind="visible: levelUpShow()">
 					<h1>Level Up</h1>
-					<div class="ui-column">
+					<div class="ui-column tall-column">
 						<h4 data-bind="with: player">Skill points remaining: <span data-bind="text: skillPoints"></span></h4>
 						<form class="ui-column" data-bind="foreach: tempStats">
 							<div class="levelup-stat">
@@ -159,6 +155,9 @@
 				<!--Shop Screen-->
 				<div class="ui-screen shop-screen" data-bind="visible: shopShow()">
 					<h1>Item Store</h1>
+					<!-- ko with: player -->
+					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
+					<!-- /ko -->
 					<div class="ui-column">
 						<div class="item-list" data-bind="foreach: items">
 							<div class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { border: active() ? '2px solid red' : '2px solid grey' }">
@@ -179,6 +178,9 @@
 				<!--Healer Screen-->
 				<div class="ui-screen healer-screen" data-bind="visible: healerShow()">
 					<h1>Town Healer</h1>
+					<!-- ko with: player -->
+					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
+					<!-- /ko -->
 					<div class="ui-column">
 						<div class="options">
 							<p>Price: 100 gold</p>
@@ -212,11 +214,11 @@
 					<!-- /ko -->
 					<div class="centered">
 						<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
+						<button class="btn" type="button" data-bind="click: toggleShop">Visit Shop</button>
+						<button class="btn" type="button" data-bind="click: toggleHealer">Visit Healer</button>
 						<!-- ko with: player -->
 						<button class="btn" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up</button>
 						<!-- /ko -->
-						<button class="btn" type="button" data-bind="click: toggleShop">Visit Shop</button>
-						<button class="btn" type="button" data-bind="click: toggleHealer">Visit Healer</button>
 					</div>
 				</div>
 			</div>
@@ -226,9 +228,9 @@
 		<!--Enemy Card-->
 		<div class="card card-entity" data-bind="css: { flipped: enemyCardShow() }">
 			<div class="card-front entity-front" data-bind="with: currentEnemy">
-				<div class="enemy-header">
+				<div>
 					<h2 data-bind="text: name"></h2>
-					<h4>Health: <span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
+					<h4><span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
 				</div>
 				<img src="" class="enemy-portrait" data-bind="attr: { src: portrait }">
 			</div>
@@ -238,7 +240,7 @@
 	</div>
 	
 	<!--Death Screen-->
-	<div class="modal-container" data-bind="with: player">
+	<div data-bind="with: player">
 		<div class="modal" data-bind="visible: alive() === false">
 			<div class="popup">
 				<h2>You have died!</h2>

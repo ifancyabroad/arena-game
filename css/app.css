@@ -16,12 +16,8 @@ h1 {
 	font-size: 3em;
 }
 
-h2 {
+h2, h3 {
 	font-size: 1.8em;
-}
-
-h3 {
-	font-size: 1.6em;
 }
 
 .centered {
@@ -46,6 +42,7 @@ h3 {
 	align-items: center;
 }
 
+/*Cards*/
 .card {
 	text-align: center;
 	position: relative;
@@ -109,6 +106,7 @@ h3 {
 	padding: 10px;
 }
 
+/*UI Card*/
 .ui-screen {
 	height: 100%;
 	padding: 10px;
@@ -121,6 +119,10 @@ h3 {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	height: 80%;
+}
+
+.tall-column {
 	height: 85%;
 }
 
@@ -280,7 +282,7 @@ td {
 	background-color: white;
 }
 
-/*Player and enemy cards*/
+/*Player card*/
 .player-portrait {
 	width: 65%;
 	margin: 5px;
@@ -301,6 +303,7 @@ td {
 
 .stat-table tr:nth-child(even) {background-color: #f2f2f2;}
 
+/*Inventory*/
 .inventory-table {
 	text-align: left;
 	border-collapse: collapse;
@@ -308,7 +311,7 @@ td {
 }
 
 .inventory-table td {
-	height: 40px;
+	height: 45px;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -320,6 +323,7 @@ td {
 	width: 100%;
 }
 
+/*Enemy card*/
 .enemy-portrait {
 	width: 95%;
 	margin: auto;
