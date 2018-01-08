@@ -21,7 +21,7 @@ const portraits = [
 // Array of possible classes to choose from
 const classes = [
 	{
-		active: ko.observable(false),
+		active: ko.observable(true),
 		name: 'Warrior',
 		description: 'Some text describing the warrior class',
 		maxStats: [15, 10, 13, 6, 10]
@@ -176,7 +176,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'head',
 		name: 'Steel Helm',
-		modifier: 'a',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'armour',
 		value: 2,
 		price: 200
 	},
@@ -185,7 +186,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'head',
 		name: 'Magic Helm',
-		modifier: 'int',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'intelligence',
 		value: 2,
 		price: 300
 	},
@@ -194,7 +196,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'body',
 		name: 'Chainmail',
-		modifier: 'a',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'armour',
 		value: 4,
 		price: 250
 	},
@@ -203,7 +206,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'body',
 		name: 'Plate Armour',
-		modifier: 'a',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'armour',
 		value: 6,
 		price: 400
 	},
@@ -212,7 +216,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Longsword',
-		modifier: 'str',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'strength',
 		value: 2,
 		price: 100
 	},
@@ -221,7 +226,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Greataxe',
-		modifier: 'str',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'strength',
 		value: 4,
 		price: 300
 	},
@@ -230,7 +236,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Magic Staff',
-		modifier: 'int',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'intelligence',
 		value: 3,
 		price: 300
 	},
@@ -239,7 +246,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'boots',
 		name: 'Boots of Speed',
-		modifier: 'ini',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'initiative',
 		value: 2,
 		price: 100
 	},
@@ -248,7 +256,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'gloves',
 		name: 'Gloves of Accuracy',
-		modifier: 'dex',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'dexterity',
 		value: 2,
 		price: 200
 	},
@@ -257,7 +266,8 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'misc',
 		name: 'Ring of Swiftness',
-		modifier: 'ini',
+		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		modifier: 'initiative',
 		value: 3,
 		price: 200
 	}
@@ -635,15 +645,29 @@ const ViewModel = function() {
 		items().forEach(function(item) {
 			if (item.active() === true) {
 				selectedItem = item;
-				item.available(false);
 			}
 		});
 		
-		// Match item type to inventory and set inventory accordingly
-		for (let prop in self.player().inventory()) {
-			if (prop === selectedItem.type) {
-				self.player().inventory()[prop](selectedItem);
+		// Check and item is selected and the player has sufficient gold
+		if (selectedItem && (self.player().gold() >= selectedItem.price)) {
+			// Deduct gold from player
+			self.player().gold(self.player().gold() - selectedItem.price);
+			
+			// Match item type to inventory and set inventory accordingly
+			for (let prop in self.player().inventory()) {
+				if (prop === selectedItem.type) {
+					self.player().inventory()[prop](selectedItem);
+				}
 			}
+			
+			// Remove item from the store
+			selectedItem.available(false);
+			
+			self.townLog(`${selectedItem.name} purchased`);
+		} else if (selectedItem) {
+			self.townLog('You do not have enough gold for that');
+		} else {
+			self.townLog('Please select an item');
 		}
 	}
 	
@@ -657,17 +681,17 @@ const ViewModel = function() {
 		for (let prop in self.player().inventory()) {
 			let modifier = self.player().inventory()[prop]().modifier;
 			let value = self.player().inventory()[prop]().value;
-			if (modifier === 'str') {
+			if (modifier === 'strength') {
 				modifiers[0] += value;
-			} else if (modifier === 'dex') {
+			} else if (modifier === 'dexterity') {
 				modifiers[1] += value;
-			} else if (modifier === 'con') {
+			} else if (modifier === 'constitution') {
 				modifiers[2] += value;
-			} else if (modifier === 'int') {
+			} else if (modifier === 'intelligence') {
 				modifiers[3] += value;
-			} else if (modifier === 'ini') {
+			} else if (modifier === 'initiative') {
 				modifiers[4] += value;
-			} else if (modifier === 'a') {
+			} else if (modifier === 'armour') {
 				a += value;
 			}
 		}
@@ -759,11 +783,9 @@ const ViewModel = function() {
 			c.active(false);
 		});
 		
-		// Activate or de-activate selected class
+		// Activate selected class
 		if (cl.active() === false) {
 			cl.active(true);
-		} else {
-			cl.active(false);
 		}
 	}
 	
@@ -977,6 +999,12 @@ const ViewModel = function() {
 		// Flip UI card
 		self.uiCardShow(false);
 		
+		// Reset store
+		items().forEach(function(i) {
+			i.active(false);
+			i.available(true);
+		});
+		
 		// Reset portraits
 		portraits.forEach(function(p) {
 			p.active(false);
@@ -987,6 +1015,7 @@ const ViewModel = function() {
 		classes.forEach(function(c) {
 			c.active(false);
 		});
+		classes[0].active(true);
 		
 		// Reset player name and number of wins
 		self.nameInput('');
