@@ -164,7 +164,7 @@
 					<h1>Item Store</h1>
 					<div class="ui-column">
 						<div class="item-list" data-bind="foreach: items">
-							<div class="item" data-bind="click: $parent.toggleItem, style: { border: active() ? '2px solid red' : '2px solid grey' }">
+							<div class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { border: active() ? '2px solid red' : '2px solid grey' }">
 								<p data-bind="text: type"></p>
 								<p data-bind="text: name"></p>
 								<p data-bind="text: price"></p>

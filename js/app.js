@@ -173,6 +173,7 @@ const enemiesThree = [
 const items = ko.observableArray([
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'head',
 		name: 'Steel Helm',
 		modifier: 'a',
@@ -181,6 +182,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'head',
 		name: 'Magic Helm',
 		modifier: 'int',
@@ -189,6 +191,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'body',
 		name: 'Chainmail',
 		modifier: 'a',
@@ -197,6 +200,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'body',
 		name: 'Plate Armour',
 		modifier: 'a',
@@ -205,6 +209,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Longsword',
 		modifier: 'str',
@@ -213,6 +218,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Greataxe',
 		modifier: 'str',
@@ -221,6 +227,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Magic Staff',
 		modifier: 'int',
@@ -229,6 +236,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'boots',
 		name: 'Boots of Speed',
 		modifier: 'ini',
@@ -237,6 +245,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'gloves',
 		name: 'Gloves of Accuracy',
 		modifier: 'dex',
@@ -245,6 +254,7 @@ const items = ko.observableArray([
 	},
 	{
 		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'misc',
 		name: 'Ring of Swiftness',
 		modifier: 'ini',
@@ -498,6 +508,7 @@ const ViewModel = function() {
 	
 	// Flip the UI card to toggle visibility of start game screen and character creation
 	this.toggleStartGame = function() {
+		self.characterCreationShow(true);
 		self.uiCardShow(true);
 	}
 	
@@ -585,7 +596,7 @@ const ViewModel = function() {
 		self.uiCardShow(false);
 	}
 	
-		// Observable for the healer log
+	// Observable for the healer and shop log
 	this.townLog = ko.observable();
 	
 	// Toggle visibility of town and shop screens
@@ -624,6 +635,7 @@ const ViewModel = function() {
 		items().forEach(function(item) {
 			if (item.active() === true) {
 				selectedItem = item;
+				item.available(false);
 			}
 		});
 		
@@ -957,11 +969,10 @@ const ViewModel = function() {
 		self.player(null);
 		self.currentEnemy(null);
 		
-		// Hide town and battle screens, show start game and character creation
+		// Hide town and battle screens, show start game
 		self.townShow(false);
 		self.battleShow(false);
 		self.startGameShow(true);
-		self.characterCreationShow(true);
 		
 		// Flip UI card
 		self.uiCardShow(false);
