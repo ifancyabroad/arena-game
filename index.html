@@ -127,7 +127,7 @@
 						<button class="btn" type="button" data-bind="click: $parent.magicalAttack, enable: alive()">Magic</button>
 						<button class="btn" type="button" data-bind="click: $parent.toggleBattleReturn, disable: alive()">Return to town</button>
 					</div>
-					<div class="log-container">
+					<div class="log-container" data-bind="style: { overflow: logOverflow() ? 'auto' : 'hidden' }">
 						<div data-bind="html: battleLog">
 						</div>
 					</div>

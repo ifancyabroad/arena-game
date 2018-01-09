@@ -548,6 +548,7 @@ const ViewModel = function() {
 		
 		// Reset battle log
 		self.battleLog('');
+		self.logOverflow(true);
 		
 		// Get new enemy and flip the enemy card to reveal it
 		self.getEnemy();
@@ -561,6 +562,7 @@ const ViewModel = function() {
 	this.toggleBattleReturn = function() {
 		self.enemyCardShow(false);
 		self.uiCardShow(false);
+		self.logOverflow(false);
 	}
 	
 	// Set variables for initial stats and skill points when entering level up screen
@@ -864,6 +866,7 @@ const ViewModel = function() {
 	
 	// Battle log observable
 	this.battleLog = ko.observable('');
+	this.logOverflow = ko.observable(false);
 	
 	// Check to see if the player hits, calculate the damage and display it in the combat log
 	this.playerAttack = function() {

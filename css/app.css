@@ -264,7 +264,6 @@ td {
 }
 
 .log-container {
-	overflow: auto;
 	position: absolute;
 	bottom: 0;
 	left: 50%;
