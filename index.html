@@ -183,12 +183,27 @@
 					<!-- /ko -->
 					<div class="ui-column">
 						<div class="options">
-							<p>Price: 100 gold</p>
-							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">Cure Minor Wounds</button>
-							<p>Price: 150 gold</p>
-							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 70, 150)">Cure Major Wounds</button>
-							<p>Price: 200 gold</p>
-							<button class="btn" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">Cure Critical Wounds</button>
+							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">
+								<img class="healer-btn-icon" src="images/small-cross.png" alt="Small cross icon">
+								<div>
+									<p class="heal-description">Cure Minor Wounds</p>
+									<p>Cost: 100g</p>
+								</div>
+							</button>
+							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 70, 150)">
+								<img class="healer-btn-icon" src="images/medium-cross.png" alt="Small cross icon">
+								<div>
+									<p class="heal-description">Cure Major Wounds</p>
+									<p>Cost: 150g</p>
+								</div>
+							</button>
+							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">
+								<img class="healer-btn-icon" src="images/cross.png" alt="Small cross icon">
+								<div>
+									<p class="heal-description">Cure Critical Wounds</p>
+									<p>Cost: 200g</p>
+								</div>
+							</button>
 						</div>
 						<p class="town-log" data-bind="text: townLog"></p>
 						<button class="btn" type="button" data-bind="click: toggleReturn">Done</button>
@@ -213,12 +228,12 @@
 					<!-- ko with: player -->
 					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
 					<!-- /ko -->
-					<div class="centered">
-						<button class="btn" type="button" data-bind="click: toggleBattle">Fight next battle!</button>
-						<button class="btn" type="button" data-bind="click: toggleShop">Visit Shop</button>
-						<button class="btn" type="button" data-bind="click: toggleHealer">Visit Healer</button>
+					<div class="centered town-controls">
+						<button class="btn-town" type="button" data-bind="click: toggleBattle">Battle<img class="town-btn-icon" src="images/battle.png" alt="Crossed swords icon"></button>
+						<button class="btn-town" type="button" data-bind="click: toggleShop">Store<img class="town-btn-icon" src="images/store.png" alt="Store icon"></button>
+						<button class="btn-town" type="button" data-bind="click: toggleHealer">Healer<img class="town-btn-icon" src="images/cross.png" alt="Cross icon"></button>
 						<!-- ko with: player -->
-						<button class="btn" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up</button>
+						<button class="btn-town" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up<img class="town-btn-icon" src="images/levelup.png" alt="Up arrow icon"></button>
 						<!-- /ko -->
 					</div>
 				</div>
