@@ -267,10 +267,11 @@ td {
 	background-image: url('../images/store.jpg');
 	background-position: center;
 	background-size: cover;
+	color: white;
 }
 
-.shop-gold {
-	color: white;
+.shop-screen h1 {
+	text-shadow: 0px 0px 4px black;
 }
 
 .town-log {
@@ -288,6 +289,7 @@ td {
 }
 
 .item {
+	color: black;
 	background-color: white;
 	margin: 5px auto;
 	padding: 5px;
@@ -428,7 +430,7 @@ td {
     to {transform:scale(1)}
 }
 
-@media screen and (min-width: 601px) and (max-width: 800px) {
+@media screen and (max-width: 800px) {
 	.game-area {
 		width: 600px;
 	}
@@ -439,12 +441,12 @@ td {
 	
 	.card-ui {
 		height: 350px;
-		width: 45%;
+		width: 270px;
 	}
 	
 	.card-entity {
 		height: 350px;
-		width: 25%;
+		width: 150px;
 	}
 
 	.inventory-table td {
@@ -461,8 +463,8 @@ td {
 		margin: 20px auto;
 		flex-wrap: wrap;
 		justify-content: space-evenly;
-		height: 820px;
-		width: 450px;
+		height: 740px;
+		width: 340px;
 	}
 	
 	.card-ui {
