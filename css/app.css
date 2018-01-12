@@ -163,6 +163,10 @@ h2, h3 {
 }
 
 /*Character creation*/
+input[type=text] {
+	padding: 5px;
+}
+
 .detail-select {
 	display: flex;
 	justify-content: center;
