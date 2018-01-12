@@ -269,6 +269,10 @@ td {
 	background-size: cover;
 }
 
+.shop-gold {
+	color: white;
+}
+
 .town-log {
 	color: white;
 	text-shadow: 0px 0px 2px black;
@@ -316,7 +320,7 @@ td {
 
 .heal-description {
 	font-weight: 700;
-	margin-bottom: 5px;
+	margin-bottom: 2px;
 }
 
 .healer-btn-icon {
