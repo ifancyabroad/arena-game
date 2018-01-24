@@ -218,7 +218,7 @@ td {
 .town-screen {
 	background-image: url('../images/backgrounds/town.jpg');
 	background-position: center;
-	background-size: 250%;
+	background-size: cover;
 }
 
 .town-icon {
