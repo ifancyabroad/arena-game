@@ -153,7 +153,7 @@
 				</div>
 				
 				<!--Shop Screen-->
-				<div class="ui-screen shop-screen" data-bind="visible: shopShow()">
+				<div class="ui-screen" data-bind="visible: shopShow()">
 					<h1>Item Store</h1>
 					<!-- ko with: player -->
 					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
@@ -167,7 +167,7 @@
 								<p><strong>Price: </strong><span data-bind="text: price"></span>g</p>
 							</div>
 						</div>
-						<p class="town-log" data-bind="text: townLog"></p>
+						<p data-bind="text: townLog"></p>
 						<div>
 							<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
 							<button class="btn" type="button" data-bind="click: toggleShopReturn">Done</button>
@@ -176,7 +176,7 @@
 				</div>
 				
 				<!--Healer Screen-->
-				<div class="ui-screen healer-screen" data-bind="visible: healerShow()">
+				<div class="ui-screen" data-bind="visible: healerShow()">
 					<h1>Town Healer</h1>
 					<!-- ko with: player -->
 					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
@@ -217,7 +217,7 @@
 			
 				<!--Start Screen-->
 				<div class="ui-screen ui-back" data-bind="visible: startGameShow()">
-					<h1 class="title">The Arena</h1>
+					<h1>The Arena</h1>
 					<h1 class="btn-start" data-bind="click: toggleStartGame">Start Game</h1>
 				</div>
 				
@@ -266,6 +266,8 @@
 	</div>
 	
 	<script src="lib/knockout-3.4.2.js"></script>
+	<script src="lib/model.js"></script>
+	<script src="lib/classes.js"></script>
 	<script src="lib/app.js"></script>
 </body>
 
