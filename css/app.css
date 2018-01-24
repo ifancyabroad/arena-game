@@ -216,7 +216,7 @@ td {
 
 /*Town Screen*/
 .town-screen {
-	background-image: url('../images/town.jpg');
+	background-image: url('../images/backgrounds/town.jpg');
 	background-position: center;
 	background-size: 250%;
 }
@@ -305,7 +305,7 @@ td {
 
 /*Battle screen*/
 .battle-screen {
-	background-image: url('../images/arena.jpg');
+	background-image: url('../images/backgrounds/arena.jpg');
 	background-position: center;
 	background-size: cover;
 }

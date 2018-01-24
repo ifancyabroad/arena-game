@@ -42,27 +42,27 @@
 					<table class="inventory-table" >
 						<tbody>
 							<tr>
-								<td class="inventory-type"><img class="inventory-icon" src="images/head.png"></td>
+								<td class="inventory-type"><img class="inventory-icon" src="images/icons/head.png"></td>
 								<td data-bind="text: inventory().head().name"></td>
 							</tr>
 							<tr>
-								<td class="inventory-type"><img class="inventory-icon" src="images/torso.png"></td>
+								<td class="inventory-type"><img class="inventory-icon" src="images/icons/torso.png"></td>
 								<td data-bind="text: inventory().body().name"></td>
 							</tr>
 							<tr>
-								<td class="inventory-type"><img class="inventory-icon" src="images/sword.png"></td>
+								<td class="inventory-type"><img class="inventory-icon" src="images/icons/sword.png"></td>
 								<td data-bind="text: inventory().weapon().name"></td>
 							</tr>
 							<tr>
-								<td class="inventory-type"><img class="inventory-icon" src="images/feet.png"></td>
+								<td class="inventory-type"><img class="inventory-icon" src="images/icons/feet.png"></td>
 								<td data-bind="text: inventory().boots().name"></td>
 							</tr>
 							<tr>
-								<td class="inventory-type"><img class="inventory-icon" src="images/hands.png"></td>
+								<td class="inventory-type"><img class="inventory-icon" src="images/icons/hands.png"></td>
 								<td data-bind="text: inventory().gloves().name"></td>
 							</tr>
 							<tr>
-								<td class="inventory-type"><img class="inventory-icon" src="images/ring.png"></td>
+								<td class="inventory-type"><img class="inventory-icon" src="images/icons/ring.png"></td>
 								<td data-bind="text: inventory().misc().name"></td>
 							</tr>
 						</tbody>
@@ -156,7 +156,7 @@
 				<div class="ui-screen" data-bind="visible: shopShow()">
 					<h1>Item Store</h1>
 					<!-- ko with: player -->
-					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
+					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
 					<!-- /ko -->
 					<div class="ui-column">
 						<div class="item-list" data-bind="foreach: items">
@@ -179,26 +179,26 @@
 				<div class="ui-screen" data-bind="visible: healerShow()">
 					<h1>Town Healer</h1>
 					<!-- ko with: player -->
-					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
+					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
 					<!-- /ko -->
 					<div class="ui-column">
 						<div class="options">
 							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">
-								<img class="healer-btn-icon" src="images/small-cross.png" alt="Small cross icon">
+								<img class="healer-btn-icon" src="images/icons/small-cross.png" alt="Small cross icon">
 								<div>
 									<p class="heal-description">Cure Minor Wounds</p>
 									<p>Cost: 100g</p>
 								</div>
 							</button>
 							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 70, 150)">
-								<img class="healer-btn-icon" src="images/medium-cross.png" alt="Small cross icon">
+								<img class="healer-btn-icon" src="images/icons/medium-cross.png" alt="Small cross icon">
 								<div>
 									<p class="heal-description">Cure Major Wounds</p>
 									<p>Cost: 150g</p>
 								</div>
 							</button>
 							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">
-								<img class="healer-btn-icon" src="images/cross.png" alt="Small cross icon">
+								<img class="healer-btn-icon" src="images/icons/cross.png" alt="Small cross icon">
 								<div>
 									<p class="heal-description">Cure Critical Wounds</p>
 									<p>Cost: 200g</p>
@@ -224,16 +224,16 @@
 				<!--Town Screen-->
 				<div class="ui-screen town-screen" data-bind="visible: townShow()">
 					<h1>Town</h1>
-					<img class="town-icon" src="images/skull.png"><span data-bind="text: wins"></span>
+					<img class="town-icon" src="images/icons/skull.png"><span data-bind="text: wins"></span>
 					<!-- ko with: player -->
-					<img class="town-icon" src="images/gold.png"><span data-bind="text: gold"></span>
+					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
 					<!-- /ko -->
 					<div class="centered town-controls">
-						<button class="btn-town" type="button" data-bind="click: toggleBattle">Battle<img class="town-btn-icon" src="images/battle.png" alt="Crossed swords icon"></button>
-						<button class="btn-town" type="button" data-bind="click: toggleShop">Store<img class="town-btn-icon" src="images/store.png" alt="Store icon"></button>
-						<button class="btn-town" type="button" data-bind="click: toggleHealer">Healer<img class="town-btn-icon" src="images/cross.png" alt="Cross icon"></button>
+						<button class="btn-town" type="button" data-bind="click: toggleBattle">Battle<img class="town-btn-icon" src="images/icons/battle.png" alt="Crossed swords icon"></button>
+						<button class="btn-town" type="button" data-bind="click: toggleShop">Store<img class="town-btn-icon" src="images/icons/store.png" alt="Store icon"></button>
+						<button class="btn-town" type="button" data-bind="click: toggleHealer">Healer<img class="town-btn-icon" src="images/icons/cross.png" alt="Cross icon"></button>
 						<!-- ko with: player -->
-						<button class="btn-town" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up<img class="town-btn-icon" src="images/levelup.png" alt="Up arrow icon"></button>
+						<button class="btn-town" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up<img class="town-btn-icon" src="images/icons/levelup.png" alt="Up arrow icon"></button>
 						<!-- /ko -->
 					</div>
 				</div>

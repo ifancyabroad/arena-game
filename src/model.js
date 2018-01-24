@@ -2,19 +2,19 @@
 const portraits = [
 	{
 		active: ko.observable(true),
-		path: 'images/female-warrior.jpg'
+		path: 'images/portraits/female-warrior.jpg'
 	},
 	{
 		active: ko.observable(false),
-		path: 'images/male-mage.jpg'
+		path: 'images/portraits/male-mage.jpg'
 	},
 	{
 		active: ko.observable(false),
-		path: 'images/male-warrior.jpg'
+		path: 'images/portraits/male-warrior.jpg'
 	},
 	{
 		active: ko.observable(false),
-		path: 'images/female-thief.jpg'
+		path: 'images/portraits/female-thief.jpg'
 	}
 ]
 
@@ -44,7 +44,7 @@ const classes = [
 const enemiesOne = [
 	{
 		name: 'Goblin',
-		portrait: 'images/goblin.jpg',
+		portrait: 'images/monsters/goblin.jpg',
 		stats: [5, 7, 3, 2, 6],
 		armour: 2,
 		expValue: 50,
@@ -52,7 +52,7 @@ const enemiesOne = [
 	},
 	{
 		name: 'Kobold',
-		portrait: 'images/kobold.jpg',
+		portrait: 'images/monsters/kobold.jpg',
 		stats: [4, 8, 3, 2, 6],
 		armour: 3,
 		expValue: 50,
@@ -60,14 +60,14 @@ const enemiesOne = [
 	},
 	{
 		name: 'Wolf',
-		portrait: 'images/wolf.jpg',
+		portrait: 'images/monsters/wolf.jpg',
 		stats: [6, 8, 4, 1, 7],
 		expValue: 75,
 		goldValue: 50
 	},
 	{
 		name: 'Orc',
-		portrait: 'images/orc.jpg',
+		portrait: 'images/monsters/orc.jpg',
 		stats: [8, 7, 7, 3, 7],
 		armour: 8,
 		expValue: 150,
@@ -75,7 +75,7 @@ const enemiesOne = [
 	},
 	{
 		name: 'Imp',
-		portrait: 'images/imp.jpg',
+		portrait: 'images/monsters/imp.jpg',
 		stats: [2, 5, 3, 10, 8],
 		expValue: 50,
 		goldValue: 50
@@ -86,7 +86,7 @@ const enemiesOne = [
 const enemiesTwo = [
 	{
 		name: 'Orc',
-		portrait: 'images/orc.jpg',
+		portrait: 'images/monsters/orc.jpg',
 		stats: [10, 7, 9, 3, 7],
 		armour: 8,
 		expValue: 150,
@@ -94,7 +94,7 @@ const enemiesTwo = [
 	},
 	{
 		name: 'Troll',
-		portrait: 'images/troll.jpg',
+		portrait: 'images/monsters/troll.jpg',
 		stats: [12, 5, 13, 2, 5],
 		armour: 2,
 		expValue: 200,
@@ -102,7 +102,7 @@ const enemiesTwo = [
 	},
 	{
 		name: 'Gauth',
-		portrait: 'images/gauth.png',
+		portrait: 'images/monsters/gauth.png',
 		stats: [5, 7, 8, 12, 10],
 		armour: 4,
 		expValue: 150,
@@ -110,7 +110,7 @@ const enemiesTwo = [
 	},
 	{
 		name: 'Mage',
-		portrait: 'images/mage.jpg',
+		portrait: 'images/monsters/mage.jpg',
 		stats: [3, 5, 7, 15, 11],
 		armour: 2,
 		expValue: 200,
@@ -118,7 +118,7 @@ const enemiesTwo = [
 	},
 	{
 		name: 'Mind Flayer',
-		portrait: 'images/flayer.jpg',
+		portrait: 'images/monsters/flayer.jpg',
 		stats: [7, 11, 10, 16, 12],
 		armour: 4,
 		expValue: 400,
@@ -130,7 +130,7 @@ const enemiesTwo = [
 const enemiesThree = [
 	{
 		name: 'Mind Flayer',
-		portrait: 'images/flayer.jpg',
+		portrait: 'images/monsters/flayer.jpg',
 		stats: [6, 8, 10, 16, 12],
 		armour: 4,
 		expValue: 400,
@@ -138,7 +138,7 @@ const enemiesThree = [
 	},
 	{
 		name: 'Golem',
-		portrait: 'images/golem.jpg',
+		portrait: 'images/monsters/golem.jpg',
 		stats: [14, 9, 17, 12, 11],
 		armour: 12,
 		expValue: 750,
@@ -146,7 +146,7 @@ const enemiesThree = [
 	},
 	{
 		name: 'Lich',
-		portrait: 'images/lich.jpg',
+		portrait: 'images/monsters/lich.jpg',
 		stats: [8, 9, 10, 18, 15],
 		armour: 4,
 		expValue: 1000,
@@ -154,14 +154,14 @@ const enemiesThree = [
 	},
 	{
 		name: 'Werewolf',
-		portrait: 'images/werewolf.png',
+		portrait: 'images/monsters/werewolf.png',
 		stats: [12, 15, 11, 10, 16],
 		expValue: 500,
 		goldValue: 400
 	},
 	{
 		name: 'Dragon',
-		portrait: 'images/dragon.jpg',
+		portrait: 'images/monsters/dragon.jpg',
 		stats: [17, 16, 18, 19, 16],
 		armour: 14,
 		expValue: 2000,
