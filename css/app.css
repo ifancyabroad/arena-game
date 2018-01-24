@@ -40,7 +40,9 @@ h2, h3 {
 
 .game-area {
 	height: 400px;
-	width: 800px;
+	width: 80%;
+	max-width: 800px;
+	min-width: 600px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -57,13 +59,13 @@ h2, h3 {
 }
 
 .card-entity {
-	height: 400px;
-	width: 200px;
+	height: 100%;
+	width: 25%;
 }
 
 .card-ui {
-	height: 400px;
-	width: 350px;
+	height: 100%;
+	width: 45%;
 	position: relative;
 }
 
@@ -428,50 +430,4 @@ td {
 @keyframes zoom {
     from {transform:scale(0)} 
     to {transform:scale(1)}
-}
-
-@media screen and (max-width: 800px) {
-	.game-area {
-		width: 600px;
-	}
-	
-	.town-screen {
-		background-size: 320%;
-	}
-	
-	.card-ui {
-		height: 350px;
-		width: 270px;
-	}
-	
-	.card-entity {
-		height: 350px;
-		width: 150px;
-	}
-
-	.inventory-table td {
-		height: 40px;
-	}
-}
-
-
-@media screen and (max-width: 600px) {
-	.game-area {
-		position: initial;
-		transform: initial;
-		-webkit-transform: initial;
-		margin: 20px auto;
-		flex-wrap: wrap;
-		justify-content: space-evenly;
-		height: 740px;
-		width: 340px;
-	}
-	
-	.card-ui {
-		order: 1;
-	}
-	
-	.card-entity {
-		order: 2;
-	}
 }
