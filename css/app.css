@@ -392,14 +392,22 @@ td {
 
 .popup {
 	background-color: white;
-	margin: 10% auto;
+	margin: 5% auto;
 	padding: 20px;
-	width: 250px;
+	width: 400px;
 	text-align: center;
 	animation-name: zoom;
 	-webkit-animation-name: zoom;
     animation-duration: 0.6s;
 	-webkit-animation-duration: 0.6s;
+}
+
+.popup p {
+	margin: 10px;
+}
+
+.popup img {
+	width: 80%;
 }
 
 @keyframes zoom {
