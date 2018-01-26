@@ -13,9 +13,11 @@
 	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
+<body onload="displayGame()">
+	<div id="loader"></div>
+
 	<!--Game Area-->
-	<div class="game-area centered">
+	<div id="game-area" class="game-area centered">
 	
 		<!--Player Card-->
 		<div class="card card-entity" data-bind="css: { flipped: playerCardShow() }">
@@ -123,9 +125,9 @@
 				<div class="ui-screen battle-screen" data-bind="visible: battleShow()">
 					<h1>Arena</h1>
 					<div class="centered" data-bind="with: currentEnemy">
-						<button class="btn" type="button" data-bind="click: $parent.physicalAttack, enable: alive()">Attack</button>
-						<button class="btn" type="button" data-bind="click: $parent.magicalAttack, enable: alive()">Magic</button>
-						<button class="btn" type="button" data-bind="click: $parent.toggleBattleReturn, disable: alive()">Return to town</button>
+						<button class="btn" type="button" data-bind="click: $parent.physicalAttack, disable: dead()">Attack</button>
+						<button class="btn" type="button" data-bind="click: $parent.magicalAttack, disable: dead()">Magic</button>
+						<button class="btn" type="button" data-bind="click: $parent.toggleBattleReturn, enable: dead()">Return to town</button>
 					</div>
 					<div class="log-container" data-bind="style: { overflow: logOverflow() ? 'auto' : 'hidden' }">
 						<div data-bind="html: battleLog">
@@ -257,7 +259,7 @@
 	
 	<!--Death Screen-->
 	<div data-bind="with: player">
-		<div class="modal" data-bind="visible: alive() === false">
+		<div class="modal" data-bind="style: { display: dead() ? 'block' : 'none' }">
 			<div class="popup">
 				<h1>You have died!</h1>
 				<p>You reached level <strong data-bind="text: level"></strong> with a total of <strong data-bind="text: experience"></strong> experience</p>

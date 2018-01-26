@@ -3,6 +3,33 @@
 	padding: 0;
 }
 
+/*Loader*/
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 100px;
+  height: 100px;
+  margin: -75px 0 0 -75px;
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #585858;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*Body styles*/
 body {
 	font-family: Arial, sans-serif;
 	background-color: #dadada;
@@ -42,7 +69,7 @@ h2, h3 {
 	width: 80%;
 	max-width: 800px;
 	min-width: 600px;
-	display: flex;
+	display: none;
 	justify-content: space-around;
 	align-items: center;
 }
@@ -336,6 +363,7 @@ td {
 /*Player card*/
 .player-portrait {
 	width: 65%;
+	min-width: 120px;
 	margin: 5px;
 }
 
@@ -382,6 +410,7 @@ td {
 
 /*Modal and popup for when game is lost*/
 .modal {
+	display: none;
 	background-color: rgba(0, 0, 0, 0.4);
 	position: fixed;
 	top: 0;

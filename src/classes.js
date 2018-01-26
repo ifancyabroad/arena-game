@@ -40,8 +40,8 @@ class GameEntity {
 		this.currentHealth = ko.observable(this.maxHealth());
 		
 		// Alive is true as long as current health is above 0
-		this.alive = ko.computed(function() {
-			return self.currentHealth() > 0; 
+		this.dead = ko.computed(function() {
+			return self.currentHealth() <= 0; 
 		});
 		
 		// Stat modifiers
@@ -196,8 +196,3 @@ class Enemy extends GameEntity {
 		this.goldValue = goldValue;
 	}
 }
-
-// Get random number within a specified range
-const getRandom = function(min, max) {
-	return Math.floor(Math.random() * (max - min + 1) + min);
-};

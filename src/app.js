@@ -1,3 +1,14 @@
+// Get random number within a specified range
+const getRandom = function(min, max) {
+	return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+// Display the game once loaded
+const displayGame = function() {
+	document.getElementById("loader").style.display = "none";
+  	document.getElementById("game-area").style.display = "flex";
+}
+
 // ViewModel section
 const ViewModel = function() {
 	const self = this;
@@ -469,13 +480,13 @@ const ViewModel = function() {
 			
 			// Attack and check for enemy death, if alive enemy retaliates
 			self.playerAttack();
-			self.currentEnemy().alive() ? self.enemyAttack() : self.enemySlain();
+			self.currentEnemy().dead() ? self.enemySlain() : self.enemyAttack();
 		} else {
 			
 			// Enemy attacks first followed by player and check for enemy death
 			self.enemyAttack();
 			self.playerAttack();
-			if (!self.currentEnemy().alive()) {
+			if (self.currentEnemy().dead()) {
 				self.enemySlain();
 			}
 		}
@@ -489,13 +500,13 @@ const ViewModel = function() {
 			
 			// Attack and check for enemy death, if alive enemy retaliates
 			self.playerMagicAttack();
-			self.currentEnemy().alive() ? self.enemyAttack() : self.enemySlain();
+			self.currentEnemy().dead() ? self.enemySlain() : self.enemyAttack();
 		} else {
 			
 			// Enemy attacks first followed by player and check for enemy death
 			self.enemyAttack();
 			self.playerMagicAttack();
-			if (!self.currentEnemy().alive()) {
+			if (self.currentEnemy().dead()) {
 				self.enemySlain();
 			}
 		}	
