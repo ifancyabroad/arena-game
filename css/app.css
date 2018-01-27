@@ -73,7 +73,7 @@ h2, h3 {
 	justify-content: space-around;
 	align-items: center;
 	animation-name: fadein;
-	animation-duration: 0.5s;
+	animation-duration: 1s;
 }
 
 @keyframes fadein {
