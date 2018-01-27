@@ -72,6 +72,13 @@ h2, h3 {
 	display: none;
 	justify-content: space-around;
 	align-items: center;
+	animation-name: fadein;
+	animation-duration: 0.5s;
+}
+
+@keyframes fadein {
+    from {opacity:0} 
+    to {opacity:1}
 }
 
 /*Cards*/
