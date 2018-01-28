@@ -1,6 +1,6 @@
 // Superclass for all Game Entities
 class GameEntity {
-	constructor(name, portrait, stats, armour = 0) {
+	constructor(name, portrait, stats, armour = 0, magicResistance = 0) {
 		const self = this;
 		
 		// Name and picture variables
@@ -49,6 +49,9 @@ class GameEntity {
 		
 		// Armour variable
 		this.armour = armour;
+
+		// Magic reistance variable
+		this.magicResistance = magicResistance;
 	}
 	
 	// Use dexterity stat to check whether or not attack hits
@@ -70,13 +73,12 @@ class GameEntity {
 		}
 	}
 	
-	// Mitigate magical damage based on intelligence stat
-	checkIntelligence(damage) {
-		let intel = this.stats()[3].value() + this.modifiers[3];
-		if (damage - intel < 0) {
+	// Mitigate magical damage based on magic resistance stat
+	checkMagicResistance(damage) {
+		if (damage - this.magicResistance < 0) {
 			return damage = 0;
 		} else {
-			return damage - intel;
+			return damage - this.magicResistance;
 		}
 	}
 	
@@ -182,10 +184,10 @@ class Player extends GameEntity {
 
 // Subclass for the enemy
 class Enemy extends GameEntity {
-	constructor(name, portrait, stats, armour = 0, expValue, goldValue) {
+	constructor(name, portrait, stats, armour = 0, magicResistance = 0, expValue, goldValue) {
 		
 		// Get name, portrait and stats from parent class
-		super(name, portrait, stats, armour);
+		super(name, portrait, stats, armour, magicResistance);
 		
 		const self = this;
 		

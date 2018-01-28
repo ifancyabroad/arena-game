@@ -209,6 +209,7 @@ const ViewModel = function() {
 		// Stat modifiers and armour
 		let modifiers = [0, 0, 0, 0, 0];
 		let a = 0;
+		let m = 0;
 		
 		// Search inventory for stat values
 		for (let prop in self.player().inventory()) {
@@ -226,12 +227,15 @@ const ViewModel = function() {
 				modifiers[4] += value;
 			} else if (modifier === 'armour') {
 				a += value;
+			} else if (modifier === 'magic resistance') {
+				m += value;
 			}
 		}
 		
 		// Set player modifiers to new equipment
 		self.player().modifiers = modifiers;
 		self.player().armour = a;
+		self.player().magicResistance = m;
 		
 		// Flip UI and player cards
 		self.playerCardShow(true);
@@ -392,7 +396,7 @@ const ViewModel = function() {
 	// Get a random enemy from enemies array
 	this.getEnemy = function() {
 		let enemy = self.enemies()[getRandom(0, self.enemies().length - 1)];		
-		self.currentEnemy(new Enemy(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.expValue, enemy.goldValue));
+		self.currentEnemy(new Enemy(enemy.name, enemy.portrait, enemy.stats, enemy.armour, enemy.magicResistance, enemy.expValue, enemy.goldValue));
 	}
 	
 	// Battle log observable
@@ -422,7 +426,7 @@ const ViewModel = function() {
 	this.playerMagicAttack = function() {
 		
 		// Get player damage
-		let playerDmg = self.currentEnemy().checkIntelligence(self.player().getMagicalDamage());
+		let playerDmg = self.currentEnemy().checkMagicResistance(self.player().getMagicalDamage());
 		
 		// Enemy takes player damage
 		self.currentEnemy().takeHit(playerDmg);
@@ -435,7 +439,7 @@ const ViewModel = function() {
 	this.enemyAttack = function() {
 		// Check to see how much damage each attack would do
 		let enemyPhyDmg = self.player().checkArmour(self.currentEnemy().getPhysicalDamage());
-		let enemyMagDmg = self.player().checkIntelligence(self.currentEnemy().getMagicalDamage());
+		let enemyMagDmg = self.player().checkMagicResistance(self.currentEnemy().getMagicalDamage());
 		
 		// Check if the enemy uses magic or physical attack
 		if (enemyPhyDmg >= enemyMagDmg) {
