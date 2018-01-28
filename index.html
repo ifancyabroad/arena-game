@@ -124,10 +124,10 @@
 				<!--Battle Screen-->
 				<div class="ui-screen battle-screen" data-bind="visible: battleShow()">
 					<h1>Arena</h1>
-					<div class="centered" data-bind="with: currentEnemy">
-						<button class="btn" type="button" data-bind="click: $parent.physicalAttack, disable: dead()">Attack</button>
-						<button class="btn" type="button" data-bind="click: $parent.magicalAttack, disable: dead()">Magic</button>
-						<button class="btn" type="button" data-bind="click: $parent.toggleBattleReturn, enable: dead()">Return to town</button>
+					<div class="centered controls" data-bind="with: currentEnemy">
+						<button class="btn-town" type="button" data-bind="click: $parent.physicalAttack, disable: dead()">Attack<img class="town-btn-icon" src="images/icons/sword.png" alt="Crossed swords icon"></button>
+						<button class="btn-town" type="button" data-bind="click: $parent.magicalAttack, disable: dead()">Spell<img class="town-btn-icon" src="images/icons/wand.png" alt="Crossed swords icon"></button>
+						<button class="btn-town" type="button" data-bind="click: $parent.toggleBattleReturn, enable: dead()">Home<img class="town-btn-icon" src="images/icons/home.png" alt="Crossed swords icon"></button>
 					</div>
 					<div class="log-container" data-bind="style: { overflow: logOverflow() ? 'auto' : 'hidden' }">
 						<div data-bind="html: battleLog">
@@ -230,7 +230,7 @@
 					<!-- ko with: player -->
 					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
 					<!-- /ko -->
-					<div class="centered town-controls">
+					<div class="centered controls">
 						<button class="btn-town" type="button" data-bind="click: toggleBattle">Battle<img class="town-btn-icon" src="images/icons/battle.png" alt="Crossed swords icon"></button>
 						<button class="btn-town" type="button" data-bind="click: toggleShop">Store<img class="town-btn-icon" src="images/icons/store.png" alt="Store icon"></button>
 						<button class="btn-town" type="button" data-bind="click: toggleHealer">Healer<img class="town-btn-icon" src="images/icons/cross.png" alt="Cross icon"></button>
