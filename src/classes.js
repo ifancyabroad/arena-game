@@ -148,7 +148,7 @@ class Player extends GameEntity {
 		this.level = ko.observable(1);
 		
 		// Variable for rerolls the player is allowed
-		this.rerolls = ko.observable(3);
+		this.rerolls = ko.observable(10);
 		
 		// Skill points the player has acquired for spending
 		this.skillPoints = ko.observable(0);

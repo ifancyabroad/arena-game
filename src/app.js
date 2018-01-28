@@ -385,11 +385,11 @@ const ViewModel = function() {
 	this.currentEnemy = ko.observable();
 	this.enemies = ko.computed(function() {
 		if (self.wins() > 19) {
-			return enemiesThree;
+			return enemyTiers[0].concat(enemyTiers[1]).concat(enemyTiers[2]);
 		} else if (self.wins() > 9) {
-			return enemiesTwo;
+			return enemyTiers[0].concat(enemyTiers[1]);
 		} else {
-			return enemiesOne;
+			return enemyTiers[0];
 		}
 	});
 	
