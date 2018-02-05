@@ -233,7 +233,9 @@ const ViewModel = function() {
 		}
 		
 		// Set player modifiers to new equipment
-		self.player().modifiers = modifiers;
+		for (let i = 0; i < modifiers.length; i++) {
+			self.player().stats()[i].modifier(modifiers[i]);
+		}
 		self.player().armour = a;
 		self.player().magicResistance = m;
 		

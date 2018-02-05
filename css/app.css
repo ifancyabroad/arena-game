@@ -55,6 +55,10 @@ h2, h3 {
 	-webkit-transform: translate(-50%, -50%);;
 }
 
+.text-center {
+	text-align: center;
+}
+
 .text-right {
 	text-align: right;
 }
@@ -388,6 +392,10 @@ td {
 }
 
 .stat-table tr:nth-child(even) {background-color: #f2f2f2;}
+
+.stat-modifier {
+	color: #348d37;
+}
 
 /*Inventory*/
 .inventory-table {

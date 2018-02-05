@@ -11,23 +11,28 @@ class GameEntity {
 		this.stats = ko.observableArray([
 			{
 				name: 'Strength',
-				value: ko.observable(stats[0])
+				value: ko.observable(stats[0]),
+				modifier: ko.observable(0)
 			},
 			{
 				name: 'Dexterity',
-				value: ko.observable(stats[1])
+				value: ko.observable(stats[1]),
+				modifier: ko.observable(0)
 			},
 			{
 				name: 'Constitution',
-				value: ko.observable(stats[2])
+				value: ko.observable(stats[2]),
+				modifier: ko.observable(0)
 			},
 			{
 				name: 'Intelligence',
-				value: ko.observable(stats[3])
+				value: ko.observable(stats[3]),
+				modifier: ko.observable(0)
 			},
 			{
 				name: 'Initiative',
-				value: ko.observable(stats[4])
+				value: ko.observable(stats[4]),
+				modifier: ko.observable(0)
 			}
 		])
 		
@@ -44,9 +49,6 @@ class GameEntity {
 			return self.currentHealth() <= 0; 
 		});
 		
-		// Stat modifiers
-		this.modifiers = [0, 0, 0, 0, 0];
-		
 		// Armour variable
 		this.armour = armour;
 
@@ -56,7 +58,7 @@ class GameEntity {
 	
 	// Use dexterity stat to check whether or not attack hits
 	checkHit() {
-		let dex = this.stats()[1].value() + this.modifiers[1];
+		let dex = this.stats()[1].value() + this.stats()[1].modifier();
 		if (dex >= getRandom(1, 20)) {
 			return true;
 		} else {
@@ -84,13 +86,13 @@ class GameEntity {
 	
 	// Get physical damage based on strength stat
 	getPhysicalDamage() {	
-		let str = this.stats()[0].value() + this.modifiers[0];
+		let str = this.stats()[0].value() + this.stats()[0].modifier();
 		return (str + getRandom(1, 6));
 	}
 	
 	// Get magical damage based on intelligence
 	getMagicalDamage() {
-		let intel = this.stats()[3].value() + this.modifiers[3];
+		let intel = this.stats()[3].value() + this.stats()[3].modifier();
 		return (intel + getRandom(1, 6));
 	}
 	

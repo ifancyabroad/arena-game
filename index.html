@@ -31,7 +31,7 @@
 					<tbody data-bind="foreach: stats">
 						<tr>
 							<td data-bind="text: name"></td>
-							<td class="text-right" data-bind="text: value"></td>
+							<td class="text-center"><span data-bind="text: value"></span><span class="stat-modifier" data-bind="visible: modifier() > 0"> + <span data-bind="text: modifier"></span></span></td>
 						</tr>
 					</tbody>
 				</table>
