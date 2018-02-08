@@ -261,11 +261,30 @@
 	<div data-bind="with: player">
 		<div class="modal" data-bind="style: { display: dead() ? 'block' : 'none' }">
 			<div class="popup">
-				<h1>You have died!</h1>
-				<p>You reached level <strong data-bind="text: level"></strong> with a total of <strong data-bind="text: experience"></strong> experience</p>
-				<p>You defeated <strong data-bind="text: $parent.wins"></strong> enemies</p>
-				<img src="images/defeated.jpg">
-				<button class="btn" type="button" data-bind="click: $parent.resetGame">Play Again</button>
+				<div data-bind="visible: $parent.deathShow()">
+					<h1>You have died!</h1>
+					<p>You reached level <strong data-bind="text: level"></strong> with a total of <strong data-bind="text: experience"></strong> experience</p>
+					<p>You defeated <strong data-bind="text: $parent.wins"></strong> enemies</p>
+					<img src="images/defeated.jpg">
+					<button class="btn" type="button" data-bind="click: $parent.showScores">View Scores</button>
+				</div>
+				<div data-bind="visible: $parent.scoresShow()">
+					<h1>Highscores</h1>
+					<table class="scores">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Class</th>
+								<th>Level</th>
+								<th>Kills</th>
+								<th>Slain by</th>
+							</tr>
+						</thead>
+						<tbody id="score-data">			
+						</tbody>
+					</table>
+					<button class="btn" type="button" data-bind="click: $parent.resetGame">Play Again</button>
+				</div>
 			</div>
 		</div>
 	</div>

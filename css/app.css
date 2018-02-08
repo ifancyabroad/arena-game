@@ -454,6 +454,27 @@ td {
 	width: 80%;
 }
 
+.scores {
+    border-collapse: collapse;
+    width: 80%;
+    text-align: left;
+    margin: 5px auto;
+}
+
+.scores td, .scores th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.scores tr:nth-child(even){background-color: #f2f2f2;}
+
+.scores th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #6e6e6e;
+    color: white;
+}
+
 @keyframes zoom {
     from {transform:scale(0)} 
     to {transform:scale(1)}

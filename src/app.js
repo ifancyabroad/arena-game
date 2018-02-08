@@ -9,6 +9,17 @@ const displayGame = function() {
   	document.getElementById("game-area").style.display = "flex";
 }
 
+// 
+const updateScores = function(name, cl, level, kills, slainby) {
+	const scoresRequest = new XMLHttpRequest();
+
+	scoresRequest.onreadystatechange = function() {
+		document.getElementById("score-data").innerHTML = this.responseText;
+	}
+	scoresRequest.open('GET', `getScores.php?name=${name}&cl=${cl}&level=${level}&kills=${kills}&slainby=${slainby}`, true);
+	scoresRequest.send();
+}
+
 // ViewModel section
 const ViewModel = function() {
 	const self = this;
@@ -36,6 +47,10 @@ const ViewModel = function() {
 	
 	// Is enemy card flipped or not
 	this.enemyCardShow = ko.observable(false);
+
+	// Death screens
+	this.deathShow = ko.observable(true);
+	this.scoresShow = ko.observable(false);
 	
 	// Hide all front faces
 	this.hideAllFront = function() {
@@ -517,6 +532,13 @@ const ViewModel = function() {
 			}
 		}	
 	}
+
+	// Show the scores table
+	this.showScores = function() {
+		updateScores(self.player().name(), self.player().cl().name, self.player().level(), self.wins(), self.currentEnemy().name())
+		self.deathShow(false);
+		self.scoresShow(true);
+	}
 	
 	// Reset the game back to its starting state
 	this.resetGame = function() {
@@ -560,6 +582,10 @@ const ViewModel = function() {
 		// Reset player name and number of wins
 		self.nameInput('');
 		self.wins(0);
+
+		// Reset death and score screens
+		self.deathShow(true);
+		self.scoresShow(false);
 	}
 }
 
