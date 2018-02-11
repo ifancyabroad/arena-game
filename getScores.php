@@ -34,15 +34,19 @@ if ($dbSuccess) {
 	$scoresSelectQuery = mysqli_query($dbConnected, $scoresSelect);
 	$scores = mysqli_fetch_all($scoresSelectQuery, MYSQLI_ASSOC);
 
+	$rank = 1;
 	foreach ($scores as $value) {
 		echo 
 		"<tr>
+			<td>".$rank."</td>
 			<td>".$value['name']."</td>
 			<td>".$value['class']."</td>
 			<td>".$value['level']."</td>
 			<td>".$value['kills']."</td>
 			<td>".$value['slainby']."</td>
 		</tr>";
+
+		$rank++;
 	}
 }
 ?>
