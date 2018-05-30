@@ -161,13 +161,25 @@
 					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
 					<!-- /ko -->
 					<div class="ui-column">
-						<div class="item-list" data-bind="foreach: items">
-							<div class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { border: active() ? '2px solid red' : '2px solid grey' }">
-								<h4 data-bind="text: name"></h4>
-								<p><em data-bind="text: description()"></em></p>
-								<p><strong>Type: </strong><span data-bind="text: type"></span></p>
-								<p><strong>Price: </strong><span data-bind="text: price"></span>g</p>
-							</div>
+						<div class="item-list">
+							<table>
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Effect</th>
+										<th>Type</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+								<tbody data-bind="foreach: items">
+									<tr class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { backgroundColor: active() ? '#d3d3d3' : '#fff' }">
+										<td data-bind="text: name"></td>
+										<td><em data-bind="text: description()"></em></td>
+										<td data-bind="text: type"></td>
+										<td><span data-bind="text: price"></span>g</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 						<p data-bind="text: townLog"></p>
 						<div>

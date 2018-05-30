@@ -78,6 +78,7 @@ h2, h3 {
 	align-items: center;
 	animation-name: fadein;
 	animation-duration: 1s;
+	perspective: 2000px;
 }
 
 @keyframes fadein {
@@ -250,7 +251,7 @@ input[type=text] {
     width: 50%;
 }
 
-td {
+td, th {
     padding: 5px;
 }
 
@@ -303,10 +304,14 @@ td {
 /*Item store screen*/
 .item-list {
 	height: 60%;
-	width: 80%;
 	text-align: left;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	overflow: auto;
+}
+
+.item-list th {
+	background-color: #6e6e6e;
+	color: white;
 }
 
 .item {
@@ -314,10 +319,12 @@ td {
 	background-color: white;
 	margin: 5px auto;
 	padding: 5px;
+	transition: background-color 1s;
 }
 
 .item:hover {
 	cursor: pointer;
+	background-color: #d3d3d3;
 }
 
 /*Healer screen*/
