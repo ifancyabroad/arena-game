@@ -11,6 +11,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Tangerine:400,700" rel="stylesheet">
 	<!--Link to Font Awesome-->
 	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--Link to Fixed Header Table-->
+	<link rel="stylesheet" type="text/css" href="css/fixedheadertable/defaultTheme.css">
+	<link rel="stylesheet" type="text/css" href="css/fixedheadertable/myTheme.css">
 </head>
 
 <body onload="displayGame()">
@@ -31,7 +34,12 @@
 					<tbody data-bind="foreach: stats">
 						<tr>
 							<td data-bind="text: name"></td>
-							<td class="text-center"><span data-bind="text: value"></span><span class="stat-modifier" data-bind="visible: modifier() > 0"> + <span data-bind="text: modifier"></span></span></td>
+							<td class="text-center">
+								<div class="stat">
+									<span data-bind="text: value"></span>
+									<span class="stat-modifier" data-bind="visible: modifier() > 0"> + <span data-bind="text: modifier"></span></span>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -40,7 +48,10 @@
 				<div class="entity-back" data-bind="visible: playerBackShow()">
 				</div>
 				<div class="entity-front" data-bind="with: player, visible: playerInventoryShow()">
-					<h2>Inventory</h2>		
+					<h2>Inventory</h2>
+					<div class="inv-gold">
+						<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>						
+					</div>	
 					<table class="inventory-table" >
 						<tbody>
 							<tr>
@@ -157,12 +168,9 @@
 				<!--Shop Screen-->
 				<div class="ui-screen" data-bind="visible: shopShow()">
 					<h1>Item Store</h1>
-					<!-- ko with: player -->
-					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
-					<!-- /ko -->
 					<div class="ui-column">
 						<div class="item-list">
-							<table>
+							<table id="item-table" class="item-table">
 								<thead>
 									<tr>
 										<th>Name</th>
@@ -172,7 +180,7 @@
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: items">
-									<tr class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { backgroundColor: active() ? '#d3d3d3' : '#fff' }">
+									<tr class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { backgroundColor: active() ? '#d3d3d3' : '' }">
 										<td data-bind="text: name"></td>
 										<td><em data-bind="text: description()"></em></td>
 										<td data-bind="text: type"></td>
@@ -302,6 +310,11 @@
 		</div>
 	</div>
 	
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  crossorigin="anonymous"></script>
+  	<script src="lib/jquery.fixedheadertable.min.js"></script>
 	<script src="lib/knockout-3.4.2.js"></script>
 	<script src="lib/model.js"></script>
 	<script src="lib/classes.js"></script>

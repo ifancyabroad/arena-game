@@ -234,7 +234,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'head',
 		name: 'Leather Helm',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 2,
 		price: 100
@@ -244,7 +244,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'head',
 		name: 'Plate Helm',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 3,
 		price: 200
@@ -254,7 +254,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'head',
 		name: 'Magic Helm',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'intelligence',
 		value: 2,
 		price: 300
@@ -264,7 +264,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'body',
 		name: 'Leather Armour',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 3,
 		price: 150
@@ -274,7 +274,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'body',
 		name: 'Chainmail',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 4,
 		price: 250
@@ -284,7 +284,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'body',
 		name: 'Plate Armour',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 6,
 		price: 400
@@ -294,7 +294,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'body',
 		name: 'Mage Robes',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'intelligence',
 		value: 3,
 		price: 400
@@ -304,7 +304,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'body',
 		name: 'Armour of Protection',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'magic resistance',
 		value: 5,
 		price: 350
@@ -314,7 +314,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Dagger',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'strength',
 		value: 2,
 		price: 50
@@ -324,7 +324,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Longsword',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'strength',
 		value: 3,
 		price: 150
@@ -334,7 +334,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Greataxe',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'strength',
 		value: 5,
 		price: 300
@@ -344,7 +344,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Magic Staff',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'intelligence',
 		value: 3,
 		price: 300
@@ -354,7 +354,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'boots',
 		name: 'Leather Boots',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 1,
 		price: 100
@@ -364,7 +364,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'boots',
 		name: 'Plate Boots',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 3,
 		price: 250
@@ -374,7 +374,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'boots',
 		name: 'Golem\'s Boots',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'magic resistance',
 		value: 3,
 		price: 200
@@ -384,7 +384,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'boots',
 		name: 'Boots of Speed',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'initiative',
 		value: 4,
 		price: 100
@@ -394,7 +394,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'gloves',
 		name: 'Leather Gloves',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 1,
 		price: 100
@@ -404,7 +404,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'gloves',
 		name: 'Plate Gloves',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'armour',
 		value: 3,
 		price: 250
@@ -414,7 +414,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'gloves',
 		name: 'Gloves of Intelligence',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'intelligence',
 		value: 2,
 		price: 200
@@ -424,7 +424,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'gloves',
 		name: 'Gloves of Accuracy',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'dexterity',
 		value: 2,
 		price: 200
@@ -434,7 +434,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'misc',
 		name: 'Ring of Swiftness',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'initiative',
 		value: 3,
 		price: 200
@@ -444,7 +444,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'misc',
 		name: 'Ring of Resistance',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'magic resistance',
 		value: 4,
 		price: 400
@@ -454,7 +454,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'misc',
 		name: 'Necklace of Power',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'intelligence',
 		value: 2,
 		price: 150
@@ -464,7 +464,7 @@ const items = ko.observableArray([
 		available: ko.observable(true),
 		type: 'misc',
 		name: 'Rogue\'s Trinket',
-		description: function() { return `Increases your ${this.modifier} by ${this.value}` },
+		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'dexterity',
 		value: 3,
 		price: 250

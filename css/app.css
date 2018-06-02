@@ -303,28 +303,10 @@ td, th {
 
 /*Item store screen*/
 .item-list {
-	height: 60%;
+	height: 70%;
+	max-width: 100%;
 	text-align: left;
 	font-size: 0.8em;
-	overflow: auto;
-}
-
-.item-list th {
-	background-color: #6e6e6e;
-	color: white;
-}
-
-.item {
-	color: black;
-	background-color: white;
-	margin: 5px auto;
-	padding: 5px;
-	transition: background-color 1s;
-}
-
-.item:hover {
-	cursor: pointer;
-	background-color: #d3d3d3;
 }
 
 /*Healer screen*/
@@ -398,6 +380,10 @@ td, th {
 	font-size: 0.8em;
 }
 
+.stat {
+	min-width: 50px;
+}
+
 .stat-table tr:nth-child(even) {background-color: #f2f2f2;}
 
 .stat-modifier {
@@ -412,7 +398,8 @@ td, th {
 }
 
 .inventory-table td {
-	height: 45px;
+	font-size: 0.9em;
+	height: 35px;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -422,6 +409,10 @@ td, th {
 
 .inventory-icon {
 	width: 100%;
+}
+
+.inv-gold {
+	margin: 10px;
 }
 
 /*Enemy card*/

@@ -172,6 +172,12 @@ const ViewModel = function() {
 			self.shopShow(true);
 		}
 		self.uiCardShow(true);
+
+		// Destroy fixed header table
+		$('#item-table').fixedHeaderTable('destroy');
+
+		// Create fixed header table
+		$('#item-table').fixedHeaderTable({altClass: 'odd'});
 	}
 	
 	// Select and item in the shop
