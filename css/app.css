@@ -226,9 +226,15 @@ input[type=text] {
 	width: 50%;
 }
 
-.portrait {
+.portrait-container {
+	max-height: 180px;
 	width: 80%;
-	margin: 5px;
+	overflow: hidden;
+}
+
+.portrait {
+	width: 100%;
+	margin: auto;
 }
 
 .class {

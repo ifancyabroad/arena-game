@@ -118,9 +118,11 @@
 						<div class="detail-select">
 							<div class="portrait-select">
 								<i class="fa fa-chevron-left" aria-hidden="true" data-bind="click: togglePortrait.bind($data, -1)"></i>
-								<!-- ko foreach: portraits -->
-								<img class="portrait" data-bind="visible: active(), attr: { src: path }">
-								<!-- /ko -->
+								<div class="portrait-container">
+									<!-- ko foreach: portraits -->
+									<img class="portrait" data-bind="visible: active(), attr: { src: path }">
+									<!-- /ko -->
+								</div>
 								<i class="fa fa-chevron-right" aria-hidden="true" data-bind="click: togglePortrait.bind($data, 1)"></i>
 							</div>
 							<div data-bind="foreach: classes">

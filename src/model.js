@@ -10,11 +10,27 @@ const portraits = [
 	},
 	{
 		active: ko.observable(false),
-		path: 'images/portraits/male-warrior.jpg'
+		path: 'images/portraits/female-mage.jpg'
+	},
+	{
+		active: ko.observable(false),
+		path: 'images/portraits/male-knight.jpg'
+	},
+	{
+		active: ko.observable(false),
+		path: 'images/portraits/female-knight.jpg'
+	},
+	{
+		active: ko.observable(false),
+		path: 'images/portraits/male-thief.png'
 	},
 	{
 		active: ko.observable(false),
 		path: 'images/portraits/female-thief.jpg'
+	},
+	{
+		active: ko.observable(false),
+		path: 'images/portraits/male-warrior.jpg'
 	}
 ]
 
