@@ -271,9 +271,29 @@ const items = ko.observableArray([
 		type: 'head',
 		name: 'Magic Helm',
 		description: function() { return `${this.modifier} +${this.value}` },
-		modifier: 'intelligence',
+		modifier: 'magic resistance',
 		value: 2,
 		price: 300
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'head',
+		name: 'Crown of Intellect',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'intelligence',
+		value: 5,
+		price: 650
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'head',
+		name: 'Helm of the Black Knight',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'armour',
+		value: 6,
+		price: 600
 	},
 	{
 		active: ko.observable(false),
@@ -328,11 +348,41 @@ const items = ko.observableArray([
 	{
 		active: ko.observable(false),
 		available: ko.observable(true),
+		type: 'body',
+		name: 'Adamantium Plate',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'magic resistance',
+		value: 10,
+		price: 900
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'body',
+		name: 'Tunic of the Betrayer',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'dexterity',
+		value: 9,
+		price: 800
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'body',
+		name: 'Supreme Garb of the Burnt Sorcerer',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'intelligence',
+		value: 10,
+		price: 1200
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'weapon',
 		name: 'Dagger',
 		description: function() { return `${this.modifier} +${this.value}` },
-		modifier: 'strength',
-		value: 2,
+		modifier: 'dexterity',
+		value: 4,
 		price: 50
 	},
 	{
@@ -364,6 +414,36 @@ const items = ko.observableArray([
 		modifier: 'intelligence',
 		value: 3,
 		price: 300
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'weapon',
+		name: 'Twin Swords',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'dexterity',
+		value: 8,
+		price: 700
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'weapon',
+		name: 'Skull Crusher Maul',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'strength',
+		value: 7,
+		price: 800
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'weapon',
+		name: 'Staff of Power',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'intelligence',
+		value: 6,
+		price: 650
 	},
 	{
 		active: ko.observable(false),
@@ -408,6 +488,36 @@ const items = ko.observableArray([
 	{
 		active: ko.observable(false),
 		available: ko.observable(true),
+		type: 'boots',
+		name: 'Silent Shoes',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'dexterity',
+		value: 5,
+		price: 500
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'boots',
+		name: 'Boots of Resolve',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'constitution',
+		value: 4,
+		price: 750
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'boots',
+		name: 'Archmage Slippers',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'intelligence',
+		value: 5,
+		price: 650
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'gloves',
 		name: 'Leather Gloves',
 		description: function() { return `${this.modifier} +${this.value}` },
@@ -448,11 +558,41 @@ const items = ko.observableArray([
 	{
 		active: ko.observable(false),
 		available: ko.observable(true),
+		type: 'gloves',
+		name: 'Adamantium Gloves',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'armour',
+		value: 6,
+		price: 600
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'gloves',
+		name: 'Gloves of Superior Protection',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'magic resistance',
+		value: 7,
+		price: 800
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'gloves',
+		name: 'Ogre Gauntlets',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'strength',
+		value: 8,
+		price: 1000
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
 		type: 'misc',
 		name: 'Ring of Swiftness',
 		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'initiative',
-		value: 3,
+		value: 6,
 		price: 200
 	},
 	{
@@ -469,6 +609,26 @@ const items = ko.observableArray([
 		active: ko.observable(false),
 		available: ko.observable(true),
 		type: 'misc',
+		name: 'Ring of Deadly strikes',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'dexterity',
+		value: 6,
+		price: 500
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'misc',
+		name: 'Shield Ring',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'armour',
+		value: 5,
+		price: 400
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'misc',
 		name: 'Necklace of Power',
 		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'intelligence',
@@ -479,9 +639,49 @@ const items = ko.observableArray([
 		active: ko.observable(false),
 		available: ko.observable(true),
 		type: 'misc',
+		name: 'Amulet of Unstoppable Energy',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'intelligence',
+		value: 12,
+		price: 1500
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'misc',
+		name: 'Necklace of Strength',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'strength',
+		value: 5,
+		price: 500
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'misc',
 		name: 'Rogue\'s Trinket',
 		description: function() { return `${this.modifier} +${this.value}` },
 		modifier: 'dexterity',
+		value: 3,
+		price: 250
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'misc',
+		name: 'Mage\'s Trinket',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'intelligence',
+		value: 3,
+		price: 250
+	},
+	{
+		active: ko.observable(false),
+		available: ko.observable(true),
+		type: 'misc',
+		name: 'Warrior\'s Trinket',
+		description: function() { return `${this.modifier} +${this.value}` },
+		modifier: 'strength',
 		value: 3,
 		price: 250
 	}

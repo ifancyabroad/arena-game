@@ -445,7 +445,7 @@ const ViewModel = function() {
 			// Check for crit and log the attack
 			if (self.player().checkCrit(playerDmg)) {
 				playerDmg *= 2;
-				self.battleLog(self.battleLog() + `<p><strong>CRITICAL HIT</strong> on the <strong>${self.currentEnemy().name()}</strong> for <strong>${playerDmg}</strong> damage</p>`);
+				self.battleLog(self.battleLog() + `<p><strong class="red">CRITICAL HIT</strong> on the <strong>${self.currentEnemy().name()}</strong> for <strong>${playerDmg}</strong> damage</p>`);
 			} else {
 				self.battleLog(self.battleLog() + `<p>You attack the <strong>${self.currentEnemy().name()}</strong> for <strong>${playerDmg}</strong> damage</p>`);
 			}
@@ -486,7 +486,7 @@ const ViewModel = function() {
 				// Check for crit and log the attack
 				if (self.currentEnemy().checkCrit(enemyPhyDmg)) {
 					enemyPhyDmg *= 2;
-					self.battleLog(self.battleLog() + `<p><strong>${self.currentEnemy().name()}</strong> attacks you with a <strong>CRITICAL HIT</strong> for <strong>${enemyPhyDmg}</strong> damage</p>`);
+					self.battleLog(self.battleLog() + `<p><strong>${self.currentEnemy().name()}</strong> attacks you with a <strong class="red">CRITICAL HIT</strong> for <strong>${enemyPhyDmg}</strong> damage</p>`);
 				} else {
 					self.battleLog(self.battleLog() + `<p><strong>${self.currentEnemy().name()}</strong> attacks you for <strong>${enemyPhyDmg}</strong> damage</p>`);
 				}
