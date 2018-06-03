@@ -50,10 +50,10 @@ class GameEntity {
 		});
 		
 		// Armour variable
-		this.armour = armour;
+		this.armour = ko.observable(armour);
 
 		// Magic reistance variable
-		this.magicResistance = magicResistance;
+		this.magicResistance = ko.observable(magicResistance);
 	}
 	
 	// Use dexterity stat to check whether or not attack hits
@@ -68,19 +68,19 @@ class GameEntity {
 	
 	// Mitigate physical damage based on armour stat
 	checkArmour(damage) {
-		if (damage - this.armour < 0) {
+		if (damage - this.armour() < 0) {
 			return damage = 0;
 		} else {
-			return damage - this.armour;
+			return damage - this.armour();
 		}
 	}
 	
 	// Mitigate magical damage based on magic resistance stat
 	checkMagicResistance(damage) {
-		if (damage - this.magicResistance < 0) {
+		if (damage - this.magicResistance() < 0) {
 			return damage = 0;
 		} else {
-			return damage - this.magicResistance;
+			return damage - this.magicResistance();
 		}
 	}
 	

@@ -27,7 +27,7 @@
 			<div class="card-front entity-front" data-bind="with: player">
 				<i class="fa fa-arrow-circle-up levelup-icon" aria-hidden="true" data-bind="visible: skillPoints() > 0"></i>
 				<h2 data-bind="text: name"></h2>
-				<h3>Level <span data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
+				<h3>Level <span class="level" data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
 				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
 				<h4><span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
 				<table class="stat-table" >
@@ -43,6 +43,17 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="add-stats">
+					<div class="add-stat">
+						<img class="stat-icon" src="images/icons/armour.png"><span data-bind="text: armour"></span>
+					</div>
+					<div class="add-stat">
+						<img class="stat-icon" src="images/icons/magic-resistance.png"><span data-bind="text: magicResistance"></span>
+					</div>
+					<div class="add-stat">
+						<img class="stat-icon" src="images/icons/crit-chance.png"><span>0</span>
+					</div>
+				</div>
 			</div>
 			<div class="card-back">
 				<div class="entity-back" data-bind="visible: playerBackShow()">
@@ -50,7 +61,7 @@
 				<div class="entity-front" data-bind="with: player, visible: playerInventoryShow()">
 					<h2>Inventory</h2>
 					<div class="inv-gold">
-						<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>						
+						<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
 					</div>	
 					<table class="inventory-table" >
 						<tbody>

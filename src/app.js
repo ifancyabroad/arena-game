@@ -257,8 +257,8 @@ const ViewModel = function() {
 		for (let i = 0; i < modifiers.length; i++) {
 			self.player().stats()[i].modifier(modifiers[i]);
 		}
-		self.player().armour = a;
-		self.player().magicResistance = m;
+		self.player().armour(a);
+		self.player().magicResistance(m);
 		
 		// Flip UI and player cards
 		self.playerCardShow(true);
