@@ -45,13 +45,19 @@
 				</table>
 				<div class="add-stats">
 					<div class="add-stat">
-						<img class="stat-icon" src="images/icons/armour.png"><span data-bind="text: armour"></span>
+						<p class="stat-tag">Armour</p>
+						<img class="stat-icon" src="images/icons/armour.png" data-bind="event: { mouseover: $parent.showTag, mouseout: $parent.hideTag }">
+						<span data-bind="text: armour"></span>
 					</div>
 					<div class="add-stat">
-						<img class="stat-icon" src="images/icons/magic-resistance.png"><span data-bind="text: magicResistance"></span>
+						<p class="stat-tag">Magic Resistance</p>
+						<img class="stat-icon" src="images/icons/magic-resistance.png" data-bind="event: { mouseover: $parent.showTag, mouseout: $parent.hideTag }">
+						<span data-bind="text: magicResistance"></span>
 					</div>
 					<div class="add-stat">
-						<img class="stat-icon" src="images/icons/crit-chance.png"><span>0</span>
+						<p class="stat-tag"">Critical Strike Chance</p>
+						<img class="stat-icon" src="images/icons/crit-chance.png" data-bind="event: { mouseover: $parent.showTag, mouseout: $parent.hideTag }">
+						<span>0</span>
 					</div>
 				</div>
 			</div>

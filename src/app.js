@@ -23,6 +23,15 @@ const updateScores = function(name, cl, level, kills, slainby) {
 // ViewModel section
 const ViewModel = function() {
 	const self = this;
+
+	// Show or hide additional stat tags when hovering
+	this.showTag = function(data, event) {
+		$(event.target).prev().css('display', 'initial');
+	}
+
+	this.hideTag = function(data, event) {
+		$(event.target).prev().css('display', 'none');
+	}
 	
 	// Observables for UI screens and starting values
 	// Is UI flipped or not
