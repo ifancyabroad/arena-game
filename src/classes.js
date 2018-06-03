@@ -54,12 +54,26 @@ class GameEntity {
 
 		// Magic reistance variable
 		this.magicResistance = ko.observable(magicResistance);
+
+		// Critical strike chance
+		this.critChance = ko.computed(function() {
+			return ((self.stats()[1].value() + self.stats()[1].modifier()) * 0.75) + 5;
+		})
 	}
 	
 	// Use dexterity stat to check whether or not attack hits
 	checkHit() {
 		let dex = this.stats()[1].value() + this.stats()[1].modifier();
 		if (dex >= getRandom(1, 20)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// Use crit chance to check whether or not it is a critical strike
+	checkCrit(damage) {
+		if (this.critChance() >= getRandom(1, 100)) {
 			return true;
 		} else {
 			return false;

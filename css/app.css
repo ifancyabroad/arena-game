@@ -357,7 +357,7 @@ td, th {
 	display: flex;
 	flex-direction: column-reverse;
 	text-align: left;
-	font-size:0.8em;
+	font-size: 0.7em;
 	padding: 5px;
 	border-top: 1px solid #9c9c9c;
 	border-left: 1px solid #9c9c9c;

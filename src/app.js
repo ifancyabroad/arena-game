@@ -441,16 +441,22 @@ const ViewModel = function() {
 			
 			// Get player damage
 			let playerDmg = self.currentEnemy().checkArmour(self.player().getPhysicalDamage());
-			
-			// Enemy takes player damage
+
+			// Check for crit and log the attack
+			if (self.player().checkCrit(playerDmg)) {
+				playerDmg *= 2;
+				self.battleLog(self.battleLog() + `<p><strong>CRITICAL HIT</strong> on the <strong>${self.currentEnemy().name()}</strong> for <strong>${playerDmg}</strong> damage</p>`);
+			} else {
+				self.battleLog(self.battleLog() + `<p>You attack the <strong>${self.currentEnemy().name()}</strong> for <strong>${playerDmg}</strong> damage</p>`);
+			}
+
+			// Enemy takes the damage
 			self.currentEnemy().takeHit(playerDmg);
 			
-			// Display in battle log
-			self.battleLog(self.battleLog() + `<p>You attack the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
 		} else {
 			
 			// Log a miss in the battle log
-			self.battleLog(self.battleLog() + `<p>You miss the ${self.currentEnemy().name()}</p>`);
+			self.battleLog(self.battleLog() + `<p>You miss the <strong>${self.currentEnemy().name()}</strong></p>`);
 		}
 	}
 	
@@ -464,7 +470,7 @@ const ViewModel = function() {
 		self.currentEnemy().takeHit(playerDmg);
 		
 		// Display in battle log
-		self.battleLog(self.battleLog() + `<p>Your spell hits the ${self.currentEnemy().name()} for ${playerDmg} damage</p>`);
+		self.battleLog(self.battleLog() + `<p>Your spell hits the <strong>${self.currentEnemy().name()}</strong> for <strong>${playerDmg}</strong> damage</p>`);
 	}
 	
 	// Check to see if the enemy hits, calculate the damage and display it in the combat log
@@ -477,15 +483,21 @@ const ViewModel = function() {
 		if (enemyPhyDmg >= enemyMagDmg) {
 			if (self.currentEnemy().checkHit()) {
 				
+				// Check for crit and log the attack
+				if (self.currentEnemy().checkCrit(enemyPhyDmg)) {
+					enemyPhyDmg *= 2;
+					self.battleLog(self.battleLog() + `<p><strong>${self.currentEnemy().name()}</strong> attacks you with a <strong>CRITICAL HIT</strong> for <strong>${enemyPhyDmg}</strong> damage</p>`);
+				} else {
+					self.battleLog(self.battleLog() + `<p><strong>${self.currentEnemy().name()}</strong> attacks you for <strong>${enemyPhyDmg}</strong> damage</p>`);
+				}
+
 				// Player takes enemy damage
 				self.player().takeHit(enemyPhyDmg);
 				
-				// Display in battle log
-				self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} attacks you for ${enemyPhyDmg} damage</p>`);
 			} else {
 				
 				// Log a miss in the battle log
-				self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()} misses you</p>`);
+				self.battleLog(self.battleLog() + `<p><strong>${self.currentEnemy().name()}</strong> misses you</p>`);
 			}
 		} else {
 			
@@ -493,7 +505,7 @@ const ViewModel = function() {
 			self.player().takeHit(enemyMagDmg);
 			
 			// Display in battle log
-			self.battleLog(self.battleLog() + `<p>${self.currentEnemy().name()}'s spell hits you for ${enemyMagDmg} damage</p>`);		
+			self.battleLog(self.battleLog() + `<p><strong>${self.currentEnemy().name()}'s</strong> spell hits you for <strong>${enemyMagDmg}</strong> damage</p>`);		
 		}
 	}
 	
@@ -503,9 +515,9 @@ const ViewModel = function() {
 		self.player().experienceGain(self.currentEnemy().expValue);
 		self.player().gold(self.player().gold() + self.currentEnemy().goldValue);
 		self.battleLog(self.battleLog() + 
-		`<p>You have slain the ${self.currentEnemy().name()}!</p>
-		<p>You gain ${self.currentEnemy().expValue} experience</p>
-		<p>${self.currentEnemy().goldValue} gold earned</p>`);		
+		`<p>You have slain the <strong>${self.currentEnemy().name()}</strong>!</p>
+		<p>You gain <strong>${self.currentEnemy().expValue}</strong> experience</p>
+		<p><strong>${self.currentEnemy().goldValue}</strong> gold earned</p>`);		
 	}
 	
 	// Player attack and enemy attack when attack button is clicked
