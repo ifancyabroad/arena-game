@@ -10,7 +10,7 @@
 	<!--Link to Google Fonts-->
 	<link href="https://fonts.googleapis.com/css?family=Tangerine:400,700" rel="stylesheet">
 	<!--Link to Font Awesome-->
-	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/font-awesome/fontawesome-all.css">
 	<!--Link to Fixed Header Table-->
 	<link rel="stylesheet" type="text/css" href="css/fixedheadertable/defaultTheme.css">
 	<link rel="stylesheet" type="text/css" href="css/fixedheadertable/myTheme.css">
@@ -110,7 +110,7 @@
 				<!--Character Creation-->
 				<form class="ui-screen" data-bind="submit: createCharacter, visible: characterCreationShow()">
 					<h1>Character Creation</h1>
-					<div class="ui-column tall-column">
+					<div class="ui-column">
 						<div>
 							<label for="name">Name: </label>
 							<input id="name" type="text" maxlength="10" required data-bind="value: nameInput">
@@ -129,14 +129,14 @@
 								<h2 class="class" data-bind="text: name, click: $parent.toggleClassSelection, style: { border: active() ? '2px solid red' : '2px solid grey' }"></h2>
 							</div>
 						</div>
-						<button class="btn" type="submit">Next</button>
 					</div>
+					<button class="btn-corner" type="submit"><i class="fas fa-arrow-right"></i></button>
 				</form>
 				
 				<!--Roll Stats-->
 				<form class="ui-screen" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
 					<h1>Roll Stats</h1>
-					<div class="reroll">
+					<div class="ui-column">
 						<h4>Rerolls remaining: <span data-bind="text: rerolls"></span></h4>
 						<table class="reroll-table">
 							<tbody data-bind="foreach: stats">
@@ -146,18 +146,18 @@
 								</tr>
 							</tbody>
 						</table>
-						<button class="btn" type="submit">Reroll</button>
-						<button class="btn" type="button" data-bind="click: $parent.toggleTown">Begin</button>
+						<button class="btn" type="submit"><i class="fas fa-dice fa-3x"></i></button>
 					</div>
+					<button class="btn-corner" type="button" data-bind="click: $parent.toggleTown"><i class="fas fa-arrow-right"></i></button>
 				</form>
 				
 				<!--Battle Screen-->
 				<div class="ui-screen battle-screen" data-bind="visible: battleShow()">
 					<h1>Arena</h1>
 					<div class="centered controls" data-bind="with: currentEnemy">
-						<button class="btn-town" type="button" data-bind="click: $parent.physicalAttack, disable: dead()">Attack<img class="town-btn-icon" src="images/icons/sword.png" alt="Crossed swords icon"></button>
-						<button class="btn-town" type="button" data-bind="click: $parent.magicalAttack, disable: dead()">Spell<img class="town-btn-icon" src="images/icons/wand.png" alt="Crossed swords icon"></button>
-						<button class="btn-town" type="button" data-bind="click: $parent.toggleBattleReturn, enable: dead()">Home<img class="town-btn-icon" src="images/icons/home.png" alt="Crossed swords icon"></button>
+						<button class="btn btn-large" type="button" data-bind="click: $parent.physicalAttack, disable: dead()">Attack<img class="town-btn-icon" src="images/icons/sword.png" alt="Crossed swords icon"></button>
+						<button class="btn btn-large" type="button" data-bind="click: $parent.magicalAttack, disable: dead()">Spell<img class="town-btn-icon" src="images/icons/wand.png" alt="Crossed swords icon"></button>
+						<button class="btn btn-large" type="button" data-bind="click: $parent.toggleBattleReturn, enable: dead()">Home<img class="town-btn-icon" src="images/icons/home.png" alt="Crossed swords icon"></button>
 					</div>
 					<div class="log-container" data-bind="style: { overflow: logOverflow() ? 'auto' : 'hidden' }">
 						<div data-bind="html: battleLog">
@@ -180,8 +180,8 @@
 								<i class="fa fa-plus" aria-hidden="true" data-bind="click: $parent.changeStat.bind($data, 1)"></i>
 							</div>
 						</form>
-						<button class="btn" type="button" data-bind="click: toggleLevelUpReturn">Done</button>
 					</div>
+					<button class="btn-corner" type="button" data-bind="click: toggleLevelUpReturn"><i class="fas fa-check"></i></button>
 				</div>
 				
 				<!--Shop Screen-->
@@ -209,11 +209,9 @@
 							</table>
 						</div>
 						<p data-bind="text: townLog"></p>
-						<div>
-							<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
-							<button class="btn" type="button" data-bind="click: toggleShopReturn">Done</button>
-						</div>
+						<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
 					</div>
+					<button class="btn-corner" type="button" data-bind="click: toggleShopReturn"><i class="fas fa-check"></i></button>
 				</div>
 				
 				<!--Healer Screen-->
@@ -224,21 +222,21 @@
 					<!-- /ko -->
 					<div class="ui-column">
 						<div class="options">
-							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">
+							<button class="btn btn-healer" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">
 								<img class="healer-btn-icon" src="images/icons/small-cross.png" alt="Small cross icon">
 								<div>
 									<p class="heal-description">Cure Minor Wounds</p>
 									<p>Cost: 100g</p>
 								</div>
 							</button>
-							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 70, 150)">
+							<button class="btn btn-healer" type="button" data-bind="click: cureWounds.bind($data, 70, 150)">
 								<img class="healer-btn-icon" src="images/icons/medium-cross.png" alt="Small cross icon">
 								<div>
 									<p class="heal-description">Cure Major Wounds</p>
 									<p>Cost: 150g</p>
 								</div>
 							</button>
-							<button class="btn-healer" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">
+							<button class="btn btn-healer" type="button" data-bind="click: cureWounds.bind($data, 125, 200)">
 								<img class="healer-btn-icon" src="images/icons/cross.png" alt="Small cross icon">
 								<div>
 									<p class="heal-description">Cure Critical Wounds</p>
@@ -247,8 +245,8 @@
 							</button>
 						</div>
 						<p class="town-log" data-bind="text: townLog"></p>
-						<button class="btn" type="button" data-bind="click: toggleReturn">Done</button>
 					</div>
+					<button class="btn-corner" type="button" data-bind="click: toggleReturn"><i class="fas fa-check"></i></button>
 				</div>
 			</div>
 			
@@ -270,11 +268,11 @@
 					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
 					<!-- /ko -->
 					<div class="centered controls">
-						<button class="btn-town" type="button" data-bind="click: toggleBattle">Battle<img class="town-btn-icon" src="images/icons/battle.png" alt="Crossed swords icon"></button>
-						<button class="btn-town" type="button" data-bind="click: toggleShop">Store<img class="town-btn-icon" src="images/icons/store.png" alt="Store icon"></button>
-						<button class="btn-town" type="button" data-bind="click: toggleHealer">Healer<img class="town-btn-icon" src="images/icons/cross.png" alt="Cross icon"></button>
+						<button class="btn btn-large" type="button" data-bind="click: toggleBattle">Battle<img class="town-btn-icon" src="images/icons/battle.png" alt="Crossed swords icon"></button>
+						<button class="btn btn-large" type="button" data-bind="click: toggleShop">Store<img class="town-btn-icon" src="images/icons/store.png" alt="Store icon"></button>
+						<button class="btn btn-large" type="button" data-bind="click: toggleHealer">Healer<img class="town-btn-icon" src="images/icons/cross.png" alt="Cross icon"></button>
 						<!-- ko with: player -->
-						<button class="btn-town" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up<img class="town-btn-icon" src="images/icons/levelup.png" alt="Up arrow icon"></button>
+						<button class="btn btn-large" type="button" data-bind="click: $parent.toggleLevelUp, enable: skillPoints() > 0">Level Up<img class="town-btn-icon" src="images/icons/levelup.png" alt="Up arrow icon"></button>
 						<!-- /ko -->
 					</div>
 				</div>
