@@ -95,6 +95,23 @@ h3 {
 	cursor: pointer;
 }
 
+.btn-reroll {
+	background-color: inherit;
+	border: none;
+	transition: 0.5s;
+	position: relative;
+	outline: none;
+}
+
+.btn-reroll:hover {
+	cursor: pointer;
+	color: #2e509c;
+}
+
+.btn-reroll:active {
+	top: 2px;
+}
+
 .btn-large {
 	border: none;
 	border-radius: 10px;
@@ -254,7 +271,15 @@ h3 {
 
 /*Character creation*/
 input[type=text] {
-	padding: 5px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	transition: 0.5s;
+	outline: none;
+}
+
+input[type=text]:focus {
+	border: 1px solid #2e509c;
 }
 
 .detail-select {
@@ -295,7 +320,19 @@ input[type=text] {
 	text-align: left;
 	border-collapse: collapse;
 	border: 1px solid #ccc;
-    width: 50%;
+    width: 90%;
+}
+
+.stat-name {
+	font-weight: 700;
+}
+
+.stat-description {
+	font-size: 0.7em;
+}
+
+.stat-value {
+	color: #2e509c;
 }
 
 td, th {
@@ -316,7 +353,7 @@ td, th {
 }
 
 .controls {
-	width: 70%;
+	width: 200px;
 }
 
 /*Levelup screen*/

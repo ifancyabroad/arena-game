@@ -141,12 +141,15 @@
 						<table class="reroll-table">
 							<tbody data-bind="foreach: stats">
 								<tr>
-									<td data-bind="text: name"></td>
-									<td class="text-right" data-bind="text: value"></td>
+									<td>
+										<p class="stat-name" data-bind="text: name"></p>
+										<p class="stat-description" data-bind="text: description"></p>
+									</td>
+									<td class="stat-value text-right" data-bind="text: value"></td>
 								</tr>
 							</tbody>
 						</table>
-						<button class="btn" type="submit"><i class="fas fa-dice fa-3x"></i></button>
+						<button class="btn btn-reroll" type="submit"><i class="fas fa-dice fa-4x"></i></button>
 					</div>
 					<button class="btn-corner" type="button" data-bind="click: $parent.toggleTown"><i class="fas fa-arrow-right"></i></button>
 				</form>

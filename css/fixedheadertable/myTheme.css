@@ -148,12 +148,12 @@
 
 .item-table tbody tr:hover {
 	cursor: pointer;
-	background-color: #d3d3d3;
+	background-color: #2e509c;
 }
 
 .item-table tbody tr.odd:hover {
 	cursor: pointer;
-	background-color: #d3d3d3;
+	background-color: #2e509c;
 }
 	
 
