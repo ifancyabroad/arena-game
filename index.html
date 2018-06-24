@@ -196,10 +196,7 @@
 					<!-- /ko -->
 					<h1>Item Store</h1>
 					<div class="ui-column">
-						<div class="ui-controls">
-							<p data-bind="text: townLog"></p>
-							<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
-						</div>
+						<p class="town-log">" <span data-bind="text: townLog"></span> "</p>							
 						<div class="item-list">
 							<table id="item-table" class="item-table">
 								<thead>
@@ -211,7 +208,7 @@
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: items">
-									<tr class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { backgroundColor: active() ? '#d3d3d3' : '' }">
+									<tr class="item" data-bind="visible: available(), click: $parent.toggleItem, style: { backgroundColor: active() ? '#8dc0f4' : '' }">
 										<td data-bind="text: name"></td>
 										<td><em data-bind="text: description()"></em></td>
 										<td data-bind="text: type"></td>
@@ -220,6 +217,7 @@
 								</tbody>
 							</table>
 						</div>
+						<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
 					</div>
 					<button class="btn-corner" type="button" data-bind="click: toggleShopReturn"><i class="fas fa-check"></i></button>
 				</div>
@@ -234,7 +232,7 @@
 					<!-- /ko -->
 					<h1>Town Healer</h1>
 					<div class="ui-column">
-						<p class="town-log" data-bind="text: townLog"></p>
+						<p class="town-log">" <span data-bind="text: townLog"></span> "</p>
 						<div class="options">
 							<button class="btn btn-healer" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">
 								<img class="healer-btn-icon" src="images/icons/small-cross.png" alt="Small cross icon">

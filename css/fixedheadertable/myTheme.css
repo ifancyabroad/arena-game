@@ -143,17 +143,17 @@
 	}
 
 .item-table tbody tr {
-	transition: background-color 1s;
+	transition: background-color 0.4s;
 }
 
 .item-table tbody tr:hover {
 	cursor: pointer;
-	background-color: #2e509c;
+	background-color: #8dc0f4;
 }
 
 .item-table tbody tr.odd:hover {
 	cursor: pointer;
-	background-color: #2e509c;
+	background-color: #8dc0f4;
 }
 	
 

@@ -142,10 +142,11 @@ h3 {
 }
 
 .btn-healer {
+	text-align: left;
 	display: flex;
+	align-items: center;
 	font-size: 0.8em;
-	height: 60px;
-	width: 155px;
+	width: 210px;
 }
 
 .game-area {
@@ -412,7 +413,7 @@ td, th {
 /*Item store screen*/
 .item-list {
 	height: 70%;
-	max-width: 100%;
+	width: 100%;
 	text-align: left;
 	font-size: 0.8em;
 }
@@ -429,8 +430,21 @@ td, th {
 }
 
 .healer-btn-icon {
-	width: 30%;
+	width: 20%;
+	margin: 10px;
+}
+
+.town-log {
+	overflow: hidden;
+	width: 80%;
+	border: 1px solid #bbb;
+	border-radius: 20px;
+	background-color: #efefef;
+	color: #5d5d5d;
 	margin: 5px;
+	padding: 10px;
+	font-size: 0.9em;
+	font-style: italic;
 }
 
 /*Battle screen*/
