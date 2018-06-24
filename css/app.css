@@ -56,6 +56,10 @@ h3 {
 	color: red;
 }
 
+.blue {
+	color: #2e509c;
+}
+
 .centered {
 	position: absolute;
 	top: 50%;
@@ -113,6 +117,7 @@ h3 {
 }
 
 .btn-large {
+	position: relative;
 	border: none;
 	border-radius: 10px;
 	background-color: rgba(235, 235, 235, 0.8);
@@ -125,6 +130,10 @@ h3 {
 .btn-large:hover {
 	background-color: rgba(235, 235, 235, 1);
 	cursor: pointer;
+}
+
+.btn-large:active {
+	top: 2px;
 }
 
 .town-btn-icon {
@@ -237,9 +246,14 @@ h3 {
 .ui-column {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 	height: 80%;
+}
+
+.ui-controls {
+	display: flex;
+	align-items: center;
 }
 
 .ui-back {
@@ -267,6 +281,13 @@ h3 {
 .btn-start:hover {
 	cursor: pointer;
 	text-shadow: 0px 0px 10px #ababab;
+}
+
+.gold-corner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 5px;
 }
 
 /*Character creation*/
@@ -366,9 +387,26 @@ td, th {
 .levelup-stat-detail {
 	margin: 5px;
 	padding: 5px;
-	width: 70px;
+	width: 80px;
 	border: 1px solid #6e6e6e;
 	font-size: 0.8em;
+}
+
+.levelup-stat i {
+	transition: 0.4s;
+}
+
+.levelup-stat i:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.levelup-stat-name {
+	font-weight: 700;
+}
+
+.levelup-stat-value {
+	color: #2e509c;
 }
 
 /*Item store screen*/
@@ -488,8 +526,8 @@ td, th {
 }
 
 .inventory-table td {
-	font-size: 0.9em;
-	height: 35px;
+	font-size: 0.8em;
+	height: 45px;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -499,10 +537,6 @@ td, th {
 
 .inventory-icon {
 	width: 100%;
-}
-
-.inv-gold {
-	margin: 10px;
 }
 
 /*Enemy card*/

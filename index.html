@@ -27,7 +27,7 @@
 			<div class="card-front entity-front" data-bind="with: player">
 				<i class="fa fa-arrow-circle-up levelup-icon" aria-hidden="true" data-bind="visible: skillPoints() > 0"></i>
 				<h2 data-bind="text: name"></h2>
-				<h3>Level <span class="red" data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
+				<h3>Level <span class="blue" data-bind="text: level"></span> <span data-bind="text: cl().name"></span></h3>
 				<img src="" class="player-portrait" data-bind="attr: { src: portrait }">
 				<h4><span data-bind="text: currentHealth"></span> / <span data-bind="text: maxHealth"></span></h4>
 				<table class="stat-table" >
@@ -66,9 +66,6 @@
 				</div>
 				<div class="entity-front" data-bind="with: player, visible: playerInventoryShow()">
 					<h2>Inventory</h2>
-					<div class="inv-gold">
-						<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
-					</div>	
 					<table class="inventory-table" >
 						<tbody>
 							<tr>
@@ -137,7 +134,10 @@
 				<form class="ui-screen" data-bind="with: player, submit: rollStats, visible: rollStatsShow()">
 					<h1>Roll Stats</h1>
 					<div class="ui-column">
-						<h4>Rerolls remaining: <span data-bind="text: rerolls"></span></h4>
+						<div class="ui-controls">
+							<h4>Rerolls: <span data-bind="text: rerolls"></span></h4>
+							<button class="btn btn-reroll" type="submit"><i class="fas fa-dice fa-2x"></i></button>
+						</div>
 						<table class="reroll-table">
 							<tbody data-bind="foreach: stats">
 								<tr>
@@ -149,7 +149,6 @@
 								</tr>
 							</tbody>
 						</table>
-						<button class="btn btn-reroll" type="submit"><i class="fas fa-dice fa-4x"></i></button>
 					</div>
 					<button class="btn-corner" type="button" data-bind="click: $parent.toggleTown"><i class="fas fa-arrow-right"></i></button>
 				</form>
@@ -171,14 +170,14 @@
 				<!--Level Up Screen-->
 				<div class="ui-screen levelup-screen" data-bind="visible: levelUpShow()">
 					<h1>Level Up</h1>
-					<div class="ui-column tall-column">
-						<h4 data-bind="with: player">Skill points remaining: <span data-bind="text: skillPoints"></span></h4>
+					<div class="ui-column">
+						<h4 data-bind="with: player">Skill points: <span class="blue" data-bind="text: skillPoints"></span></h4>
 						<form class="ui-column" data-bind="foreach: tempStats">
 							<div class="levelup-stat">
 								<i class="fa fa-minus" aria-hidden="true" data-bind="click: $parent.changeStat.bind($data, -1)"></i>
 								<div class="levelup-stat-detail">
-									<p data-bind="text: name"></p>
-									<p data-bind="text: value"></p>
+									<p class="levelup-stat-name" data-bind="text: name"></p>
+									<p class="levelup-stat-value" data-bind="text: value"></p>
 								</div>
 								<i class="fa fa-plus" aria-hidden="true" data-bind="click: $parent.changeStat.bind($data, 1)"></i>
 							</div>
@@ -189,8 +188,18 @@
 				
 				<!--Shop Screen-->
 				<div class="ui-screen" data-bind="visible: shopShow()">
+					<!-- ko with: player -->
+					<div class="gold-corner">
+						<img class="town-icon" src="images/icons/gold.png">
+						<span data-bind="text: gold"></span>
+					</div>
+					<!-- /ko -->
 					<h1>Item Store</h1>
 					<div class="ui-column">
+						<div class="ui-controls">
+							<p data-bind="text: townLog"></p>
+							<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
+						</div>
 						<div class="item-list">
 							<table id="item-table" class="item-table">
 								<thead>
@@ -211,19 +220,21 @@
 								</tbody>
 							</table>
 						</div>
-						<p data-bind="text: townLog"></p>
-						<button class="btn" type="button" data-bind="click: buyItem">Buy</button>
 					</div>
 					<button class="btn-corner" type="button" data-bind="click: toggleShopReturn"><i class="fas fa-check"></i></button>
 				</div>
 				
 				<!--Healer Screen-->
 				<div class="ui-screen" data-bind="visible: healerShow()">
-					<h1>Town Healer</h1>
-					<!-- ko with: player -->
-					<img class="town-icon" src="images/icons/gold.png"><span data-bind="text: gold"></span>
+					<!-- ko with: player -->						
+					<div class="gold-corner">
+						<img class="town-icon" src="images/icons/gold.png">
+						<span data-bind="text: gold"></span>
+					</div>
 					<!-- /ko -->
+					<h1>Town Healer</h1>
 					<div class="ui-column">
+						<p class="town-log" data-bind="text: townLog"></p>
 						<div class="options">
 							<button class="btn btn-healer" type="button" data-bind="click: cureWounds.bind($data, 30, 100)">
 								<img class="healer-btn-icon" src="images/icons/small-cross.png" alt="Small cross icon">
@@ -247,7 +258,6 @@
 								</div>
 							</button>
 						</div>
-						<p class="town-log" data-bind="text: townLog"></p>
 					</div>
 					<button class="btn-corner" type="button" data-bind="click: toggleReturn"><i class="fas fa-check"></i></button>
 				</div>
